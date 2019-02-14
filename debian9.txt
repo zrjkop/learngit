@@ -1,4 +1,4 @@
-﻿鸟哥-第二十备份策略 parameter/pəˈræmɪtɚ/参数
+﻿鸟哥-第二十备份策略 parameter/pəˈræmɪtɚ/参数 test
 一、软件包管理
 1.dpkg -l显示已安装软件库包
 常用的APT命令参数： 
