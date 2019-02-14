@@ -1,0 +1,67 @@
+﻿一-二、创建一个版本库，选择一个合适的地方，创建一个空目录：
+$ mkdir learngit
+$ cd learngit
+$pwd
+/root/test/learngit/
+通过git init 命令将这个目录变成git可以管理的仓库：
+root@zrjdebian:~/test/learngit# git init
+Reinitialized existing Git repository in /root/test/learngit/.git/
+
+
+
+一、远程库设置
+1.生成公钥私钥，提交到GitHub的ssh key里
+$ ssh-keygen -t rsa -C "1518130788@qq.com"
+将.pub公钥提交到GitHub设置里面的ssh密钥管理。
+2.在GitHub上新建repo，clone里面默认使用https提交同步，在虚拟机里面每次使用git push -u origin master同步都会提示输入账号密码，解决方案是修改clone的方式为ssh。
+3.查看clone 地址：git remote -v，更换时需要先移除之前的https方式：git remote rm origin ；在GitHub上的对应库里面的clone or download里面把https切换为ssh。
+4.git remote add origin git@github.com:zrjkop/learngit.git重新提交远程库设置；
+5.git push origin master，同步数据。
+
+重装debian系统后再次提交远程库出问题:
+root@zrj-debian:~/test/learngit# git push origin master
+To github.com:zrjkop/learngit.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'git@github.com:zrjkop/learngit.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+解决方法：
+1.使用强制push的方法，会把远程库数据强制清除，提交新数据
+git push -u origin master -f
+2.push前先将远程repository修改pull下来
+git pull origin master之后再提交git push -u origin master
+3.若不想merge远程和本地修改，可以先创建新的分支：
+git branch [name]
+然后push
+git push -u origin [name]
+
+二、添加，修改，提交
+第一步是用git add把文件添加进去，实际上就是把文件修改添加到暂存区；
+
+第二步是用git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支。
+git status查看状态；
+先add后修改文件，当前提交只会保存add之前的状态（第一步是用git add把文件添加进去，实际上就是把文件修改添加到暂存区；第二步是用git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支。）
+如果需要提交保存的第二次修改，可以再add一次文件，之后再commit一次。或者第一次修改 -> git add -> 第二次修改 -> git add -> git commit
+1.git文件回滚
+git log查看操作版本号，git reset --hard 1094a（版本号前面几位）
+HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id。
+
+穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。
+
+要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。
+2.撤销修改
+checkout
+命令git checkout -- readme.txt意思就是，把readme.txt文件在工作区的修改全部撤销，这里有两种情况：
+一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+总之，就是让这个文件回到最近一次git commit或git add时的状态。
+
+三、git分支
+查看分支：git branch
+创建分支：git branch <name>
+切换分支：git checkout <name>
+创建+切换分支：git checkout -b <name>
+合并某分支到当前分支：git merge <name>
+删除分支：git branch -d <name>
