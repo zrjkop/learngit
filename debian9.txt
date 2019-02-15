@@ -736,6 +736,19 @@ daemon.*         -/var/log/daemon.log #daemon所有级别的告警信息都写�
 command1 && command2 # command2 只有在 command1 的 RV(return value) 为 0(true) 的条件下执行。
 command1 || command2 # command2 只有在 command1 的 RV 为非 0(false) 的条件下执行。
 
+root@zrj-debian:~/test/shell# cd /root/test/learngit/ || ll  #进入到learngit目录，但后面的ll命令不执行
+root@zrj-debian:~/test/learngit# cd /root/test/shell/ && ll  #进入到shell目录，并执行ll命令
+total 28
+drwxr-xr-x 3 root root 4096 Feb 15 16:44 .
+drwxr-xr-x 5 root root 4096 Feb 14 11:52 ..
+-rw-r--r-- 1 root root    0 Feb 15 16:44 1
+drwxrwxr-x 2 zrj  zrj  4096 Jul 17  2015 bin
+-rwxr-xr-x 1 root root 5533 Feb 15 10:13 scripts-20150717.tar.bz2
+-rw-r--r-- 1 root root 1316 Feb 15 16:41 test1.txt
+-rw-r--r-- 1 root root 1316 Feb 15 16:41 test2
+root@zrj-debian:~/test/shell# 
+
+
 四-二、文件及系统
 
 1.1文件属性：
