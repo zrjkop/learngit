@@ -1,4 +1,4 @@
-﻿鸟哥-第二十备份策略 parameter/pəˈræmɪtɚ/参数 test test
+﻿鸟哥-第二十备份策略 parameter/pəˈræmɪtɚ/参数
 一、软件包管理
 1.dpkg -l显示已安装软件库包
 常用的APT命令参数： 
@@ -49,7 +49,7 @@ VMware-tools开机启动：直接写在了root的.bashrc里面，登陆root用�
 2).使用命令 vi /etc/crontab 编辑定时脚本,（系统级的）做系统级配置我们会直接配置 /etc/crontab
 6.shell中运行.sh文件报错unexpected operator，debian默认dash(theDebian Almquist Shell)而不是bash(the GNUBourne-Again Shell)，有些语法不太一样。
 解决方法：dpkg-reconfigure dash   选NO
-debian把默认的/bin/sh 连接到dash，直接用sh运行.sh文件会有各种报错，用bash能正常运行，重新配置shell后,/bin/sh连接到bash，可以使用sh。
+debian把默认的/bin/sh 连接到dash，直接用sh运行.sh文件可能会有报错，用bash能正常运行，重新配置shell后,/bin/sh连接到bash，可以使用sh。
 可以通过ll /bin/sh查看当前链接状态：
 root@zrjdebian:~/test/cat_test# ll /bin/sh
 lrwxrwxrwx 1 root root 4 Jan  3 16:35 /bin/sh -> bash
@@ -514,6 +514,15 @@ root@zrj-debian:~/test/shell# [ "$A" -eq 123 ] && echo 1 || echo 2 #整数比较
 root@zrj-debian:~/test/shell# [ -e "$A" ] && echo 1 || echo 2      #判断文件123是否存在
 2
 
+(四)、shell内部命令和外部命令：type command查看指令类型
+内部命令：
+root@zrj-debian:~/test/learngit# type cd
+cd is a shell builtin
+外部命令：
+root@zrj-debian:~/test/learngit# type awk
+awk is /usr/bin/awk
+外部命令会在PATH路径下依次查找对应脚本。
+
 
 三-五-二、文件权限
 acl：access control list
@@ -797,7 +806,7 @@ ln -sf file1 files2 #-f 删除files2现有目标文件,并files1软连接到file
 例子：以 ps 找出 rsyslogd 這個程序的 PID 後，再使用 kill 傳送訊息，使得 rsyslogd 可以重新讀取設定檔。
 答：
 由於需要重新讀取設定檔，因此 signal 是 1 號。至於找出 rsyslogd 的 PID 可以是這樣做：
-ps aux | grep 'rsyslogd' | grep -v 'grep'| awk '{print $2}'
+ps aux | grep 'rsyslogd' | grep -v 'grep'| awk '{print $2}' # awk可以-F指定分隔符，不指定默认为空格符
 接下來則是實際使用 kill -1 PID，因此，整串指令會是這樣：
 kill -SIGHUP $(ps aux | grep 'rsyslogd' | grep -v 'grep'| awk '{print $2}') #第二个管线命令grep -v 'grep'反选，是将含grep的这个进程筛选掉
 一般使用grep后会有两个相关的结果：
