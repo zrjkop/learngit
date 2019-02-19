@@ -3,6 +3,10 @@ vendor小贩，供应商 preset预设
 recursive/rɪˈkɜ:rsɪv/递归的，回归的  factorial/fækˈtɔriəl, -ˈtor-/因子的，阶乘
 scale/skel/规模级别，测量衡量 
 sign迹象，符号，签名；assign分派，分配，归属；sigh叹气
+unterminated/ʌntɜ:mɪ'neɪtɪd/无端接的，未终止的terminal终点站
+
+
+
 一、软件包管理
 1.dpkg -l显示已安装软件库包
 常用的APT命令参数： 
@@ -1006,6 +1010,19 @@ ASCII控制字符
         
 十六进制数字
 匹配次数:{n},匹配到n次；{n,}匹配n次或以上；{n,m}匹配次数在n到m之间，包括边界。
+
+六-二-一、sed
+
+s@@@,s###  
+
+g:行内全局替换  
+p:显示替换成功的行  
+sed '2p' /etc/passwd 打印第二行（自动打印后第二行重复打印一次）  
+
+sed -n '1,4p'  /etc/passwd 打印第一到第四行  
+
+sed -n ‘/root/p’/etc/passwd 打印包含root的行
+
 
 
 
