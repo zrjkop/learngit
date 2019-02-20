@@ -4,7 +4,7 @@ recursive/rɪˈkɜ:rsɪv/递归的，回归的  factorial/fækˈtɔriəl, -ˈtor
 scale/skel/规模级别，测量衡量 
 sign迹象，符号，签名；assign分派，分配，归属；sigh叹气
 unterminated/ʌntɜ:mɪ'neɪtɪd/无端接的，未终止的terminal终点站
-
+longitude经度，latitude纬度
 
 
 一、软件包管理
