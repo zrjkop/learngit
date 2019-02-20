@@ -1013,7 +1013,7 @@ ASCII控制字符
 
 六-二-一、sed
 
-s@@@,s###  
+查找替换，可以使用另外的分隔符：s///,s@@@,s###  
 
 g:行内全局替换  
 p:显示替换成功的行  
@@ -1022,6 +1022,25 @@ sed '2p' /etc/passwd 打印第二行（自动打印后第二行重复打印一�
 sed -n '1,4p'  /etc/passwd 打印第一到第四行  
 
 sed -n ‘/root/p’/etc/passwd 打印包含root的行
+
+sed -n ‘2，/root/p’/etc/passwd 从第二行到包含root的行
+sed -n ‘/^$/=’/etc/passwd 显示空行行号
+sed -n  -e ‘/^$/p’-e  '/^$/=' file 打印空行并显示行号
+sed '/root/a\superman' /etc/passwd 查找包含root行，在其后加加一行superman
+sed '/root/i\superman' /etc/passwd 查找包含root行，在其前面加一行superman
+sed '/root/c\superman' /etc/passwd 查找包含root行，替换为superman
+sed '/^$/d' file 删除空行
+sed 's/test/mytest/g' file 全局替换
+sed -n  's/root/&superman/p' /etc/passwd 查找root在其后加superman
+sed -n  's/root/superman&/p' /etc/passwd 查找root在其前面加superman
+sed -e 's/dog/cat/' -e 's/hi/lo/' file 多点编辑
+sed -i.bak 's/dog/cat/g' file 备份并替换#.bak源文件备份未file.bak,-i后面加什么，file命名后面就加什么。
+
+通过ifconfig把网卡ip取出来：
+root@zrj-debian:~/test/learngit# ifconfig eth0 | sed -n '2p'| sed 's/.*inet//'| sed 's/netmask.*//'
+ 192.168.65.132 
+root@zrj-debian:~/test/learngit# ifconfig eth0|sed -n '2p'|awk '{print $2}'
+192.168.65.132
 
 
 
