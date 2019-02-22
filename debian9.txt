@@ -1016,7 +1016,8 @@ ASCII控制字符
 查找替换，可以使用另外的分隔符：s///,s@@@,s###  
 
 g:行内全局替换  
-p:显示替换成功的行  
+p:显示替换成功的行
+-n:取消自动打印  
 sed '2p' /etc/passwd 打印第二行（自动打印后第二行重复打印一次）  
 
 sed -n '1,4p'  /etc/passwd 打印第一到第四行  
@@ -1051,8 +1052,59 @@ OFS，输出分隔符 ; FS:
 filed separator
  ;RS：record separator记录分隔符
 ORS输出记录分隔符，输出时用指定符号代替换行符
-NF 字段数量，NR记录号
+NF 字段数量，NR记录号（不一定是行数，也可以以其他分隔符分开）
 
+~：匹配//中的内容；!~:不匹配
+awk -F: '$0 ~ /root/{print $0}'  /etc/passwd #打印含有root的行
+awk '$0 !~ /root/ ' /etc/passwd  #打印不含root的行
+awk -F: '!($3==0) {print $3}' /etc/passwd 打印第三列不等于0的行的第三列（UID）
+条件表达式（三目表达式）：
+root@zrj-debian:~/test/learngit# awk -F: '{$3>=1000?usertype="common User":usertype="sysUser";printf "%-15s:%-20s:%-d\n",usertype,$1,$3}' /etc/passwd
+sysUser        :root                :0
+sysUser        :daemon              :1
+sysUser        :bin                 :2
+sysUser        :sys                 :3
+sysUser        :sync                :4
+满足$3>=1000的执行？后条件，不满足执行：后条件，格式化打印，%-15s左对齐15个字符
+
+pattern：跟进pattern条件，过滤匹配的行，再做处理
+
+关系表达式relational expression 结果为真时才处理；
+
+真：结果为非0值，非空字符串
+；
+假：结果为空字符或0值
+
+（1）如果未指定：空模式，匹配每一行
+awk -F: 'i=1;j=1{print i,j}' /etc/passwd 会打印出每行
+awk '!0' /etc/passwd会打印；awk '!1' /etc/passwd不打印
+（2）/regular expression/ :仅处理能够模式匹配到的行。需要用//括起来
+awk pattern 行范围/pat1/,/pat2/
+awk -F: '/^root/,/^nobody/ {print $1,$3}' /etc/passwd 取以root开头到以nobody开头的行
+
+BEGIN{}：仅在开始处理文件中的文本之前执行一次；END{}: 仅在文本处理完成之后执行一次
+1.awk控制语句if-else
+root@zrj-debian:~/test/learngit# awk -F: '{if($3>=1000)print $1,$3}' /etc/passwd
+nobody 65534
+zrj 1000
+打印id号大于等于1000的用户
+root@zrj-debian:~/test/learngit# awk -F: '{if($3>=1000) {printf "common user:%s\n",$1}else{printf "root or sysuser:%s\n",$1}}' /etc/passwd
+root or sysuser:root
+root or sysuser:daemon
+root or sysuser:bin
+root or sysuser:sys
+显示的效果跟下面语句一样： awk -F: '{if($3>=1000) printf "common user:%s\n",$1;else printf "root or sysuser:%s\n",$1}' /etc/passwd
+
+2.while语句：while （condition）{statement；…}
+root@zrj-debian:~/test/learngit# awk -F: 'NR<=1{i=1;while(i<=NF){print $i,length($i);i++}}' /etc/passwd
+root 4
+x 1
+0 1
+0 1
+root 4
+/root 5
+/bin/bash 9
+#将第一行记录的每字段打印，并显示每个字段的字符数
 
 
 
