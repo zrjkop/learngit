@@ -5,6 +5,7 @@ scale/skel/规模级别，测量衡量
 sign迹象，符号，签名；assign分派，分配，归属；sigh叹气
 unterminated/ʌntɜ:mɪ'neɪtɪd/无端接的，未终止的terminal终点站
 longitude经度，latitude纬度
+scalar/ˈskelɚ, -ˌlɑr/adj. 标量的；梯状的；分等级的；数量的 n. 数量，标量
 
 
 一、软件包管理
@@ -497,7 +498,12 @@ $# ：代表後接的參數『個數』，以上表為例這裡顯示為『 4 �
 
 $的的变量赋值：将操作语句的结果赋值到=号左边变量。
 name=$(grep ":80" netstat_checking.txt) #将grep的结果赋值给变量name，不需要保存到文件，直接使用变量来调用grep的结果
-cut -d ':' -f1 /etc/passwd #将/etc/passwd文件里面每行以“：”为分隔符，-f1表示将第一列内容输出，-f3表示输出第三列内容；-d（delimiter分隔符，定界符）后面跟分隔符
+
+cut -d ':' -f1 /etc/passwd #将/etc/passwd文件里面每行以“：”为分隔符，-f1表示将第一列内容输出，-f3表示输出第三列内容；-d（delimiter分隔符，定界符）后面跟分隔符。
+cut只能以一个字符作为分隔符，不支持多个空格分隔，多个空格可以使用awk。
+root@zrj-debian:~/test/learngit# cut -d'' -f1 test
+cut: the delimiter must be a single character
+
 users=$(cut -d ':' -f1 /etc/passwd)    # 擷取帳號名稱
 awk -F":" '{print $1}'  /etc/passwd  #-F指定分隔符为：输出第一列的数据
 
@@ -602,6 +608,9 @@ Your account has expired; please contact your system administrator
 su: Authentication failure
 #在管理员root账号下su还是可以切换到zrj，会提示账号过期，但无法直接用zrj登陆。
 root@zrjdebian:~# chage -E 2019-12-12 zrj #将zrj失效日期设置为2019-12-12
+usermod -s /sbin/nologin zrj #修改zrj的shell为/sbin/nologin，此时zrj账号不能用于登录
+
+
 
 4.chage
 [root@study ~]# chage [-ldEImMW] 帳號名
@@ -1105,6 +1114,17 @@ root 4
 /root 5
 /bin/bash 9
 #将第一行记录的每字段打印，并显示每个字段的字符数
+awk 'BEGIN{sum=0;i=1;while(i<=100){sum+=i;i++};print "sum="sum}' #计算1+2+……+100的和
+3.for 循环：for （expr1;expr2;expr3）{statement;......} #执行expr1，判断expr2，执行statement，执行expr3，再判断expr2，符合就执行statement，不符合就跳出循环。
+awk 'BEGIN{sum=0;for(i=1;i<=100;i++){sum+=i}print "sum="sum}' #计算1+2+……+100的和
+
+break跳出整个循环，continue跳出当前行循环
+4.for遍历数组
+root@zrj-debian:~/test/learngit# netstat -tan | awk  '/^tcp/{state[$NF]++}END{for (i in state) {print i,state[i]}}'
+LISTEN 3
+ESTABLISHED 2
+统计各种tcp连接状态的数量，{state[$NF]++}，数组下标为LISTEN,ESTABLISHED两种，根据出现次数累加统计。
+
 
 
 
