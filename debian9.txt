@@ -608,6 +608,7 @@ Your account has expired; please contact your system administrator
 su: Authentication failure
 #在管理员root账号下su还是可以切换到zrj，会提示账号过期，但无法直接用zrj登陆。
 root@zrjdebian:~# chage -E 2019-12-12 zrj #将zrj失效日期设置为2019-12-12
+
 usermod -s /sbin/nologin zrj #修改zrj的shell为/sbin/nologin，此时zrj账号不能用于登录
 
 
