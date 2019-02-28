@@ -8,6 +8,11 @@ longitude经度，latitude纬度
 scalar/ˈskelɚ, -ˌlɑr/adj. 标量的；梯状的；分等级的；数量的 n. 数量，标量
 VPC（Virtual Private Cloud）虚拟私有云
 CIDR是英文Classless Inter-Domain Routing的缩写，中文是无类别域间路由，是一个在Internet上创建附加地址的方法，这些地址提供给服务提供商（ISP）
+substitution/ˌsʌbstɪˈtuʃən, -ˈtju-/n. 替换；代替；代用；<化>取代（作用）
+
+
+
+
 一、软件包管理
 1.dpkg -l显示已安装软件库包
 常用的APT命令参数： 
@@ -486,6 +491,14 @@ root@zrjdebian:~/test# more 1.txt
 
 &>/dev/null #跟第一种写法作用一样，1，2的输出都丢掉。
 2>&1 #标准错误输出重定向到1，打印输出，所以输出都可以保存到文件
+
+(一-一)、局部变量和环境变量：
+基本上，由原本的bash衍生处理的程序都为该bash的子程序，而bash可以执行bash产生一只bash的子程序，两只bash之间仅有全局变量（环境变量）会带给子程序，而子程序的变量，基本上不会回传给父程序。
+
+變數是有使用範圍的，一般來說變數的使用範圍分為：
+區域變數：變數只能在目前這個 shell 當中存在，不會被子程序所沿用
+全域變數：變數會儲存在一個共用的記憶體空間，可以讓子程序繼承使用。
+
 
 
 （二）、 Shell script 的預設變數($0, $1...)
