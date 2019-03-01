@@ -490,7 +490,7 @@ root@zrjdebian:~/test# more 1.txt
 -bash: decho: command not found  #错误的输出能保存，标准的输出丢掉。
 
 &>/dev/null #跟第一种写法作用一样，1，2的输出都丢掉。
-2>&1 #标准错误输出重定向到1，打印输出，所以输出都可以保存到文件
+2>&1 #标准错误输出重定向到1，打印输出，所有输出都可以保存到文件
 
 (一-一)、局部变量和环境变量：
 基本上，由原本的bash衍生处理的程序都为该bash的子程序，而bash可以执行bash产生一只bash的子程序，两只bash之间仅有全局变量（环境变量）会带给子程序，而子程序的变量，基本上不会回传给父程序。
@@ -527,7 +527,39 @@ Return Value(RV) 的取值为 0-255 之间， 由进程或者 script 的作者�
 若在 function 里，则用 return RV 来代替 exit RV 即可。
 Return Value的作用：用来判断进程的退出状态 (exit status)。 进程的退出状态有两种：
 0 值为 "真"(true)
-非 0 值为 "假"(false)   ehco $?显示当前返回值。
+非 0 值为 "假"(false)   ehco $?显示当前返回值，通过这个去取上一步指令返回值。
+
+（四）&& 与 || 都是用来 "组建" 多个 command line 用的:
+command1 && command2 # command2 只有在 command1 的 RV(return value) 为 0(true) 的条件下执行。
+command1 || command2 # command2 只有在 command1 的 RV 为非 0(false) 的条件下执行。
+
+root@zrj-debian:~/test/shell# cd /root/test/learngit/ || ll  #进入到learngit目录，但后面的ll命令不执行
+root@zrj-debian:~/test/learngit# cd /root/test/shell/ && ll  #进入到shell目录，并执行ll命令
+total 28
+drwxr-xr-x 3 root root 4096 Feb 15 16:44 .
+drwxr-xr-x 5 root root 4096 Feb 14 11:52 ..
+-rw-r--r-- 1 root root    0 Feb 15 16:44 1
+drwxrwxr-x 2 zrj  zrj  4096 Jul 17  2015 bin
+-rwxr-xr-x 1 root root 5533 Feb 15 10:13 scripts-20150717.tar.bz2
+-rw-r--r-- 1 root root 1316 Feb 15 16:41 test1.txt
+-rw-r--r-- 1 root root 1316 Feb 15 16:41 test2
+root@zrj-debian:~/test/shell# 
+
+短路与，cmd1 && cmd2，如果cmd1返回true，则执行cmd2（如果cmd1返回false，&&运算结果已经确定为false，没必要去看cmd2的返回值）；短路或，cmd1 || cmd2，如果cmd返回false，则执行cmd2（如果cmd1返回true，则||运算结果也是可以确定为true，cmd2不需要执行）
+root@zrj-debian:~/test/learngit# for((i=1;i<=5;i++));do ping 192.168.65.$i -c1 &>/dev/null && echo " 192.168.65.$i is up" || echo " 192.168.65.$i is down";done
+ 192.168.65.1 is down
+ 192.168.65.2 is up
+ 192.168.65.3 is down
+ 192.168.65.4 is down
+ 192.168.65.5 is down
+#做批量ping操作，检测网络
+#做ping测试时，遇到CTRL+C 无法终止进程，一直运行到i不符合条件才停下：
+通过CTRL + Z解决，将进程挂起，之后通过kill -9清除进程；ctrl+z后进程（暂停状态）可通过jobs查看，fg+%进程序号重新执行。
+
+
+1.用（）进行指令规整执行
+date; cal -3; echo "The following is log" > mylog.txt #mylog.txt里面只保留最后一个指令的输出
+(date; cal -3; echo "The following is log") > mylog.txt #所有指令的输出都保存到mylog.txt
 
 test命令用于测试返回值：
 test expression
@@ -772,21 +804,6 @@ daemon.*         -/var/log/daemon.log #daemon所有级别的告警信息都写�
 /bin/kill -HUP `cat /var/run/rsyslogd.pid 2> /dev/null` 2> /dev/null || true #重新读入rsyslogd参数文件rsyslog.conf,相当于reload。/var/run/rsyslogd.pid存放了rsyslog的PID。
 
 
-&& 与 || 都是用来 "组建" 多个 command line 用的:
-command1 && command2 # command2 只有在 command1 的 RV(return value) 为 0(true) 的条件下执行。
-command1 || command2 # command2 只有在 command1 的 RV 为非 0(false) 的条件下执行。
-
-root@zrj-debian:~/test/shell# cd /root/test/learngit/ || ll  #进入到learngit目录，但后面的ll命令不执行
-root@zrj-debian:~/test/learngit# cd /root/test/shell/ && ll  #进入到shell目录，并执行ll命令
-total 28
-drwxr-xr-x 3 root root 4096 Feb 15 16:44 .
-drwxr-xr-x 5 root root 4096 Feb 14 11:52 ..
--rw-r--r-- 1 root root    0 Feb 15 16:44 1
-drwxrwxr-x 2 zrj  zrj  4096 Jul 17  2015 bin
--rwxr-xr-x 1 root root 5533 Feb 15 10:13 scripts-20150717.tar.bz2
--rw-r--r-- 1 root root 1316 Feb 15 16:41 test1.txt
--rw-r--r-- 1 root root 1316 Feb 15 16:41 test2
-root@zrj-debian:~/test/shell# 
 
 
 四-二、文件及系统
@@ -862,7 +879,7 @@ killall -9 httpd #根据进程名称关闭进程，不需要PID
 1.# rsync -a --delete /etc/network /root/test/backup
 #rsync -a --delete /etc/network/ /root/test/backup1
 在指定复制源时，路径是否有最后的 “/” 有不同的含义，例如：
-/etc/network ： 表示将整个/etc/network 目录复制到目标目录backup下，即在backup剩下network文件夹；
+/etc/network ： 表示将整个/etc/network 目录复制到目标目录backup下，即在backup下生成network文件夹；
 /etc/network/： 表示将 /etc/network目录中的所有内容复制到目标目录,即把network文件夹里面的文件复制到backup1里面，不再保留network这个文件夹这一层。
 --delete参数，表示先把目标目录多余的文件先删除再把源目录的内容复制进来（删除那些接收端还有而发送端已经不存在的文件）。
 若使用普通用户身份运行 rsync 命令，同步后的文件的属主将改变为这个普通用户身份。
