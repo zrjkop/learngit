@@ -561,9 +561,50 @@ root@zrj-debian:~/test/learngit# for((i=1;i<=5;i++));do ping 192.168.65.$i -c1 &
 date; cal -3; echo "The following is log" > mylog.txt #mylog.txt里面只保留最后一个指令的输出
 (date; cal -3; echo "The following is log") > mylog.txt #所有指令的输出都保存到mylog.txt
 
-test命令用于测试返回值：
+2.bash中test 及 [ 判斷式 ] 確認回傳值：
 test expression
 [ expression ]   #[]两边带有空格。
+
+測試的標誌			代表意義
+1. 關於某個檔名的『檔案類型』判斷，如 test -e filename 表示存在否
+-e			該『檔名』是否存在？(常用)
+-f			該『檔名』是否存在且為檔案(file)？(常用)
+-d			該『檔名』是否存在且為目錄(directory)？(常用)
+-b			該『檔名』是否存在且為一個 block device 裝置？
+-c			該『檔名』是否存在且為一個 character device 裝置？
+-S			該『檔名』是否存在且為一個 Socket 檔案？
+-p			該『檔名』是否存在且為一個 FIFO (pipe) 檔案？
+-L			該『檔名』是否存在且為一個連結檔？
+2. 關於檔案的權限偵測，如 test -r filename 表示可讀否 (但 root 權限常有例外)
+-r			偵測該檔名是否存在且具有『可讀』的權限？
+-w			偵測該檔名是否存在且具有『可寫』的權限？
+-x			偵測該檔名是否存在且具有『可執行』的權限？
+-u			偵測該檔名是否存在且具有『SUID』的屬性？
+-g			偵測該檔名是否存在且具有『SGID』的屬性？
+-k			偵測該檔名是否存在且具有『Sticky bit』的屬性？
+-s			偵測該檔名是否存在且為『非空白檔案』？
+6. 多重條件判定，例如： test -r filename -a -x filename
+-a		(and)兩狀況同時成立！例如 test -r file -a -x file，則 file 同時具有 r 與 x 權限時，才回傳 true。
+-o		(or)兩狀況任何一個成立！例如 test -r file -o -x file，則 file 具有 r 或 x 權限時，就可回傳 true。
+!		反相狀態，如 test ! -x file ，當 file 不具有 x 時，回傳 true
+4. 關於兩個整數之間的判定，例如 test n1 -eq n2
+-eq			兩數值相等 (equal)
+-ne			兩數值不等 (not equal)
+-gt			n1 大於 n2 (greater than)
+-lt			n1 小於 n2 (less than)
+-ge			n1 大於等於 n2 (greater than or equal)
+-le			n1 小於等於 n2 (less than or equal)
+
+########################################################################
+[[  ]]两个中括号中，通过=~匹配对应的正则表达式:
+
+[[ $answer =~ ^([Yy][Ee][Ss]) | [Yy]$ ]] && echo "Let 's go" || echo "bye" 判断answer是否为yes或y（大小写都符合），符合则输出Let 's go，不符合输出bye #"|"前后不带空格，不然报错，同一条正则表达式
+[[ $ip =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$  ]] && echo this is a IP 判断变量是否符合0.0.0.0的ip格式
+
+[]和[[]]使用区别：
+使用[[]]中时，不能使用-a和-o对多条件进行连接；&&和||可以用于括号内或者括号外
+使用[]时，如果使用-a和-o对多条件进行连接，-a和-o需要包含在[]中；如果是使用&&和||则，需要在[]之外；
+
 
 以 A=123 这个变量为例：
 root@zrj-debian:~/test/shell# [ "$A" = 123 ] && echo 1 || echo 2 #字符串string的比较，与[ $A = "123" ]用法一样。
@@ -573,7 +614,7 @@ root@zrj-debian:~/test/shell# [ "$A" -eq 123 ] && echo 1 || echo 2 #整数比较
 root@zrj-debian:~/test/shell# [ -e "$A" ] && echo 1 || echo 2      #判断文件123是否存在
 2
 
-(四)、shell内部命令和外部命令：type command查看指令类型
+(四-一)、shell内部命令和外部命令：type command查看指令类型
 内部命令：
 root@zrj-debian:~/test/learngit# type cd
 cd is a shell builtin
@@ -581,6 +622,13 @@ cd is a shell builtin
 root@zrj-debian:~/test/learngit# type awk
 awk is /usr/bin/awk
 外部命令会在PATH路径下依次查找对应脚本。
+
+
+3.bash中for循环
+sum=0;for number in `seq 1 2 100`;do let sum+=number;done;echo "the is $sum" 计算1+3+5+……+99之和
+for((sum=0,i=1;i<=100;i+=2));do let sum+=i;done;echo "the sum is $sum" ##(双括号写法)
+#let 命令是 BASH 中用于计算的工具，用于执行一个或多个表达式，变量计算中不需要加上 $ 来表示变量。如果表达式中包含了空格或其他特殊字符，则必须引起来。
+
 
 
 三-五-二、文件权限
@@ -1049,7 +1097,12 @@ ASCII控制字符
 [:xdigit:]
         
 十六进制数字
-匹配次数:{n},匹配到n次；{n,}匹配n次或以上；{n,m}匹配次数在n到m之间，包括边界。
+匹配次数:{n},匹配到n次；{n,}匹配n次或以上；{n,m}匹配次数在n到m之间，包括边界。需要加上反斜杠转义\{n,m\}
+
+cat /etc/passwd | grep ^http #查找http开头的行，会显示https以及带其他后缀的符合项；
+
+
+
 
 六-二-一、sed
 
@@ -1146,6 +1199,7 @@ root 4
 /bin/bash 9
 #将第一行记录的每字段打印，并显示每个字段的字符数
 awk 'BEGIN{sum=0;i=1;while(i<=100){sum+=i;i++};print "sum="sum}' #计算1+2+……+100的和
+
 3.for 循环：for （expr1;expr2;expr3）{statement;......} #执行expr1，判断expr2，执行statement，执行expr3，再判断expr2，符合就执行statement，不符合就跳出循环。
 awk 'BEGIN{sum=0;for(i=1;i<=100;i++){sum+=i}print "sum="sum}' #计算1+2+……+100的和
 
@@ -1163,6 +1217,33 @@ root@zrj-debian:~/test/learngit# netstat -tan | awk  '/^tcp/{state[$NF]++}END{fo
 LISTEN 3
 ESTABLISHED 2
 统计各种tcp连接状态的数量，{state[$NF]++}，数组下标为LISTEN,ESTABLISHED两种，根据出现次数累加统计。
+
+可用于统计出现次数：
+（1）查看last中各用户出现次数
+root@zrj-debian:~/test/shell# last | cut -d' ' -f1 | sort |uniq -c  #会显示空行和最后一个wtmp非用户，需要另外处理
+      1 
+      1 reboot
+      4 root
+      1 wtmp
+      3 zrj
+#sort用于排序，按字母从小大到排，如果不进行排序就进行uniq计数，不会把用户的次数进行合并，会在每次连续出现时进行一次计数。
+用for遍历，不需要排序，直接计数：
+root@zrj-debian:~/test/shell# last | awk '{user[$1]++}END{for (i in user) {print i,user[i]}}'
+ 1
+wtmp 1
+root 4
+zrj 3
+reboot 1
+（2）提取/etc/passwd里面第七列各种shell的个数：
+awk -F: '{print $7}' /etc/passwd | sort | uniq -c 
+root@zrj-debian:~/test/shell# awk -F: '{shell[$7]++}END{for (i in shell){print i ,shell[i]}}' /etc/passwd 
+ 1
+/bin/sync 1
+/bin/bash 2
+/bin/false 19
+/usr/sbin/nologin 17
+
+
 
 ################插播一段：awk运算符####################
 
