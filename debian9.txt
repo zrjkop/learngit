@@ -1186,7 +1186,7 @@ ESTABLISHED 2
 ##所有用作算术运算符，进行操作，操作数自动转为数值，所有非数值都变为0。
 root@zrj-debian:~/test/learngit# awk 'BEGIN{a=b;print a++,++a}'
 0 2
-##> < 可以作为字符串比较，也可以用作数值比较，关键看操作数如果是字符串 就会转换为字符串比较。两个都为数字 才转为数值比较。字符串比较：按照ascii码顺序比较。
+######> < 可以作为字符串比较，也可以用作数值比较，关键看操作数如果是字符串 就会转换为字符串比较。两个都为数字 才转为数值比较。字符串比较：按照ascii码顺序比较。
 root@zrj-debian:~/test/learngit# awk 'BEGIN{a="11";if(a >= 9){print "ok";}}'  #a是字符串，无法比较，无输出
 root@zrj-debian:~/test/learngit# 
 root@zrj-debian:~/test/learngit# awk 'BEGIN{a="b";if(a >= "a"){print "ok";}}'     #字符串比较
