@@ -1161,7 +1161,8 @@ NF 字段数量，NR记录号（不一定是行数，也可以以其他分隔符
 
 ~：匹配//中的内容；!~:不匹配
 awk -F: '$0 ~ /root/{print $0}'  /etc/passwd #打印含有root的行
-awk '$0 !~ /root/ ' /etc/passwd  #打印不含root的行
+awk '$0 !~ /root/ ' /etc/passwd  #打印不含root的行，$0表示整行，awk -F: '$7 ~ /\/bin\/bash/{print $0}' /etc/passwd
+#将第七列为/bin/bash的行打印。
 awk -F: '!($3==0) {print $3}' /etc/passwd 打印第三列不等于0的行的第三列（UID）
 条件表达式（三目表达式）：
 root@zrj-debian:~/test/learngit# awk -F: '{$3>=1000?usertype="common User":usertype="sysUser";printf "%-15s:%-20s:%-d\n",usertype,$1,$3}' /etc/passwd
