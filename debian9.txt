@@ -52,6 +52,12 @@ sudo apt-get check 检查是否有损坏的依赖
 
 
 方法2. 修改/etc/vim/vimrc.tiny文件，将set compatible改成set nocompatible，然后再添加一行set backspace=2即可（vi无法操作时可用nano）。
+3-1.Linux登录过程中加载配置文件顺序：
+/etc/profile → /etc/profile.d/*.sh → ~/.bash_profile → ~/.bashrc → [/etc/bashrc]，后面的文件配置应该会覆盖前面的
+
+debian设置命令提示符配置文件：/etc/bash.bashrc；其他版本系统可能在/etc/profile，/root/.bashrc,/root/.profile等文件中可以设置。
+PS1中设置字符颜色的格式为：\[\e[F;Bm\]，其中“F“为字体颜色，编号为30-37，“B”为背景颜色，编号为40-47。用 \e[m 结束颜色设置。
+
 4.安装VMware-tools遇到问题：/dev/sr0 默认挂载在/media/cdrom0上，直接复制压缩包到其他目录解压安装，到最后一步一直报错，VGAuthService:  failed
 Common Agent:   failed
 Unable to start services for VMware Tools，多次重装未果。按网上说换个目录挂载，挂载到/mnt，报错目录/dev/sr0 write-protected, mounting read-only，安装apt-get install cifs-utils（Common Internet File System utilities），之后可以正常挂载到/mnt，再提取压缩包，解压安装，一路done，没有报failed。
@@ -1100,6 +1106,12 @@ ASCII控制字符
 匹配次数:{n},匹配到n次；{n,}匹配n次或以上；{n,m}匹配次数在n到m之间，包括边界。需要加上反斜杠转义\{n,m\}
 
 cat /etc/passwd | grep ^http #查找http开头的行，会显示https以及带其他后缀的符合项；
+cat /etc/services | grep ^http[[:space:]] #显示http开头，且其后只能加空格的行
+root@zrj-debian:~/test/shell# cat /etc/services | grep ^http[[:space:]]
+http		80/tcp		www		# WorldWideWeb HTTP
+root@zrj-debian:~/test/shell# cat /etc/services | grep ^http[s]*[[:space:]]#显示http或https开头且其后是空格符的行
+http		80/tcp		www		# WorldWideWeb HTTP
+https		443/tcp				# http protocol over TLS/SSL
 
 
 
