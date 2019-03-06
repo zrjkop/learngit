@@ -482,6 +482,11 @@ vi中替换：
 设置自动缩进：set ai(autoindent);取消set noai
 并排打开两个文件：vi -o f1 f2 #上下打开两个文件，ctrl+w,方向键切换光标；vi -O f1 f2#左右并排打开
 
+nano多行操作：
+
+复制，粘贴，剪切：
+ctrl+6标记文件开头，移动光标选择文本块（反白显示），ctrl+k剪切，ctrl+u原地复制，之后光标可以移动到需要粘贴的地方，反复ctrl+u。（暂时没找到只是复制的操作，不需要cut的情况下）
+
 三-五-一、shell
 
 （一）、Shell中的>/dev/null 2>&1 与 2>&1 >/dev/null 与&>/dev/null 的区别
