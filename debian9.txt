@@ -9,9 +9,9 @@ scalar/ˈskelɚ, -ˌlɑr/adj. 标量的；梯状的；分等级的；数量的 n
 VPC（Virtual Private Cloud）虚拟私有云
 CIDR是英文Classless Inter-Domain Routing的缩写，中文是无类别域间路由，是一个在Internet上创建附加地址的方法，这些地址提供给服务提供商（ISP）
 substitution/ˌsʌbstɪˈtuʃən, -ˈtju-/n. 替换；代替；代用；<化>取代（作用）
-
-
-
+numeric/nu:'merɪk/数字的，数值的
+reverse/rɪˈvɜ:rs/反向的，颠倒的，反转
+archive/'ɑ:kaɪvz/档案，档案馆
 
 一、软件包管理
 1.dpkg -l显示已安装软件库包
@@ -33,6 +33,8 @@ sudo apt-get build-dep package 安装相关的编译环境
 apt-get source package 下载该包的源代码 
 sudo apt-get clean && sudo apt-get autoclean 清理无用的包 
 sudo apt-get check 检查是否有损坏的依赖
+apt-get下载目录/var/cache/apt/archives,安装时会先搜寻这个目录有无需要安装的包，无则在线下载回来，可以把下载的deb文件放到该目录，之后可以直接安装。
+
 2.虚拟机开启提示“无法打开内核设备“\\.\Global\vmx86”: 系统找不到指定的文件。是否在安装 VMware Workstation 后重新引导?  未能初始化监视器设备。”
 在电脑--管理--服务，找到虚拟机服务，手动开启，重启vm生效。
 3.Linux vi编辑器方向键及退格键失效问题
@@ -730,6 +732,7 @@ usermod -s /sbin/nologin zrj #修改zrj的shell为/sbin/nologin，此时zrj账�
 
 visudo：
 zrj    ALL=(ALL:ALL) ALL,!/usr/bin/passwd root #zrj用户可以使用sudo来执行除了/usr/bin/passwd root以外的命令；
+使用者账号  登录的来源主机=（可切换的身份）可以执行的指令
 zrj	ALL=(root)  !/usr/bin/passwd, /usr/bin/passwd [A-Za-z]*, !/usr/bin/passwd root #可以執行『 passwd 任意字元』，但是『 passwd 』與『 passwd root 』這兩個指令例外，这样设置后zrj的sudo只能用于修改其他用户的密码，其他root专属指令无法执行。
 
 
@@ -814,6 +817,12 @@ touch不仅可以创建文件，还可以对其进行时间的一些修改
 find . -name “*.log” -mtime +3 -exec rm -i{} \;# 删除前会提示询问是否删除。
 3.find .  -name "test*"  -exec grep "try" {} \;  #查找目录下test*文件，并在其中撷取关键字try；
 4.find . -name “*.log” -exec cp {} test3 \;    #将*.log文件复制到test3文件夹
+5.find . -type f -mtime -1 -size +100k -size -400k查找当前目录下大于100k小于400k的文件，不包括文件夹。
+-type f表示只查找文件，过滤文件夹和块文件；
+
+显示文件夹中文件大小并排序：du -sh * | sort -nr #-s表示summarize总体，显示一层目录，其子目录下文件不分开显示；-h表示human-readable，会以k，m，g为单位显示大小
+sort -nr # -n表示numeric数字的，-r表示reverse反向，sort默认由小到大排序，反向则从大到小；-h参数加上单位后数值有变化，如果文件大小相差太远，需要取消这个参数.
+--max-depth=N #显示层级，N为0时显示当前目录，1时向下显示一级子目录文件
 
 四-一-一、test 檢測系統上面某些檔案或者是相關的屬性
 test -f test1.txt  && echo "exist" || echo "Not exist" #检查test1.txt档名是否存在且为文件
@@ -844,6 +853,22 @@ systemctl list-units 以及 systemctl list-unit-files
 2.使用 netstat -tul 與 netstat -tunl 有什麼差異？為何會這樣？
 使用 n 時， netstat 就不會使用主機名稱與服務名稱 (hostname & service_name) 來顯示， 取而代之的則是以 IP 及 port number 來顯示的。IP 的分析與 /etc/hosts 及 /etc/resolv.conf 有關。至於 port number 則與 /etc/services 有關。
 3.systemctl daemon-reload可以重载服务单元，在修改.service文件后一般需要重载。
+
+4.systemctl status *.service 的第三行，service的状态：
+active（running）active (running)：正有一隻或多隻程序正在系統中執行的意思，舉例來說，正在執行中的 vsftpd 就是這種模式。
+active (exited)：僅執行一次就正常結束的服務，目前並沒有任何程序在系統中執行。 舉例來說，開機或者是掛載時才會進行一次的 quotaon 功能，就是這種模式！ quotaon 不須一直執行～只須執行一次之後，就交給檔案系統去自行處理囉！通常用 bash shell 寫的小型服務，大多是屬於這種類型 (無須常駐記憶體)。
+active (waiting)：正在執行當中，不過還再等待其他的事件才能繼續處理。舉例來說，列印的佇列相關服務就是這種狀態！ 雖然正在啟動中，不過，也需要真的有佇列進來 (列印工作) 這樣他才會繼續喚醒印表機服務來進行下一步列印的功能。
+
+inactive：這個服務目前沒有運作的意思。
+
+daemon 的預設狀態：
+enabled：這個 daemon 將在開機時被執行
+disabled：這個 daemon 在開機時不會被執行
+static：這個 daemon 不可以自己啟動 (enable 不可)，不過可能會被其他的 enabled 的服務來喚醒 (相依屬性的服務)
+mask：這個 daemon 無論如何都無法被啟動！因為已經被強制註銷 (非刪除)。可透過 systemctl unmask 方式改回原本狀態。
+
+
+
 
 
 四-一-三、登录档
@@ -944,8 +969,7 @@ killall -9 httpd #根据进程名称关闭进程，不需要PID
 若使用普通用户身份运行 rsync 命令，同步后的文件的属主将改变为这个普通用户身份。
 若使用超级用户身份运行 rsync 命令，同步后的文件的属主将保持原来的用户身份。
 2.-v，显示rsync过程详细信息；-a，递归模式，表示递归传输并保存文件属性；-z，传输时进行压缩提高效率。
-3.find . -type f -mtime -1 -size +100k -size -400k查找当前目录下大于100k小于400k的文件，不包括文件夹。
--type f表示只查找文件，过滤文件夹和块文件；
+
 
 
 
