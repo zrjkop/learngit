@@ -10,7 +10,7 @@ VPC（Virtual Private Cloud）虚拟私有云
 CIDR是英文Classless Inter-Domain Routing的缩写，中文是无类别域间路由，是一个在Internet上创建附加地址的方法，这些地址提供给服务提供商（ISP）
 substitution/ˌsʌbstɪˈtuʃən, -ˈtju-/n. 替换；代替；代用；<化>取代（作用）
 numeric/nu:'merɪk/数字的，数值的
-reverse/rɪˈvɜ:rs/反向的，颠倒的，反转；purge/pɜ:rdʒ/vt. 肃清；清除，（使）净化；regex正则表达式；presentadj. 目前的；现在的；出席的；[语法学]现在时的；prevent防止，阻止，预防
+reverse/rɪˈvɜ:rs/反向的，颠倒的，反转；purge/pɜ:rdʒ/vt. 肃清；清除，（使）净化；regex正则表达式；present adj. 目前的；现在的；出席的；[语法学]现在时的；prevent防止，阻止，预防
 archive/'ɑ:kaɪvz/档案，档案馆
 verify/ˈvɛrəˌfaɪ/核实，证明，验证 verbose/vɜ:rˈboʊs/冗长的，累赘的；-v参数，显示详情
 
@@ -639,7 +639,7 @@ awk is /usr/bin/awk
 
 
 3.bash中for循环
-sum=0;for number in `seq 1 2 100`;do let sum+=number;done;echo "the is $sum" 计算1+3+5+……+99之和
+sum=0;for number in `seq 1 2 100`;do let sum+=number;done;echo "the sum is $sum" 计算1+3+5+……+99之和
 for((sum=0,i=1;i<=100;i+=2));do let sum+=i;done;echo "the sum is $sum" ##(双括号写法)
 #let 命令是 BASH 中用于计算的工具，用于执行一个或多个表达式，变量计算中不需要加上 $ 来表示变量。如果表达式中包含了空格或其他特殊字符，则必须引起来。
 
