@@ -10,8 +10,9 @@ VPC（Virtual Private Cloud）虚拟私有云
 CIDR是英文Classless Inter-Domain Routing的缩写，中文是无类别域间路由，是一个在Internet上创建附加地址的方法，这些地址提供给服务提供商（ISP）
 substitution/ˌsʌbstɪˈtuʃən, -ˈtju-/n. 替换；代替；代用；<化>取代（作用）
 numeric/nu:'merɪk/数字的，数值的
-reverse/rɪˈvɜ:rs/反向的，颠倒的，反转
+reverse/rɪˈvɜ:rs/反向的，颠倒的，反转；purge/pɜ:rdʒ/vt. 肃清；清除，（使）净化；regex正则表达式；presentadj. 目前的；现在的；出席的；[语法学]现在时的；prevent防止，阻止，预防
 archive/'ɑ:kaɪvz/档案，档案馆
+verify/ˈvɛrəˌfaɪ/核实，证明，验证 verbose/vɜ:rˈboʊs/冗长的，累赘的；-v参数，显示详情
 
 一、软件包管理
 1.dpkg -l显示已安装软件库包
