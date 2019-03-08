@@ -60,6 +60,9 @@ apt-get下载目录/var/cache/apt/archives,安装时会先搜寻这个目录有�
 
 debian设置命令提示符配置文件：/etc/bash.bashrc；其他版本系统可能在/etc/profile，/root/.bashrc,/root/.profile等文件中可以设置。
 PS1中设置字符颜色的格式为：\[\e[F;Bm\]，其中“F“为字体颜色，编号为30-37，“B”为背景颜色，编号为40-47。用 \e[m 结束颜色设置。
+PS1='[\e[33;40m\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$ \e[0m' #加上\e[0m或者\e[m结束颜色设置，只是提示符为黄色，其他不受影响。
+PS1='[\e[33;40m\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '  #把命令提示符设置成黄色，但输入的指令也是黄色，所有页面显示都是黄色。
+PS1='[\e[36;40m\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$ \e[m \e[33;40m\]' #把提示符框内设置成青蓝色，后面指令显示黄色。
 
 4.安装VMware-tools遇到问题：/dev/sr0 默认挂载在/media/cdrom0上，直接复制压缩包到其他目录解压安装，到最后一步一直报错，VGAuthService:  failed
 Common Agent:   failed
