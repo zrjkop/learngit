@@ -13,7 +13,7 @@ numeric/nu:'merɪk/数字的，数值的
 reverse/rɪˈvɜ:rs/反向的，颠倒的，反转；purge/pɜ:rdʒ/vt. 肃清；清除，（使）净化；regex正则表达式；present adj. 目前的；现在的；出席的；[语法学]现在时的；prevent防止，阻止，预防
 archive/'ɑ:kaɪvz/档案，档案馆
 verify/ˈvɛrəˌfaɪ/核实，证明，验证 verbose/vɜ:rˈboʊs/冗长的，累赘的；-v参数，显示详情
-prompt/prɑ:mpt/迅速的，提示，促进
+prompt/prɑ:mpt/迅速的，提示，促进  native本地的，原生的，天真的。utility/juˈtɪləti/公用，效用，多用途的
 
 
 一、软件包管理
