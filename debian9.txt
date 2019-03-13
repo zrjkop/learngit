@@ -17,6 +17,7 @@ prompt/prɑ:mpt/迅速的，提示，促进  native本地的，原生的，天�
 utility/juˈtɪləti/公用，效用，多用途的;untitled无标题的，无称号的，无权利的
 external/ɪkˈstɜ:rnl/外部的，外面 expire/ɪkˈspaɪr/期满，失效，到期
 private私有的;primary首要的，初级的;primacy首位，首要地位n.
+interpreter/ɪnˈtɜ:rprɪtə(r)/n. 解释者；口译译员；[军事]判读员；[自]翻译器 convert转变，转换
 
 一、软件包管理
 1.dpkg -l显示已安装软件库包
@@ -1272,7 +1273,7 @@ root@zrj-debian:~/test/learngit# netstat -tan | awk  '/^tcp/{state[$NF]++}END{fo
 LISTEN 3
 ESTABLISHED 2
 统计各种tcp连接状态的数量，{state[$NF]++}，数组下标为LISTEN,ESTABLISHED两种，根据出现次数累加统计。
-
+{state[$NF]++}的说明：awk读取第一行时，数组为state[LISTEN]++，此时state[LISTEN]的值未定义，但由于后面有运算符号++，awk会将0赋值给state[LISTEN]，然后再做++运算；则state[LISTEN]++，为0+1得到1；当读取到第二个LISTEN时，此时state[LISTEN]在之前1的基础上做++运算，得到2；一次类推，一直计数。
 可用于统计出现次数：
 （1）查看last中各用户出现次数
 root@zrj-debian:~/test/shell# last | cut -d' ' -f1 | sort |uniq -c  #会显示空行和最后一个wtmp非用户，需要另外处理
