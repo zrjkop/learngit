@@ -12,9 +12,11 @@ substitution/ˌsʌbstɪˈtuʃən, -ˈtju-/n. 替换；代替；代用；<化>取
 numeric/nu:'merɪk/数字的，数值的
 reverse/rɪˈvɜ:rs/反向的，颠倒的，反转；purge/pɜ:rdʒ/vt. 肃清；清除，（使）净化；regex正则表达式；present adj. 目前的；现在的；出席的；[语法学]现在时的；prevent防止，阻止，预防
 archive/'ɑ:kaɪvz/档案，档案馆
-verify/ˈvɛrəˌfaɪ/核实，证明，验证 verbose/vɜ:rˈboʊs/冗长的，累赘的；-v参数，显示详情
-prompt/prɑ:mpt/迅速的，提示，促进  native本地的，原生的，天真的。utility/juˈtɪləti/公用，效用，多用途的
-
+verify/ˈvɛrəˌfaɪ/核实，证明，验证;authenticate/ɔˈθɛntɪˌket/验证；verbose/vɜ:rˈboʊs/冗长的，累赘的；-v参数，显示详情
+prompt/prɑ:mpt/迅速的，提示，促进  native本地的，原生的，天真的。
+utility/juˈtɪləti/公用，效用，多用途的;untitled无标题的，无称号的，无权利的
+external/ɪkˈstɜ:rnl/外部的，外面 expire/ɪkˈspaɪr/期满，失效，到期
+private私有的;primary首要的，初级的;primacy首位，首要地位n.
 
 一、软件包管理
 1.dpkg -l显示已安装软件库包
