@@ -9,7 +9,7 @@ scalar/ˈskelɚ, -ˌlɑr/adj. 标量的；梯状的；分等级的；数量的 n
 VPC（Virtual Private Cloud）虚拟私有云
 CIDR是英文Classless Inter-Domain Routing的缩写，中文是无类别域间路由，是一个在Internet上创建附加地址的方法，这些地址提供给服务提供商（ISP）
 substitution/ˌsʌbstɪˈtuʃən, -ˈtju-/n. 替换；代替；代用；<化>取代（作用）
-numeric/nu:'merɪk/数字的，数值的
+numeric/nu:'merɪk/数字的，数值的 ；dump/dʌmp/倾倒，丢下；转嫁
 reverse/rɪˈvɜ:rs/反向的，颠倒的，反转；purge/pɜ:rdʒ/vt. 肃清；清除，（使）净化；regex正则表达式；present adj. 目前的；现在的；出席的；[语法学]现在时的；prevent防止，阻止，预防
 archive/'ɑ:kaɪvz/档案，档案馆
 verify/ˈvɛrəˌfaɪ/核实，证明，验证;authenticate/ɔˈθɛntɪˌket/验证；verbose/vɜ:rˈboʊs/冗长的，累赘的；-v参数，显示详情
@@ -18,6 +18,8 @@ utility/juˈtɪləti/公用，效用，多用途的;untitled无标题的，无�
 external/ɪkˈstɜ:rnl/外部的，外面 expire/ɪkˈspaɪr/期满，失效，到期 ；maintainer维修者，维护者；maintain保持，坚持，拥护
 private私有的;primary首要的，初级的;primacy首位，首要地位n.
 interpreter/ɪnˈtɜ:rprɪtə(r)/n. 解释者；口译译员；[军事]判读员；[自]翻译器 convert转变，转换
+distinct/dɪˈstɪŋkt/明显的，卓越的，不同的
+
 
 一、软件包管理
 1.dpkg -l显示已安装软件库包；dpkg -l package #显示指定包的状态
@@ -384,9 +386,8 @@ root@zrjdebian:/etc/systemd/system# systemctl list-units --all | grep avahi-daem
 這個 nc 指令可以用來作為某些服務的檢測，連接到某個 port 來進行溝通，此外，還可以自行啟動一個 port 來傾聽其他用戶的連線。
 （端口探测异常）UDP 检测方法
 nc -u IP(报警消息中的任意一个)  7001
-# 输入随意字符, 看是否可以正常echo返回.
 # 连接失败 或者无响应 表示 udp 转发存在异常
-
+#不加u参数，以tcp协议探测时输入会有echo，加了-u没有回应。
 4.文字界面封包撷取器：tcpdump
 [root@www ~]# tcpdump [-AennqX] [-i 介面] [-w 儲存檔名] [-c 次數] \
                       [-r 檔案] [所欲擷取的封包資料格式]
@@ -414,6 +415,29 @@ nc -u IP(报警消息中的任意一个)  7001
 如何使用 tcpdump 監聽 (1)來自 eth0 介面卡且 (2)通訊協定為 port 22 ，(3)封包來源為 192.168.1.101 的封包資料？
 答：
 tcpdump -i eth0 -nn 'port 22 and src host 192.168.1.101'
+
+5.nmap 觀察本身系統網路埠口
+nmap 軟體說明之名稱為：『Network exploration tool and security / port scanner』
+
+[root@cloud ~]# nmap [掃瞄類型] [掃瞄參數] [hosts 位址與範圍]
+選項與參數：
+[掃瞄類型]：主要的掃瞄類型有底下幾種：
+    -sT：掃瞄 TCP 封包已建立的連線 connect() ！
+    -sS：掃瞄 TCP 封包帶有 SYN 標籤的資料
+    -sP：以 ping 的方式進行掃瞄
+    -sU：以 UDP 的封包格式進行掃瞄
+    -sO：以 IP 的協定 (protocol) 進行主機的掃瞄
+[掃瞄參數]：主要的掃瞄參數有幾種：
+    -PT：使用 TCP 裡頭的 ping 的方式來進行掃瞄，可以獲知目前有幾部電腦存活(較常用)
+    -PI：使用實際的 ping (帶有 ICMP 封包的) 來進行掃瞄
+    -p ：這個是 port range ，例如 1024-, 80-1023, 30000-60000 等等的使用方式
+    -TN：指定延遲時間，可透過類似 -T4 來加快偵測速度 (約 4ms)，效能會較好。
+[Hosts 位址與範圍]：這個有趣多了，有幾種類似的類型
+    192.168.1.100  ：直接寫入 HOST IP 而已，僅檢查一部；
+    192.168.1.0/24 ：為 C Class 的型態，
+    192.168.*.*　　：則變為 B Class 的型態了！掃瞄的範圍變廣
+    192.168.1.0-50,60-100,103,200 ：這種是變形的主機範圍
+
 
 
 三-四-二、debian防火墙iptables
@@ -518,7 +542,7 @@ ctrl+6标记文件开头，移动光标选择文本块（反白显示），ctrl+
 
 dd文件复制和转换：
 dd if=/dev/zero of=user_id  bs=1M count=100 #if输入文件，of输出文件，bs每块大小，count（copy only N input blocks），生成100M的空文件user_id
-seq 1000000 | xargs -i dd if=/dev/zero of={}.dat bs=1024 count=1 #批量生成1000000个1k大小的空文件
+seq 1000000 | xargs -i dd if=/dev/zero of={}.dat bs=1024 count=1 #批量生成1000000个1k大小的空文件，会快速耗尽文件系统inode；
 建议在一个空文件夹内生成，不然利用rm -rf *.bat无法删除，会显示-bash: /bin/rm: Argument list too long，可通过删除文件夹删除。
 拷贝文件时，排除某些不需要的文件：
 1）使用xargs来做：
