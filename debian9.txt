@@ -15,12 +15,21 @@ archive/'ɑ:kaɪvz/档案，档案馆
 verify/ˈvɛrəˌfaɪ/核实，证明，验证;authenticate/ɔˈθɛntɪˌket/验证；verbose/vɜ:rˈboʊs/冗长的，累赘的；-v参数，显示详情
 prompt/prɑ:mpt/迅速的，提示，促进  native本地的，原生的，天真的。
 utility/juˈtɪləti/公用，效用，多用途的;untitled无标题的，无称号的，无权利的
-external/ɪkˈstɜ:rnl/外部的，外面 expire/ɪkˈspaɪr/期满，失效，到期
+external/ɪkˈstɜ:rnl/外部的，外面 expire/ɪkˈspaɪr/期满，失效，到期 ；maintainer维修者，维护者；maintain保持，坚持，拥护
 private私有的;primary首要的，初级的;primacy首位，首要地位n.
 interpreter/ɪnˈtɜ:rprɪtə(r)/n. 解释者；口译译员；[军事]判读员；[自]翻译器 convert转变，转换
 
 一、软件包管理
-1.dpkg -l显示已安装软件库包
+1.dpkg -l显示已安装软件库包；dpkg -l package #显示指定包的状态
+dpkg -l中每一行记录一个软件包信息，第一、二、三个字符，记录软件包状态标识，一般显示为ii,表示正常已安装状态（第三字符为空，标识错误状态为空，表示正常；其他符号对应相应问题Err?=(none)/Reinst-required (Status,Err: uppercase=bad)）
+
+dpkg -L package #显示包里面的文件，与dpkg -c package.deb显示内容差不多，-c会显示具体目录及权限
+dpkg -s package #status显示包安装状态等信息
+dpkg -i package.deb #安装手动下载的deb包
+dpkg -r package  #remove移除安装包,只是删除数据和可执行文件
+dpkg -P package  #purge，完全清除配置文件
+
+
 常用的APT命令参数： 
 apt-cache search package 搜索包 
 apt-cache show package 获取包的相关信息，如说明、大小、版本等 
@@ -40,6 +49,10 @@ apt-get source package 下载该包的源代码
 sudo apt-get clean && sudo apt-get autoclean 清理无用的包 
 sudo apt-get check 检查是否有损坏的依赖
 apt-get下载目录/var/cache/apt/archives,安装时会先搜寻这个目录有无需要安装的包，无则在线下载回来，可以把下载的deb文件放到该目录，之后可以直接安装。
+
+
+
+
 
 2.虚拟机开启提示“无法打开内核设备“\\.\Global\vmx86”: 系统找不到指定的文件。是否在安装 VMware Workstation 后重新引导?  未能初始化监视器设备。”
 在电脑--管理--服务，找到虚拟机服务，手动开启，重启vm生效。
@@ -502,6 +515,21 @@ nano多行操作：
 
 复制，粘贴，剪切：
 ctrl+6标记文件开头，移动光标选择文本块（反白显示），ctrl+k剪切，ctrl+u原地复制，之后光标可以移动到需要粘贴的地方，反复ctrl+u。（暂时没找到只是复制的操作，不需要cut的情况下）
+
+dd文件复制和转换：
+dd if=/dev/zero of=user_id  bs=1M count=100 #if输入文件，of输出文件，bs每块大小，count（copy only N input blocks），生成100M的空文件user_id
+seq 1000000 | xargs -i dd if=/dev/zero of={}.dat bs=1024 count=1 #批量生成1000000个1k大小的空文件
+建议在一个空文件夹内生成，不然利用rm -rf *.bat无法删除，会显示-bash: /bin/rm: Argument list too long，可通过删除文件夹删除。
+拷贝文件时，排除某些不需要的文件：
+1）使用xargs来做：
+　　ls /tmp/test/ |grep -v .gz |xargs -i cp -r /tmp/test/{} /tmp/test_cp
+2）使用find＋cpio的方式：
+　　find /tmp/test/ |grep -v .gz |cpio -pdm /tmp/test_cp/
+3) 使用rsync来做：
+　　rsync -avp --exclude = /tmp/test/xxx  /tmp/test_cp/
+
+
+
 
 三-五-一、shell
 
