@@ -7,7 +7,7 @@ unterminated/ʌntɜ:mɪ'neɪtɪd/无端接的，未终止的terminal终点站
 longitude经度，latitude纬度
 scalar/ˈskelɚ, -ˌlɑr/adj. 标量的；梯状的；分等级的；数量的 n. 数量，标量
 VPC（Virtual Private Cloud）虚拟私有云
-CIDR是英文Classless Inter-Domain Routing的缩写，中文是无类别域间路由，是一个在Internet上创建附加地址的方法，这些地址提供给服务提供商（ISP）
+CIDR是英文Classless Inter-Domain Routing的缩写，中文是无类别域间路由，是一个在Internet上创建附加地址的方法，这些地址提供给服务提供商（ISP），将多个无类别网段聚合成一个，减轻路由条目数，降低路由存储空间。
 substitution/ˌsʌbstɪˈtuʃən, -ˈtju-/n. 替换；代替；代用；<化>取代（作用）
 numeric/nu:'merɪk/数字的，数值的 ；dump/dʌmp/倾倒，丢下；转嫁
 reverse/rɪˈvɜ:rs/反向的，颠倒的，反转；purge/pɜ:rdʒ/vt. 肃清；清除，（使）净化；regex正则表达式；present adj. 目前的；现在的；出席的；[语法学]现在时的；prevent防止，阻止，预防
