@@ -1236,6 +1236,7 @@ sed -n  's/root/&superman/p' /etc/passwd 查找root在其后加superman
 sed -n  's/root/superman&/p' /etc/passwd 查找root在其前面加superman
 sed -e 's/dog/cat/' -e 's/hi/lo/' file 多点编辑
 sed -i.bak 's/dog/cat/g' file 备份并替换#.bak源文件备份未file.bak,-i后面加什么，file命名后面就加什么。
+sed -i '/zrj/ s/\/bin\/bash/\/bin\/nologin/' /etc/passwd #查找zrj所在的行，并将其的shell修改替换。
 
 通过ifconfig把网卡ip取出来：
 root@zrj-debian:~/test/learngit# ifconfig eth0 | sed -n '2p'| sed 's/.*inet//'| sed 's/netmask.*//'
