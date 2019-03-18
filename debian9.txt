@@ -7,15 +7,31 @@ unterminated/ʌntɜ:mɪ'neɪtɪd/无端接的，未终止的terminal终点站
 longitude经度，latitude纬度
 scalar/ˈskelɚ, -ˌlɑr/adj. 标量的；梯状的；分等级的；数量的 n. 数量，标量
 VPC（Virtual Private Cloud）虚拟私有云
-CIDR是英文Classless Inter-Domain Routing的缩写，中文是无类别域间路由，是一个在Internet上创建附加地址的方法，这些地址提供给服务提供商（ISP）
+CIDR是英文Classless Inter-Domain Routing的缩写，中文是无类别域间路由，是一个在Internet上创建附加地址的方法，这些地址提供给服务提供商（ISP），将多个无类别网段聚合成一个，减轻路由条目数，降低路由存储空间。
 substitution/ˌsʌbstɪˈtuʃən, -ˈtju-/n. 替换；代替；代用；<化>取代（作用）
-numeric/nu:'merɪk/数字的，数值的
+numeric/nu:'merɪk/数字的，数值的 ；dump/dʌmp/倾倒，丢下；转嫁
 reverse/rɪˈvɜ:rs/反向的，颠倒的，反转；purge/pɜ:rdʒ/vt. 肃清；清除，（使）净化；regex正则表达式；present adj. 目前的；现在的；出席的；[语法学]现在时的；prevent防止，阻止，预防
 archive/'ɑ:kaɪvz/档案，档案馆
-verify/ˈvɛrəˌfaɪ/核实，证明，验证 verbose/vɜ:rˈboʊs/冗长的，累赘的；-v参数，显示详情
+verify/ˈvɛrəˌfaɪ/核实，证明，验证;authenticate/ɔˈθɛntɪˌket/验证；verbose/vɜ:rˈboʊs/冗长的，累赘的；-v参数，显示详情
+prompt/prɑ:mpt/迅速的，提示，促进  native本地的，原生的，天真的。
+utility/juˈtɪləti/公用，效用，多用途的;untitled无标题的，无称号的，无权利的
+external/ɪkˈstɜ:rnl/外部的，外面 expire/ɪkˈspaɪr/期满，失效，到期 ；maintainer维修者，维护者；maintain保持，坚持，拥护
+private私有的;primary首要的，初级的;primacy首位，首要地位n.
+interpreter/ɪnˈtɜ:rprɪtə(r)/n. 解释者；口译译员；[军事]判读员；[自]翻译器 convert转变，转换
+distinct/dɪˈstɪŋkt/明显的，卓越的，不同的；extent程度，范围
+
 
 一、软件包管理
-1.dpkg -l显示已安装软件库包
+1.dpkg -l显示已安装软件库包；dpkg -l package #显示指定包的状态
+dpkg -l中每一行记录一个软件包信息，第一、二、三个字符，记录软件包状态标识，一般显示为ii,表示正常已安装状态（第三字符为空，标识错误状态为空，表示正常；其他符号对应相应问题Err?=(none)/Reinst-required (Status,Err: uppercase=bad)）
+
+dpkg -L package #显示包里面的文件，与dpkg -c package.deb显示内容差不多，-c会显示具体目录及权限
+dpkg -s package #status显示包安装状态等信息
+dpkg -i package.deb #安装手动下载的deb包
+dpkg -r package  #remove移除安装包,只是删除数据和可执行文件
+dpkg -P package  #purge，完全清除配置文件
+
+
 常用的APT命令参数： 
 apt-cache search package 搜索包 
 apt-cache show package 获取包的相关信息，如说明、大小、版本等 
@@ -35,6 +51,10 @@ apt-get source package 下载该包的源代码
 sudo apt-get clean && sudo apt-get autoclean 清理无用的包 
 sudo apt-get check 检查是否有损坏的依赖
 apt-get下载目录/var/cache/apt/archives,安装时会先搜寻这个目录有无需要安装的包，无则在线下载回来，可以把下载的deb文件放到该目录，之后可以直接安装。
+
+
+
+
 
 2.虚拟机开启提示“无法打开内核设备“\\.\Global\vmx86”: 系统找不到指定的文件。是否在安装 VMware Workstation 后重新引导?  未能初始化监视器设备。”
 在电脑--管理--服务，找到虚拟机服务，手动开启，重启vm生效。
@@ -62,7 +82,12 @@ debian设置命令提示符配置文件：/etc/bash.bashrc；其他版本系统�
 PS1中设置字符颜色的格式为：\[\e[F;Bm\]，其中“F“为字体颜色，编号为30-37，“B”为背景颜色，编号为40-47。用 \e[m 结束颜色设置。
 PS1='[\e[33;40m\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$ \e[0m' #加上\e[0m或者\e[m结束颜色设置，只是提示符为黄色，其他不受影响。
 PS1='[\e[33;40m\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '  #把命令提示符设置成黄色，但输入的指令也是黄色，所有页面显示都是黄色。
-PS1='[\e[36;40m\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$ \e[m \e[33;40m\]' #把提示符框内设置成青蓝色，后面指令显示黄色。
+PS1='[\e[36;40m\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$ \e[m \e[33;40m\]' #把提示符框内设置成青蓝色，后面指令显示黄色，其中\e[m可有可无。
+以上设置都会导致首行指令不会换行，会反过来覆盖提示符,都是因为颜色设置的部分没有使用\[和\]来转义(颜色设置的每个位置都需要完整的括起来)；解决方法是利用\[和\]这一对符号完成包住颜色设置段，非打印的字段都需要这对符号圈住。
+\[     begin a sequence  of  non-printing  characters,  which could  be  used  to  embed a terminal control sequence
+                         into the prompt
+\]     end a sequence of non-printing characters）
+最终设置为PS1='\[\e[36;40m\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$ \[\e[33;40m\]'
 
 4.安装VMware-tools遇到问题：/dev/sr0 默认挂载在/media/cdrom0上，直接复制压缩包到其他目录解压安装，到最后一步一直报错，VGAuthService:  failed
 Common Agent:   failed
@@ -101,6 +126,12 @@ MBR：主引导记录
 如果磁区/dev/sda3有问题，而且是被挂载状态，修复需要先umount：
 umount /dev/sda3
 fsck /dev/sda3
+
+10.xshell生成公钥，在服务器注册实现key登陆：
+1)在win下通过xshell密钥工具生成.pub，保存本地。在服务端，/root/.ssh/目录下，viauthorized_keys 文件，将生成密钥内容复制进去。
+2)修改ssh配置文件/etc/ssh/sshd_config，设置PubkeyAuthentication为yes，添加AuthorizedKeysFile /root/.ssh/authorized_keys，制定认证文件；
+3)重启ssh服务，可通过xshell的密钥免密码登陆；
+
 
 二、网卡配置
 1.添加另外网卡暂时无解，到底是vm新添加网络适配器使其生效还是先加配置文件，目前操作看，在vm添加另一张网卡，无论是桥接，nat，本机模式，都可以从宿主机ping和telnet通，ssh能连接。问题是无法将新增的网卡进行自定义的设置，固定静态IP操作无法实现。直接在/etc/network/interifaces里面添加网卡数据的话，重启网络服务会报错，自定义的网卡会显示找不到设备。
@@ -361,9 +392,8 @@ root@zrjdebian:/etc/systemd/system# systemctl list-units --all | grep avahi-daem
 這個 nc 指令可以用來作為某些服務的檢測，連接到某個 port 來進行溝通，此外，還可以自行啟動一個 port 來傾聽其他用戶的連線。
 （端口探测异常）UDP 检测方法
 nc -u IP(报警消息中的任意一个)  7001
-# 输入随意字符, 看是否可以正常echo返回.
 # 连接失败 或者无响应 表示 udp 转发存在异常
-
+#不加u参数，以tcp协议探测时输入会有echo，加了-u没有回应。
 4.文字界面封包撷取器：tcpdump
 [root@www ~]# tcpdump [-AennqX] [-i 介面] [-w 儲存檔名] [-c 次數] \
                       [-r 檔案] [所欲擷取的封包資料格式]
@@ -391,6 +421,29 @@ nc -u IP(报警消息中的任意一个)  7001
 如何使用 tcpdump 監聽 (1)來自 eth0 介面卡且 (2)通訊協定為 port 22 ，(3)封包來源為 192.168.1.101 的封包資料？
 答：
 tcpdump -i eth0 -nn 'port 22 and src host 192.168.1.101'
+
+5.nmap 觀察本身系統網路埠口
+nmap 軟體說明之名稱為：『Network exploration tool and security / port scanner』
+
+[root@cloud ~]# nmap [掃瞄類型] [掃瞄參數] [hosts 位址與範圍]
+選項與參數：
+[掃瞄類型]：主要的掃瞄類型有底下幾種：
+    -sT：掃瞄 TCP 封包已建立的連線 connect() ！
+    -sS：掃瞄 TCP 封包帶有 SYN 標籤的資料
+    -sP：以 ping 的方式進行掃瞄
+    -sU：以 UDP 的封包格式進行掃瞄
+    -sO：以 IP 的協定 (protocol) 進行主機的掃瞄
+[掃瞄參數]：主要的掃瞄參數有幾種：
+    -PT：使用 TCP 裡頭的 ping 的方式來進行掃瞄，可以獲知目前有幾部電腦存活(較常用)
+    -PI：使用實際的 ping (帶有 ICMP 封包的) 來進行掃瞄
+    -p ：這個是 port range ，例如 1024-, 80-1023, 30000-60000 等等的使用方式
+    -TN：指定延遲時間，可透過類似 -T4 來加快偵測速度 (約 4ms)，效能會較好。
+[Hosts 位址與範圍]：這個有趣多了，有幾種類似的類型
+    192.168.1.100  ：直接寫入 HOST IP 而已，僅檢查一部；
+    192.168.1.0/24 ：為 C Class 的型態，
+    192.168.*.*　　：則變為 B Class 的型態了！掃瞄的範圍變廣
+    192.168.1.0-50,60-100,103,200 ：這種是變形的主機範圍
+
 
 
 三-四-二、debian防火墙iptables
@@ -492,6 +545,21 @@ nano多行操作：
 
 复制，粘贴，剪切：
 ctrl+6标记文件开头，移动光标选择文本块（反白显示），ctrl+k剪切，ctrl+u原地复制，之后光标可以移动到需要粘贴的地方，反复ctrl+u。（暂时没找到只是复制的操作，不需要cut的情况下）
+
+dd文件复制和转换：
+dd if=/dev/zero of=user_id  bs=1M count=100 #if输入文件，of输出文件，bs每块大小，count（copy only N input blocks），生成100M的空文件user_id
+seq 1000000 | xargs -i dd if=/dev/zero of={}.dat bs=1024 count=1 #批量生成1000000个1k大小的空文件，会快速耗尽文件系统inode；
+建议在一个空文件夹内生成，不然利用rm -rf *.bat无法删除，会显示-bash: /bin/rm: Argument list too long，可通过删除文件夹删除。
+拷贝文件时，排除某些不需要的文件：
+1）使用xargs来做：
+　　ls /tmp/test/ |grep -v .gz |xargs -i cp -r /tmp/test/{} /tmp/test_cp
+2）使用find＋cpio的方式：
+　　find /tmp/test/ |grep -v .gz |cpio -pdm /tmp/test_cp/
+3) 使用rsync来做：
+　　rsync -avp --exclude = /tmp/test/xxx  /tmp/test_cp/
+
+
+
 
 三-五-一、shell
 
@@ -973,7 +1041,17 @@ killall -9 httpd #根据进程名称关闭进程，不需要PID
 若使用普通用户身份运行 rsync 命令，同步后的文件的属主将改变为这个普通用户身份。
 若使用超级用户身份运行 rsync 命令，同步后的文件的属主将保持原来的用户身份。
 2.-v，显示rsync过程详细信息；-a，递归模式，表示递归传输并保存文件属性；-z，传输时进行压缩提高效率。
-
+--exclude#排除指定文件夹或文件；--port指定端口； --bwlimit=1000 #限制传输带宽1000kps
+3. 
+Usage: rsync [OPTION]... SRC [SRC]... DEST
+  or   rsync [OPTION]... SRC [SRC]... [USER@]HOST:DEST
+  or   rsync [OPTION]... SRC [SRC]... [USER@]HOST::DEST
+  or   rsync [OPTION]... SRC [SRC]... rsync://[USER@]HOST[:PORT]/DEST
+  or   rsync [OPTION]... [USER@]HOST:SRC [DEST]
+  or   rsync [OPTION]... [USER@]HOST::SRC [DEST]
+  or   rsync [OPTION]... rsync://[USER@]HOST[:PORT]/SRC [DEST]
+The ':' usages connect via remote shell, while '::' & 'rsync://' usages connect
+to an rsync daemon, and require SRC or DEST to start with a module name.
 
 
 
@@ -1174,6 +1252,7 @@ sed -n  's/root/&superman/p' /etc/passwd 查找root在其后加superman
 sed -n  's/root/superman&/p' /etc/passwd 查找root在其前面加superman
 sed -e 's/dog/cat/' -e 's/hi/lo/' file 多点编辑
 sed -i.bak 's/dog/cat/g' file 备份并替换#.bak源文件备份未file.bak,-i后面加什么，file命名后面就加什么。
+sed -i '/zrj/ s/\/bin\/bash/\/bin\/nologin/' /etc/passwd #查找zrj所在的行，并将其的shell修改替换。
 
 通过ifconfig把网卡ip取出来：
 root@zrj-debian:~/test/learngit# ifconfig eth0 | sed -n '2p'| sed 's/.*inet//'| sed 's/netmask.*//'
@@ -1263,7 +1342,7 @@ root@zrj-debian:~/test/learngit# netstat -tan | awk  '/^tcp/{state[$NF]++}END{fo
 LISTEN 3
 ESTABLISHED 2
 统计各种tcp连接状态的数量，{state[$NF]++}，数组下标为LISTEN,ESTABLISHED两种，根据出现次数累加统计。
-
+{state[$NF]++}的说明：awk读取第一行时，数组为state[LISTEN]++，此时state[LISTEN]的值未定义，但由于后面有运算符号++，awk会将0赋值给state[LISTEN]，然后再做++运算；则state[LISTEN]++，为0+1得到1；当读取到第二个LISTEN时，此时state[LISTEN]在之前1的基础上做++运算，得到2；一次类推，一直计数。
 可用于统计出现次数：
 （1）查看last中各用户出现次数
 root@zrj-debian:~/test/shell# last | cut -d' ' -f1 | sort |uniq -c  #会显示空行和最后一个wtmp非用户，需要另外处理
