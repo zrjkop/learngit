@@ -18,7 +18,8 @@ utility/juˈtɪləti/公用，效用，多用途的;untitled无标题的，无�
 external/ɪkˈstɜ:rnl/外部的，外面 expire/ɪkˈspaɪr/期满，失效，到期 ；maintainer维修者，维护者；maintain保持，坚持，拥护
 private私有的;primary首要的，初级的;primacy首位，首要地位n.
 interpreter/ɪnˈtɜ:rprɪtə(r)/n. 解释者；口译译员；[军事]判读员；[自]翻译器 convert转变，转换
-distinct/dɪˈstɪŋkt/明显的，卓越的，不同的；extent程度，范围 ；catalog/ˈkætlˌɔɡ, -ˌɑɡ/目录，登记
+distinct/dɪˈstɪŋkt/明显的，卓越的，不同的；extent程度，范围 ；extend/ɪkˈstɛnd/延伸，拓展的；
+catalog/ˈkætlˌɔɡ, -ˌɑɡ/目录，登记；revoke/rɪˈvoʊk/撤销，取消
 
 
 一、软件包管理
