@@ -18,6 +18,14 @@ $ ssh-keygen -t rsa -C "1518130788@qq.com"
 4.git remote add origin git@github.com:zrjkop/learngit.git重新提交远程库设置；
 5.git push origin master，同步数据。
 
+另外的虚拟机在GitHub添加新的ssh key无法使用，无法clone远程库：
+需要把生成的秘钥添加的ssh中，ssh-add id_rsa
+ssh -T git@github.com测试连接：
+会显示该秘钥可以访问的GitHub用户信息
+Hi zrjkop! You've successfully authenticated, but GitHub does not provide shell access.
+如果ssh-add不成功，请先 ssh-agent bash后在 ssh-add 即可
+
+
 重装debian系统后再次提交远程库出问题:
 root@zrj-debian:~/test/learngit# git push origin master
 To github.com:zrjkop/learngit.git
