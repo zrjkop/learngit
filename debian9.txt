@@ -20,6 +20,7 @@ private私有的;primary首要的，初级的;primacy首位，首要地位n.
 interpreter/ɪnˈtɜ:rprɪtə(r)/n. 解释者；口译译员；[军事]判读员；[自]翻译器 convert转变，转换
 distinct/dɪˈstɪŋkt/明显的，卓越的，不同的；extent程度，范围 ；extend/ɪkˈstɛnd/延伸，拓展的；
 catalog/ˈkætlˌɔɡ, -ˌɑɡ/目录，登记；revoke/rɪˈvoʊk/撤销，取消
+discard/dɪsˈkɑ:rd/丢弃，抛弃
 Zerorpc是一个基于ZeroMQ和MessagePack开发的远程过程调用协议（RPC）实现。和 Zerorpc 一起使用的 Service API 被称为 zeroservice。Zerorpc 可以通过编程或命令行方式调用。
 它允许你：
 
@@ -1451,6 +1452,8 @@ Listen 4299
 
 
 八、python
+
+八-一、pyc 是一种二进制文件，是由py文件经过编译后，生成的文件，是一种byte code，py文件变成pyc文件后，加载的速度有所提高，而且pyc是一种跨 平台的字节码，是由python的虚拟机来执行的，这个是类似于JAVA或者.NET的虚拟机的概念。pyc的内容，是跟python的版本相关的，不同 版本编译后的pyc文件是不同的，2.5编译的pyc文件，2.4版本的python是无法执行的。
 1.python打印当前时间
 import datetime
 print(datetime.datetime.now().strftime('%F %T'))
