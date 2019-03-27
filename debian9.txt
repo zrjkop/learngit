@@ -1549,3 +1549,22 @@ print list3
 3. l1 = ['0','1','2','3','4','5','6','7','8','9']
    number=[random.choice(l1) for j in range(pwlength)] ##pwlength表示长度，生成指定长度可重复的随机数字，生成的是list。
 如果使用number=[random.choice(range(10)) for j in range(8)]，输出形式list为[8, 9, 8, 6, 5, 4, 6, 5],这种无法使用.join转换str输出，提示TypeError: sequence item 0: expected str instance, int found。需要用上面的1中的纯整数list转换成字符型list，再转换成str。
+
+
+九、网络协议
+1.tcp封包表头
+Code (Control Flag, 控制標誌碼)
+當我們在進行網路連線的時候，必須要說明這個連線的狀態，好讓接收端瞭解這個封包的主要動作。這個欄位共有6個 bits ，分別代表 6 個控制碼，若為 1 則為啟動。分別說明如下：
+URG(Urgent)：若為 1 則代表該封包為緊急封包， 接收端應該要緊急處理，且圖 2.4-1 當中的 Urgent Pointer 欄位也會被啟用。
+ACK(Acknowledge)：若為 1 代表這個封包為回應封包， 則與上面提到的 Acknowledge Number 有關。
+PSH(Push function)：若為 1 時，代表要求對方立即傳送緩衝區內的其他對應封包，而無須等待緩衝區滿了才送。 
+RST(Reset)：如果 RST 為 1 的時候，表示連線會被馬上結束，而無需等待終止確認手續。這也就是說， 這是個強制結束的連線，且發送端已斷線。
+SYN(Synchronous)：若為 1，表示發送端希望雙方建立同步處理， 也就是要求建立連線。通常帶有 SYN 標誌的封包表示『主動』要連接到對方的意思。
+FIN(Finish)：若為 1 ，表示傳送結束，所以通知對方資料傳畢， 是否同意斷線，只是發送者還在等待對方的回應而已。
+
+2.Socket Pair
+由於網路是雙向的，要達成連線的話得要伺服器與用戶端均提供了 IP 與埠口才行，這個成對的資料稱之為 Socket Pair
+
+來源 IP + 來源埠口 (Source Address + Source Port)
+目的 IP + 目的埠口 (Destination Address + Destination Port)
+
