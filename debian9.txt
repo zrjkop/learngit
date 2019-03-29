@@ -293,6 +293,9 @@ root@zrjdebian:~# ip rule
 ip rule add from all fwmark 1 table 1 #添加的效果一样，ip rule add from/to/ IP table 1# 来自或去往IP的数据走table 1，
 ip rule add from 10.249.40.219 to 192.168.65.1 table 1 #来自10.249.40.219去往192.168.65.1的数据包走table 1
 ip rule add fwmark 2 table 1 #标记为2的数据走table 1
+
+（路由表里一般应该包含一条默认路由，default，非指定的ip网域走默认default路由？？？？？有待验证）
+
  
 wb.zhangrijun@impression-ap01-14008:~$ ip route show table jp
 default via 120.29.149.193 dev bond1  src 120.29.149.214 
@@ -1614,4 +1617,12 @@ D:取得最後確認
 192.168.1.3　　linux003
 
 4.网络指令
-
+ip route show
+root@zrj-debian:~/test/learngit# ip route show
+default via 192.168.65.2 dev eth0 onlink 
+100.10.1.0/24 dev eth0 scope link 
+169.254.0.0/16 dev eth0 scope link metric 1000 
+192.168.65.0/24 dev eth0 proto kernel scope link src 192.168.65.132 
+参数说明：
+proto：此路由的路由協定，主要有 redirect, kernel, boot, static, ra 等， 其中 kernel 指的是直接由核心判斷自動設定。
+scope：路由的範圍，主要是 link ，亦即是與本裝置有關的直接連線
