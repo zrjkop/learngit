@@ -21,7 +21,6 @@ interpreter/ɪnˈtɜ:rprɪtə(r)/n. 解释者；口译译员；[军事]判读员
 distinct/dɪˈstɪŋkt/明显的，卓越的，不同的；extent程度，范围 ；extend/ɪkˈstɛnd/延伸，拓展的；
 catalog/ˈkætlˌɔɡ, -ˌɑɡ/目录，登记；revoke/rɪˈvoʊk/撤销，取消
 discard/dɪsˈkɑ:rd/丢弃，抛弃
-prompt/prɑ:mpt/迅速的，促使，提示
 Zerorpc是一个基于ZeroMQ和MessagePack开发的远程过程调用协议（RPC）实现。和 Zerorpc 一起使用的 Service API 被称为 zeroservice。Zerorpc 可以通过编程或命令行方式调用。
 它允许你：
 
@@ -336,7 +335,7 @@ ip route add 192.168.10.0/24 via 192.168.5.100 dev eth0
 
 
 系统三个默认路由表local，main，default；
-main表就是使用route -n所显示的路由内容，正常情况下，配置好网卡的网络设置，就会自动生成main路由表内容。
+main表就是使用route -n所显示的路由内容，使用ip route显示的也是main表里面的内容。正常情况下，配置好网卡的网络设置，就会自动生成main路由表内容。
 来自于192.168.2.0/24网段的数据包，都从eth1接口将数据包送离本机，因此，必须完整编写eth1接口的路由。首先将临近eth1接口的路由填入，告诉系统本机与192.168.1.0/24网段的通信都通过eth1接口来处理，接着填入这个路由表的默认路由.
 ip rule add from 192.168.2.0/24 table 1
 ip route add 192.168.1.0/24 dev eth1 table 1
@@ -1617,7 +1616,7 @@ D:取得最後確認
 192.168.1.3　　linux003
 
 4.网络指令
-ip route show
+4.1：ip route show
 root@zrj-debian:~/test/learngit# ip route show
 default via 192.168.65.2 dev eth0 onlink 
 100.10.1.0/24 dev eth0 scope link 
@@ -1626,3 +1625,17 @@ default via 192.168.65.2 dev eth0 onlink
 参数说明：
 proto：此路由的路由協定，主要有 redirect, kernel, boot, static, ra 等， 其中 kernel 指的是直接由核心判斷自動設定。
 scope：路由的範圍，主要是 link ，亦即是與本裝置有關的直接連線
+
+4.2：[root@www ~]# traceroute [選項與參數] IP
+選項與參數：
+-n ：可以不必進行主機的名稱解析，單純用 IP ，速度較快！
+-U ：使用 UDP 的 port 33434 來進行偵測，這是預設的偵測協定；
+-I ：使用 ICMP 的方式來進行偵測；
+-T ：使用 TCP 來進行偵測，一般使用 port 80 測試
+-w ：若對方主機在幾秒鐘內沒有回聲就宣告不治...預設是 5 秒
+-p 埠號：若不想使用 UDP 與 TCP 的預設埠號來偵測，可在此改變埠號。
+-i 裝置：用在比較複雜的環境，如果你的網路介面很多很複雜時，才會用到這個參數；
+         舉例來說，你有兩條 ADSL 可以連接到外部，那你的主機會有兩個 ppp，
+         你可以使用 -i 來選擇是 ppp0 還是 ppp1 啦！
+-g 路由：與 -i 的參數相仿，只是 -g 後面接的是 gateway 的 IP 就是了。
+
