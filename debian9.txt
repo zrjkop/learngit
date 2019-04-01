@@ -20,7 +20,7 @@ private私有的;primary首要的，初级的;primacy首位，首要地位n.
 interpreter/ɪnˈtɜ:rprɪtə(r)/n. 解释者；口译译员；[军事]判读员；[自]翻译器 convert转变，转换
 distinct/dɪˈstɪŋkt/明显的，卓越的，不同的；extent程度，范围 ；extend/ɪkˈstɛnd/延伸，拓展的；
 catalog/ˈkætlˌɔɡ, -ˌɑɡ/目录，登记；revoke/rɪˈvoʊk/撤销，取消
-discard/dɪsˈkɑ:rd/丢弃，抛弃
+discard/dɪsˈkɑ:rd/丢弃，抛弃； utilize利用，使用/ˈjutlˌaɪz/；  elicit/ɪˈlɪsɪt/引出，探出，引起
 Zerorpc是一个基于ZeroMQ和MessagePack开发的远程过程调用协议（RPC）实现。和 Zerorpc 一起使用的 Service API 被称为 zeroservice。Zerorpc 可以通过编程或命令行方式调用。
 它允许你：
 
