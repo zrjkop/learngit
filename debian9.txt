@@ -20,7 +20,7 @@ private私有的;primary首要的，初级的;primacy首位，首要地位n.
 interpreter/ɪnˈtɜ:rprɪtə(r)/n. 解释者；口译译员；[军事]判读员；[自]翻译器 convert转变，转换
 distinct/dɪˈstɪŋkt/明显的，卓越的，不同的；extent程度，范围 ；extend/ɪkˈstɛnd/延伸，拓展的；
 catalog/ˈkætlˌɔɡ, -ˌɑɡ/目录，登记；revoke/rɪˈvoʊk/撤销，取消
-discard/dɪsˈkɑ:rd/丢弃，抛弃； utilize利用，使用/ˈjutlˌaɪz/；  elicit/ɪˈlɪsɪt/引出，探出，引起
+discard/dɪsˈkɑ:rd/丢弃，抛弃； utilize利用，使用/ˈjutlˌaɪz/；  elicit/ɪˈlɪsɪt/引出，探出，引起；indicate表明，指示	
 Zerorpc是一个基于ZeroMQ和MessagePack开发的远程过程调用协议（RPC）实现。和 Zerorpc 一起使用的 Service API 被称为 zeroservice。Zerorpc 可以通过编程或命令行方式调用。
 它允许你：
 
@@ -1638,4 +1638,17 @@ scope：路由的範圍，主要是 link ，亦即是與本裝置有關的直接
          舉例來說，你有兩條 ADSL 可以連接到外部，那你的主機會有兩個 ppp，
          你可以使用 -i 來選擇是 ppp0 還是 ppp1 啦！
 -g 路由：與 -i 的參數相仿，只是 -g 後面接的是 gateway 的 IP 就是了。
+4.3tcpdump中flags说明
+
+14:31:22.950162 IP zrj-debian.ssh > 192.168.65.1.49864: Flags [P.], seq 2127092637:2127092769, ack 319173742, win 297, length 132
+14:31:22.950261 IP 192.168.65.1.49864 > zrj-debian.ssh: Flags [.], ack 132, win 2050, length 0
+14:31:22.950305 IP zrj-debian.ssh > 192.168.65.1.49864: Flags [P.], seq 132:184, ack 1, win 297, length 52
+14:31:22.950370 IP zrj-debian.ssh > 192.168.65.1.49864: Flags [P.], seq 184:316, ack 1, win 297, length 132
+14:31:22.950415 IP 192.168.65.1.49864 > zrj-debian.ssh: Flags [.], ack 316, win 2049, length 0
+14:31:22.950450 IP zrj-debian.ssh > 192.168.65.1.49864: Flags [P.], seq 316:368, ack 1, win 297, length 52
+14:31:22.991084 IP 192.168.65.1.49864 > zrj-debian.ssh: Flags [.], ack 368, win 2049, length 0
+
+S (SYN), F (FIN), P (PUSH), R (RST), U (URG), W (ECN CWR), E (ECN-Echo) or `.' (ACK), or `none'
+ACK[.]中ack的值为前一次ACK的ack加上length的值。length的值为seq的差值，表明数据所在的位置为序号132到184。
+
 
