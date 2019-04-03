@@ -817,6 +817,9 @@ zrj    ALL=(ALL:ALL) ALL,!/usr/bin/passwd root #zrj用户可以使用sudo来执�
 使用者账号  登录的来源主机=（可切换的身份）可以执行的指令
 zrj	ALL=(root)  !/usr/bin/passwd, /usr/bin/passwd [A-Za-z]*, !/usr/bin/passwd root #可以執行『 passwd 任意字元』，但是『 passwd 』與『 passwd root 』這兩個指令例外，这样设置后zrj的sudo只能用于修改其他用户的密码，其他root专属指令无法执行。
 
+5.SUID，SGID
+SetUID(或者 s 权限）：当一个具有执行权限的文件设置SetUID权限后，用户执行这个文件时将以文件所有者的身份执行。passwd命令具有SetUID权限，所有者为root（Linux中的命令默认所有者都是root），也就是说当普通用户使用passwd更改自己密码的时候，实际在以passwd命令所有者root的身份在执行，root当然可以将密码写入/etc/shadow文件，这个权限伴随着passwd这个进程的进行而存在，命令执行完成后该身份也随之消失。
+
 
 三-五-三、打包压缩解压
 
