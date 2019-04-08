@@ -818,7 +818,43 @@ zrj    ALL=(ALL:ALL) ALL,!/usr/bin/passwd root #zrj用户可以使用sudo来执�
 zrj	ALL=(root)  !/usr/bin/passwd, /usr/bin/passwd [A-Za-z]*, !/usr/bin/passwd root #可以執行『 passwd 任意字元』，但是『 passwd 』與『 passwd root 』這兩個指令例外，这样设置后zrj的sudo只能用于修改其他用户的密码，其他root专属指令无法执行。
 
 5.SUID，SGID
-SetUID(或者 s 权限）：当一个具有执行权限的文件设置SetUID权限后，用户执行这个文件时将以文件所有者的身份执行。passwd命令具有SetUID权限，所有者为root（Linux中的命令默认所有者都是root），也就是说当普通用户使用passwd更改自己密码的时候，实际在以passwd命令所有者root的身份在执行，root当然可以将密码写入/etc/shadow文件，这个权限伴随着passwd这个进程的进行而存在，命令执行完成后该身份也随之消失。
+	
+		二进制文件                       目录
+SUID  	此用户将继承此程序的所有者权限		无意义
+SGID	此用户将继承此程序的所属组权限		此目录下所有用户新建文件都自动继承此目录的用户组
+Sticky	无意义					目录中每个用户仅能删除、移动或改名自己的文件或目录
+
+5.1 SetUID(或者 s 权限）：当一个具有执行权限的文件设置SetUID权限后，用户执行这个文件时将以文件所有者的身份执行。passwd命令具有SetUID权限，所有者为root（Linux中的命令默认所有者都是root），也就是说当普通用户使用passwd更改自己密码的时候，实际在以passwd命令所有者root的身份在执行，root当然可以将密码写入/etc/shadow文件，这个权限伴随着passwd这个进程的进行而存在，命令执行完成后该身份也随之消失。
+root@zrj-debian:~/test/learngit# ll /usr/bin/passwd
+-rwsr-xr-x 1 root root 59680 May 17  2017 /usr/bin/passwd
+SetUID条件：
+必须具备以下几个条件（前提）：
+只有可执行的二进制程序才可以设置SetUID
+所有者必须对欲设置SetUID的文件具备 可执行(x) 权限
+命令执行过程中，其它用户获取所有者的身份（灵魂附体）
+SetUID具有时间限制，即完成该程序执行后就消失
+设置SetUID
+chmod 4xxx < file-name >
+chmod u+s < file-name >
+取消SetUID
+chmod xxx < file-name >
+chmod u-s < file-name >
+5.2 SetGID：设置所属组的特殊权限，
+设置SetGID
+chmod 2xxx 
+chmod g+s
+取消SetGID
+chmod xxx 
+chmod g-s
+5.3 SBIT粘滞位
+只对目录有效
+普通用户对该目录有w和x权限
+若没有粘滞位，则普通用户可以对目录下的文件/子目录进行删除操作（因为普通用户对目录具有w权限），包括其它用户建立的目录/文件；但若赋了SBIT,则普通用户只能删除自己创建的文件/目录，而不能删除不属于自己的文件/目录！
+如/tmp目录
+root@zrj-debian:~/test/learngit# ll -d /tmp
+drwxrwxrwt 13 root root 4096 Apr  3 17:39 /tmp
+
+
 
 
 三-五-三、打包压缩解压
