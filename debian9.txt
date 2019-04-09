@@ -135,7 +135,7 @@ umount /dev/sda3
 fsck /dev/sda3
 
 10.xshell生成公钥，在服务器注册实现key登陆：
-1)在win下通过xshell密钥工具生成.pub，保存本地。在服务端，/root/.ssh/目录下，viauthorized_keys 文件，将生成密钥内容复制进去。
+1)在win下通过xshell密钥工具生成.pub，保存本地。在服务端，/root/.ssh/目录下，vi authorized_keys 文件，将生成密钥内容复制进去。
 2)修改ssh配置文件/etc/ssh/sshd_config，设置PubkeyAuthentication为yes，添加AuthorizedKeysFile /root/.ssh/authorized_keys，制定认证文件；
 3)重启ssh服务，可通过xshell的密钥免密码登陆；
 
