@@ -878,6 +878,14 @@ drwxrwxrwt 13 root root 4096 Apr  3 17:39 /tmp
 查　詢：tar -jtv -f filename.tar.bz2
 解壓縮：tar -jxv -f filename.tar.bz2 -C 欲解壓縮的目錄
 
+如果是没有经过打包，只是解压：
+对于.gz结尾的文件
+gzip -d all.gz  ##-d表示decompress解压缩
+gunzip all.gz
+对于.bz2结尾的文件
+bzip2 -d all.bz2
+bunzip2 all.bz2
+
 
 [root@study ~]# tar -jtv -f /root/etc.tar.bz2 #查看打包里面的档名，-v显示权限
 root@zrjdebian:~/test/udp_echo# tar zcvf py.tar.gz *.py #将目录下所有的.py文件打包压缩
