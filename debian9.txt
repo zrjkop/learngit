@@ -1,7 +1,7 @@
-﻿parameter/pəˈræmɪtɚ/参数
+﻿parameter/pəˈræmɪtɚ/参数 ;batch一批，批处理；feature/ˈfitʃɚ/特征
 vendor小贩，供应商 preset预设
 recursive/rɪˈkɜ:rsɪv/递归的，回归的  factorial/fækˈtɔriəl, -ˈtor-/因子的，阶乘
-scale/skel/规模级别，测量衡量 
+10scale/skel/规模级别，测量衡量 
 sign迹象，符号，签名；assign分派，分配，归属；sigh叹气
 unterminated/ʌntɜ:mɪ'neɪtɪd/无端接的，未终止的terminal终点站
 longitude经度，latitude纬度
@@ -1697,5 +1697,36 @@ scope：路由的範圍，主要是 link ，亦即是與本裝置有關的直接
 
 S (SYN), F (FIN), P (PUSH), R (RST), U (URG), W (ECN CWR), E (ECN-Echo) or `.' (ACK), or `none'
 ACK[.]中ack的值为前一次ACK的ack加上length的值。length的值为seq的差值，表明数据所在的位置为序号132到184。
+
+十、debian系统设置
+1.prodfs和sysfs
+procfs和sysfs两个伪文件系统，分别加载于"/proc"和"/sys"之上，将内核中的数据结构暴露给用户空间。或者说，这些条目是虚拟的，他们打开了深入了解操作系统运行的方便之门。
+目录"/proc"为每个正在运行的进程提供了一个子目录，目录的名字就是进程标识符（PID）。需要读取进程信息的系统工具，如ps()，可以从这个目录结构获得信息。
+
+"/proc/sys"之下的目录，包含了可以更改某些内核运行参数的接口。（也可以使用专门的sysctl()命令修改，或者使用其预加载/配置文件"/etc/sysctl.conf"。）
+root@zrj-debian:~/test/learngit# sysctl -a | grep rp_filter  ##显示含rp_filter的变量
+net.ipv4.conf.all.arp_filter = 0
+net.ipv4.conf.all.rp_filter = 0
+net.ipv4.conf.default.arp_filter = 0
+net.ipv4.conf.default.rp_filter = 0
+net.ipv4.conf.eth0.arp_filter = 0
+net.ipv4.conf.eth0.rp_filter = 0
+net.ipv4.conf.lo.arp_filter = 0
+### 含rp_filter变量路径：/proc/sys/net/ipv4/conf/*/rp_filter
+
+"/sys"以下的目录包含了内核输出的数据结构，它们的属性，以及它们之间的链接。它同时也包含了改变某些内核运行时参数的接口。
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
