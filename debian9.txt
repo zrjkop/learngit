@@ -1716,9 +1716,14 @@ net.ipv4.conf.lo.arp_filter = 0
 
 "/sys"以下的目录包含了内核输出的数据结构，它们的属性，以及它们之间的链接。它同时也包含了改变某些内核运行时参数的接口。
 
+2./proc/sys/net/ipv4/tcp_syncookies
 
+當啟動 SYN Cookie 時，主機在發送 SYN/ACK 確認封包前，會要求 Client 端在短時間內回覆一個序號，這個序號包含許多原本 SYN 封包內的資訊，包括 IP、port 等。若 Client 端可以回覆正確的序號，那麼主機就確定該封包為可信的，因此會發送 SYN/ACK 封包，否則就不理會此一封包
+echo "1" > /proc/sys/net/ipv4/tcp_syncookies ##开启
 
+3./proc/sys/net/ipv4/conf/網路介面/*
 
+rp_filter：稱為逆向路徑過濾 (Reverse Path Filtering)， 可以藉由分析網路介面的路由資訊配合封包的來源位址，來分析該封包是否為合理。舉例來說，你有兩張網卡，eth0 為 192.168.1.10/24 ，eth1 為 public IP 。那麼當有一個封包自稱來自 eth1 ，但是其 IP 來源為 192.168.1.200，那這個封包就不合理，應予以丟棄。
 
 
 
