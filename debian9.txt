@@ -1724,7 +1724,7 @@ echo "1" > /proc/sys/net/ipv4/tcp_syncookies ##开启
 3./proc/sys/net/ipv4/conf/網路介面/*
 
 rp_filter：稱為逆向路徑過濾 (Reverse Path Filtering)， 可以藉由分析網路介面的路由資訊配合封包的來源位址，來分析該封包是否為合理。舉例來說，你有兩張網卡，eth0 為 192.168.1.10/24 ，eth1 為 public IP 。那麼當有一個封包自稱來自 eth1 ，但是其 IP 來源為 192.168.1.200，那這個封包就不合理，應予以丟棄。
-
+4.
 
 
 
