@@ -1,7 +1,7 @@
 ﻿parameter/pəˈræmɪtɚ/参数 ;batch一批，批处理；feature/ˈfitʃɚ/特征
 vendor小贩，供应商 preset预设
 recursive/rɪˈkɜ:rsɪv/递归的，回归的  factorial/fækˈtɔriəl, -ˈtor-/因子的，阶乘
-10scale/skel/规模级别，测量衡量 
+scale/skel/规模级别，测量衡量 
 sign迹象，符号，签名；assign分派，分配，归属；sigh叹气
 unterminated/ʌntɜ:mɪ'neɪtɪd/无端接的，未终止的terminal终点站
 longitude经度，latitude纬度
@@ -503,7 +503,7 @@ iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 4299
 
 三-四-三、NAT的实现
 可以使用 iptables nat 表来实现网络地址转换（NAT）。NAT 包括 SNAT （源地址转换）和 DNAT （目的地址转换）。两者的区别在于做地址转换是在路由前还是路由后：
-1）SNAT：路由 - 转换 - 发出
+（1）SNAT：路由 - 转换 - 发出
 
 数据经过时, 源地址发生改变，目的地址不变。SNAT 的具体数据流向：
 1.封包先经过 PREROUTING，检查目的 IP 是不是本网段的地址。是的话，走filter表的INPUT。
@@ -516,6 +516,34 @@ DNAT 的功能正好和 SNAT 相反，源地址不变，目的地址发生改变
 1.在 DNAT 中，NAT 是在 PREROUTING 上做的。在数据进入主机后，路由选择过程是在 PREROUTING 和 FORWARD 之间的，所以应该先做地址转换之后，再进行路由选择，而后经过 FORWARD，最后从 POSTROUTING 出去。
 2.因此，要做 DNAT，需要添加 PREROUTING 规则，使用 “-j DNAT --to-destination”。比如：
 iptables -t nat -A PREROUTING -d 100.100.100.1 -p tcp --dport 80 -j DNAT --to-destination 192.168.252.1
+
+
+（3）ip分享（路由器功能）
+nat伺服器：
+iptables -A INPUT -i $INIF -j ACCEPT
+# 這一行為非必要的，主要的目的是讓內網 LAN 能夠完全的使用 NAT 伺服器資源。
+# 其中 $INIF 在本例中為 eth1（内网）介面
+echo "1" > /proc/sys/net/ipv4/ip_forward
+# 上頭這一行則是在讓你的 Linux 具有 router 的能力
+iptables -t nat -A POSTROUTING -s $innet -o $EXTIF -j MASQUERADE
+# 加入 nat table 封包偽裝！本例中 $innet 是 192.168.100.0/24
+# 而 $EXTIF 則是對外介面，本例中為 eth0 
+
+
+例題：
+假設對外的 IP 固定為 192.168.1.100 ，若不想使用偽裝，該如何處理？
+答：
+iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source 192.168.1.100
+
+假設你的 NAT 伺服器對外 IP 有好幾個，那你想要輪流使用不同的 IP 時，又該如何設定？舉例來說，你的 IP 範圍為 192.168.1.210~192.168.1.220
+答：
+iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source 192.168.1.210-192.168.1.220
+
+（4）伺服器dnat设定
+假設內網有部主機 IP 為 192.168.100.10 ，該主機是可對 Internet 開放的 WWW 伺服器。你該如何透過 NAT 機制，將 WWW 封包傳到該主機上？
+答：
+假設 public IP 所在的介面為 eth0 ，那麼你的規則就是：
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT --to-destination 192.168.100.10:80
 
 
 三-五、vi多行操作
