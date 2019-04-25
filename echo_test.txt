@@ -1,1 +1,158 @@
 
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following packages will be upgraded:
+  apache2-bin firefox-esr firefox-esr-l10n-ar firefox-esr-l10n-ast
+  firefox-esr-l10n-bg firefox-esr-l10n-bn-bd firefox-esr-l10n-bn-in
+  firefox-esr-l10n-bs firefox-esr-l10n-ca firefox-esr-l10n-cs
+  firefox-esr-l10n-cy firefox-esr-l10n-da firefox-esr-l10n-de
+  firefox-esr-l10n-el firefox-esr-l10n-en-gb firefox-esr-l10n-en-za
+  firefox-esr-l10n-eo firefox-esr-l10n-es-ar firefox-esr-l10n-es-cl
+  firefox-esr-l10n-es-es firefox-esr-l10n-es-mx firefox-esr-l10n-et
+  firefox-esr-l10n-eu firefox-esr-l10n-fa firefox-esr-l10n-fi
+  firefox-esr-l10n-fr firefox-esr-l10n-ga-ie firefox-esr-l10n-gl
+  firefox-esr-l10n-gu-in firefox-esr-l10n-he firefox-esr-l10n-hi-in
+  firefox-esr-l10n-hr firefox-esr-l10n-hu firefox-esr-l10n-id
+  firefox-esr-l10n-is firefox-esr-l10n-it firefox-esr-l10n-ja
+  firefox-esr-l10n-kk firefox-esr-l10n-km firefox-esr-l10n-kn
+  firefox-esr-l10n-ko firefox-esr-l10n-lt firefox-esr-l10n-lv
+  firefox-esr-l10n-mk firefox-esr-l10n-ml firefox-esr-l10n-mr
+  firefox-esr-l10n-nb-no firefox-esr-l10n-nl firefox-esr-l10n-nn-no
+  firefox-esr-l10n-pa-in firefox-esr-l10n-pl firefox-esr-l10n-pt-br
+  firefox-esr-l10n-pt-pt firefox-esr-l10n-ro firefox-esr-l10n-ru
+  firefox-esr-l10n-si firefox-esr-l10n-sk firefox-esr-l10n-sl
+  firefox-esr-l10n-sq firefox-esr-l10n-sr firefox-esr-l10n-sv-se
+  firefox-esr-l10n-ta firefox-esr-l10n-te firefox-esr-l10n-th
+  firefox-esr-l10n-tr firefox-esr-l10n-uk firefox-esr-l10n-vi
+  firefox-esr-l10n-zh-cn firefox-esr-l10n-zh-tw ghostscript icedove
+  icedove-l10n-ja libgs9 libgs9-common libnss-myhostname libntfs-3g871
+  libpam-systemd libsmbclient libssh2-1 libsystemd0 libudev1 libwbclient0
+  lightning ntfs-3g openjdk-8-jre openjdk-8-jre-headless samba-libs systemd
+  systemd-sysv thunderbird thunderbird-l10n-ja tzdata udev wget wpasupplicant
+95 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+1 not fully installed or removed.
+Need to get 0 B/168 MB of archives.
+After this operation, 681 kB of additional disk space will be used.
+dpkg: warning: 'ldconfig' not found in PATH or not executable
+dpkg: warning: 'start-stop-daemon' not found in PATH or not executable
+dpkg: error: 2 expected programs not found in PATH or not executable
+Note: root's PATH should usually contain /usr/local/sbin, /usr/sbin and /sbin
+test@Wed Apr 24 18:39:02 CST 2019
+test@Thu Apr 25 09:50:02 CST 2019
+test@Thu Apr 25 09:51:01 CST 2019
+test@Thu Apr 25 09:52:01 CST 2019
+test@Thu Apr 25 09:53:01 CST 2019
+test@Thu Apr 25 09:54:01 CST 2019
+test@Thu Apr 25 09:55:01 CST 2019
+test@Thu Apr 25 09:56:01 CST 2019
+test@Thu Apr 25 09:57:01 CST 2019
+test@Thu Apr 25 09:58:01 CST 2019
+test@Thu Apr 25 09:59:01 CST 2019
+test@Thu Apr 25 10:00:01 CST 2019
+test@Thu Apr 25 10:01:01 CST 2019
+test@Thu Apr 25 10:02:01 CST 2019
+test@Thu Apr 25 10:03:01 CST 2019
+test@Thu Apr 25 10:04:01 CST 2019
+test@Thu Apr 25 10:05:01 CST 2019
+test@Thu Apr 25 10:06:01 CST 2019
+test@Thu Apr 25 10:07:01 CST 2019
+test@Thu Apr 25 10:08:01 CST 2019
+test@Thu Apr 25 10:09:01 CST 2019
+test@Thu Apr 25 10:10:01 CST 2019
+test@Thu Apr 25 10:11:01 CST 2019
+test@Thu Apr 25 10:12:01 CST 2019
+test@Thu Apr 25 10:13:01 CST 2019
+test@Thu Apr 25 10:14:01 CST 2019
+test@Thu Apr 25 10:15:02 CST 2019
+test@Thu Apr 25 10:16:01 CST 2019
+test@Thu Apr 25 10:17:01 CST 2019
+test@Thu Apr 25 10:18:01 CST 2019
+test@Thu Apr 25 10:19:01 CST 2019
+test@Thu Apr 25 10:20:01 CST 2019
+test@Thu Apr 25 10:21:01 CST 2019
+test@Thu Apr 25 10:22:01 CST 2019
+test@Thu Apr 25 10:23:01 CST 2019
+test@Thu Apr 25 10:24:01 CST 2019
+test@Thu Apr 25 10:25:01 CST 2019
+test@Thu Apr 25 10:26:01 CST 2019
+test@Thu Apr 25 10:27:01 CST 2019
+test@Thu Apr 25 10:28:01 CST 2019
+test@Thu Apr 25 10:29:01 CST 2019
+test@Thu Apr 25 10:30:01 CST 2019
+test@Thu Apr 25 10:31:01 CST 2019
+test@Thu Apr 25 10:32:01 CST 2019
+test@Thu Apr 25 10:33:01 CST 2019
+test@Thu Apr 25 10:34:01 CST 2019
+test@Thu Apr 25 10:35:01 CST 2019
+test@Thu Apr 25 10:36:01 CST 2019
+test@Thu Apr 25 10:37:01 CST 2019
+test@Thu Apr 25 10:38:01 CST 2019
+test@Thu Apr 25 10:39:01 CST 2019
+test@Thu Apr 25 10:40:01 CST 2019
+test@Thu Apr 25 10:41:01 CST 2019
+test@Thu Apr 25 10:42:01 CST 2019
+test@Thu Apr 25 10:43:01 CST 2019
+test@Thu Apr 25 10:44:01 CST 2019
+test@Thu Apr 25 10:45:01 CST 2019
+test@Thu Apr 25 10:46:01 CST 2019
+test@Thu Apr 25 10:47:01 CST 2019
+test@Thu Apr 25 10:48:01 CST 2019
+test@Thu Apr 25 10:49:01 CST 2019
+test@Thu Apr 25 10:50:01 CST 2019
+test@Thu Apr 25 10:51:01 CST 2019
+test@Thu Apr 25 10:52:01 CST 2019
+test@Thu Apr 25 10:53:01 CST 2019
+test@Thu Apr 25 10:54:01 CST 2019
+test@Thu Apr 25 10:55:01 CST 2019
+test@Thu Apr 25 10:56:02 CST 2019
+test@Thu Apr 25 10:57:01 CST 2019
+test@Thu Apr 25 10:58:01 CST 2019
+test@Thu Apr 25 10:59:01 CST 2019
+test@Thu Apr 25 11:00:01 CST 2019
+test@Thu Apr 25 11:01:01 CST 2019
+test@Thu Apr 25 11:02:01 CST 2019
+test@Thu Apr 25 11:03:01 CST 2019
+test@Thu Apr 25 11:04:01 CST 2019
+test@Thu Apr 25 11:05:01 CST 2019
+test@Thu Apr 25 11:06:01 CST 2019
+test@Thu Apr 25 11:07:01 CST 2019
+test@Thu Apr 25 11:08:01 CST 2019
+test@Thu Apr 25 11:09:01 CST 2019
+test@Thu Apr 25 11:10:01 CST 2019
+test@Thu Apr 25 11:11:01 CST 2019
+test@Thu Apr 25 11:12:01 CST 2019
+test@Thu Apr 25 11:13:01 CST 2019
+test@Thu Apr 25 11:14:01 CST 2019
+test@Thu Apr 25 11:15:01 CST 2019
+test@Thu Apr 25 11:16:01 CST 2019
+test@Thu Apr 25 11:17:01 CST 2019
+test@Thu Apr 25 11:18:01 CST 2019
+test@Thu Apr 25 11:19:01 CST 2019
+test@Thu Apr 25 11:20:01 CST 2019
+test@Thu Apr 25 11:21:01 CST 2019
+test@Thu Apr 25 11:22:01 CST 2019
+test@Thu Apr 25 11:23:01 CST 2019
+test@Thu Apr 25 11:24:01 CST 2019
+test@Thu Apr 25 11:25:01 CST 2019
+test@Thu Apr 25 11:26:01 CST 2019
+test@Thu Apr 25 11:27:01 CST 2019
+test@Thu Apr 25 11:28:01 CST 2019
+test@Thu Apr 25 11:29:01 CST 2019
+test@Thu Apr 25 11:30:01 CST 2019
+test@Thu Apr 25 11:31:01 CST 2019
+test@Thu Apr 25 11:32:01 CST 2019
+test@Thu Apr 25 11:33:01 CST 2019
+test@Thu Apr 25 11:34:01 CST 2019
+test@Thu Apr 25 11:35:01 CST 2019
+test@Thu Apr 25 11:36:01 CST 2019
+test@Thu Apr 25 11:37:01 CST 2019
+test@Thu Apr 25 11:38:01 CST 2019
+test@Thu Apr 25 11:39:01 CST 2019
+test@Thu Apr 25 11:40:01 CST 2019
+test@Thu Apr 25 11:41:01 CST 2019
+test@Thu Apr 25 11:42:01 CST 2019
+test@Thu Apr 25 11:43:01 CST 2019
+test@Thu Apr 25 11:44:01 CST 2019
+test@Thu Apr 25 11:45:02 CST 2019
