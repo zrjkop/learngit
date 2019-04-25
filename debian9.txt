@@ -955,6 +955,31 @@ tar將不必要的 /proc, /mnt, /tmp 等目錄不備份，其他的資料則予�
 [root@study ~]# rsync -av /home /backupdata/
 # 再次進行會快很多！如果資料沒有更動，幾乎不會進行任何動作！
 
+三-五-四-二、远程档案传输sftp和scp：
+sftp user@ip #登录远程服务器
+put 本机目录或档案       #将本机档案上传到远端主机
+get 远端主机目录或档案   #将远端主机档案下载到本地，可以使用通配符：get * 或者get *.rpm
+登录进入远端主机后cd,pwd,rm,ls等指令的操作针对远端主机，在指令前加上l（L的小写）后，lcd,lls,lpwd则会显示本机的操作。
+root@zrj-debian:~# sftp zrj@localhost
+zrj@localhost's password: 
+Connected to localhost.
+sftp> lpwd
+Local working directory: /root
+sftp> pwd
+Remote working directory: /home/zrj
+sftp> lls
+pathn_apcheck  test
+sftp> 
+档案异地复制scp：
+[root@www ~]# scp [-pr] [-l 速率] file  [帳號@]主機:目錄名 <==上傳
+[root@www ~]# scp [-pr] [-l 速率] [帳號@]主機:file  目錄名 <==下載
+選項與參數：
+-p ：保留原本檔案的權限資料；
+-r ：複製來源為目錄時，可以複製整個目錄 (含子目錄)
+-l ：可以限制傳輸的速度，單位為 Kbits/s ，例如 [-l 800] 代表傳輸速限 100Kbytes/s
+scp /etc/hosts* zrj@127.0.0.1:~   ###将本机/etc/hosts*全部复制到zrj家目录下内；
+scp zrj@127.0.0.1:/etc/bashrc /tmp ###将远端主机的/etc/bashrc复制到本机/tmp下。
+
 
 
 四、文件的时间stat 查看
