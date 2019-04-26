@@ -601,7 +601,7 @@ seq 1000000 | xargs -i dd if=/dev/zero of={}.dat bs=1024 count=1 #批量生成10
 2）使用find＋cpio的方式：
 　　find /tmp/test/ |grep -v .gz |cpio -pdm /tmp/test_cp/
 3) 使用rsync来做：
-　　rsync -avp --exclude = /tmp/test/xxx  /tmp/test_cp/
+　　rsync -avp --exclude=.test1/ /tmp/test/  /tmp/test_cp/ ##将/tmp/test下除了test1这个文件夹，其他文件同步到/tmp/test_cp这个文件夹下
 
 
 
@@ -1159,6 +1159,9 @@ killall -9 httpd #根据进程名称关闭进程，不需要PID
 若使用超级用户身份运行 rsync 命令，同步后的文件的属主将保持原来的用户身份。
 2.-v，显示rsync过程详细信息；-a，递归模式，表示递归传输并保存文件属性；-z，传输时进行压缩提高效率。
 --exclude#排除指定文件夹或文件；--port指定端口； --bwlimit=1000 #限制传输带宽1000kps
+-a,保留文件属性，所属群组
+-e,使用的通道，-e ssh
+
 3. 
 Usage: rsync [OPTION]... SRC [SRC]... DEST
   or   rsync [OPTION]... SRC [SRC]... [USER@]HOST:DEST
@@ -1169,7 +1172,13 @@ Usage: rsync [OPTION]... SRC [SRC]... DEST
   or   rsync [OPTION]... rsync://[USER@]HOST[:PORT]/SRC [DEST]
 The ':' usages connect via remote shell, while '::' & 'rsync://' usages connect
 to an rsync daemon, and require SRC or DEST to start with a module name.
-
+三种用法：
+（1）rsync -av /etc /tmp #将/etc/目录内容复制一份到/tmp/etc内
+（2）通过rsh或ssh通道的server/client之间传输：
+rsync -av -e ssh user@rsh.server:/etc /tmp 将rsh.server的/etc备份到本地主机/tmp下
+（3）直接通过rsync提供的服务（deamon）来传输，此时的rsync主机需要启动873端口：
+server端启动rsync，编辑etc/rsyncd.conf,设置好client连线密码资料，在client端使用：
+rsync -av user@hostname::/dir/path /local/path
 
 
 五-六、mariaDB
