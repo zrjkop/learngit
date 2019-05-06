@@ -27,7 +27,7 @@ Zerorpc是一个基于ZeroMQ和MessagePack开发的远程过程调用协议（RP
 不用修改代码即可显露python模块
 通过命令行远程调用这些模块
 RPC（Remote Procedure Call）
-fork叉，分岔，岔路
+
 一、软件包管理
 1.dpkg -l显示已安装软件库包；dpkg -l package #显示指定包的状态
 dpkg -l中每一行记录一个软件包信息，第一、二、三个字符，记录软件包状态标识，一般显示为ii,表示正常已安装状态（第三字符为空，标识错误状态为空，表示正常；其他符号对应相应问题Err?=(none)/Reinst-required (Status,Err: uppercase=bad)）
