@@ -398,7 +398,11 @@ root@zrjdebian:/etc/systemd/system# systemctl list-units --all | grep avahi-daem
 
 
 
-2.host,dig,nslookup 163.com解析ip
+2.host,dig,nslookup 163.com解析ip，dns工具安装：apt-get install dnsutils，安装nslookup和dig工具。
+nslookup ：可以用來收集一部主機的相關資訊；
+dig：可以用來收集詳細的主機資訊；
+whois ：可以用來收集詳盡的 DNS 主機資訊。
+host 則較為簡單 
 
 3.任意啟動 TCP/UDP 封包的埠口連線： nc, netcat（端口功能像telnet）
 這個 nc 指令可以用來作為某些服務的檢測，連接到某個 port 來進行溝通，此外，還可以自行啟動一個 port 來傾聽其他用戶的連線。
@@ -1801,8 +1805,34 @@ rp_filter：稱為逆向路徑過濾 (Reverse Path Filtering)， 可以藉由分
 4.accept_redirects：
 當你在同一個實體網域內架設一部路由器， 但這個實體網域有兩個 IP 網域，例如 192.168.0.0/24, 192.168.1.0/24。此時你的 192.168.0.100 想要向 192.168.1.100 傳送訊息時，路由器可能會傳送一個 ICMP redirect 封包告知 192.168.0.100 直接傳送資料給 192.168.1.100 即可，而不需透過路由器。因為 192.168.0.100 與 192.168.1.100確實是在同一個實體線路上 (兩者可以直接互通)，所以路由器會告知來源 IP 使用最短路徑去傳遞資料。
 
+5.dns系统
+在 Internet 當中，任何一部合法的主機都具有獨一無二的主機名稱，這個主機名稱包含了 hostname 與 domain name ，並稱為 Fully Qualified（有资格的，合格的） Domain Name (FQDN)
+5.1正解档记录的资料(resource record,RR):
+# 常見的正解檔 RR 相關資訊
+[domain]    IN  [[RR type]  [RR data]]
+主機名稱.   IN  A           IPv4 的 IP 位址
+主機名稱.   IN  AAAA        IPv6 的 IP 位址
+領域名稱.   IN  NS          管理這個領域名稱的伺服器主機名字.
+領域名稱.   IN  SOA         管理這個領域名稱的七個重要參數(容後說明)
+領域名稱.   IN  MX          順序數字  接收郵件的伺服器主機名字 Mail eXchanger (郵件交換)
+主機別名.   IN  CNAME       實際代表這個主機別名的主機名字.
 
+输出格式：
+[domain]   [ttl]          IN [[RR type]  [RR data]]
+[待查資料] [暫存時間(秒)] IN [[資源類型] [資源內容]]
+root@zrj-debian:~/test/learngit# dig github.com
+（前面输出一段略）
+;; ANSWER SECTION:
+github.com.		5	IN	A	192.30.253.112
 
+;; AUTHORITY SECTION:
+github.com.		5	IN	NS	ns-1283.awsdns-32.org.
+github.com.		5	IN	NS	ns-421.awsdns-52.com.
+github.com.		5	IN	NS	ns-520.awsdns-01.net.
+github.com.		5	IN	NS	ns-1707.awsdns-21.co.uk.
+（后面一段略）
+
+5.2反解檔記錄的 RR 資料，PTR（pointer指向）查询ip对应的主机名称
 
 
 
