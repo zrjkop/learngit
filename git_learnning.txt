@@ -73,3 +73,16 @@ checkout
 创建+切换分支：git checkout -b <name>
 合并某分支到当前分支：git merge <name>
 删除分支：git branch -d <name>
+
+四、不同分支push后，合并merge时显示冲突解决（在本地各分支add后，commit再merge也应该是会提示冲突）
+（一）针对push后在web进行merge的报错：
+以分支new，提交合并到master为例
+1.在分支new通过git push -u origin new后，网页上切换分支branch位置，通过new pull request进去merge界面;
+2.会显示can't automatically merge，需要手动提交，点击create pull request；
+3.下一个页面显示This branch has conflicts that must be resolved，点击resolve conflicts进入冲突文件详情；
+4.会显示分支文件与master文件差异的地方，=====为分隔，<<<<<<<<new到======之间的内容为new分支的新内容，=====到>>>>>>master之间内容为master原有内容；
+5.删除<<<<<< new 和=====以及>>>>master，编辑其差异部分内容，可以修改为最终master需要保持的版本，之后右上角保存返回，以此提交merge即可。
+
+merge后一般可以删除分支new，如果继续保留分支new，在本地分支new编辑新内容再次提交时，push会报错，文件不一致，可以直接删除new分支，重新push后远端会再次生成new分支，只需考虑new和master合并的问题。
+
+（二）在本地分支new和master都进行add和commit后，merge分支会提示冲突，可以vi 进到冲突文件，也是会提示=====分隔的差异内容，通过编辑后保存，最后merge合并。
