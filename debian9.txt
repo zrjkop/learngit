@@ -27,7 +27,7 @@ Zerorpc是一个基于ZeroMQ和MessagePack开发的远程过程调用协议（RP
 不用修改代码即可显露python模块
 通过命令行远程调用这些模块
 RPC（Remote Procedure Call）
-fork叉，分岔，岔路；prune/pru:n/修剪，精简
+fork叉，分岔，岔路；prune/pru:n/修剪，精简；util工具？，跑龙套,原型utility？/juːˈtɪləti/实用，效用，多功能的debian里面常用的dnsutil，安装这个库后可以使用nslookup和dig查看域名解析
 
 
 一、软件包管理
