@@ -28,8 +28,7 @@ Zerorpc是一个基于ZeroMQ和MessagePack开发的远程过程调用协议（RP
 通过命令行远程调用这些模块
 RPC（Remote Procedure Call）
 fork叉，分岔，岔路；prune/pru:n/修剪，精简；util工具？，跑龙套,原型utility？/juːˈtɪləti/实用，效用，多功能的debian里面常用的dnsutil，安装这个库后可以使用nslookup和dig查看域名解析
-
-
+specify/ˈspesɪfaɪ/v. 具体说明；明确规定；详述；详列，指定；duplicate/ˈduːplɪkeɪt , ˈduːplɪkət/复制，复印
 一、软件包管理
 1.dpkg -l显示已安装软件库包；dpkg -l package #显示指定包的状态
 dpkg -l中每一行记录一个软件包信息，第一、二、三个字符，记录软件包状态标识，一般显示为ii,表示正常已安装状态（第三字符为空，标识错误状态为空，表示正常；其他符号对应相应问题Err?=(none)/Reinst-required (Status,Err: uppercase=bad)）
@@ -1577,7 +1576,27 @@ Listen 4299
 修改/etc/hosts,添加127.0.0.1        my.project.com test.com
 重启networking，在虚拟机浏览器fox fire里面可以通过my.project.com和test.com两个域名去访问到目录，在宿主机操作无效。（跟网上说的修改000-default.conf和my_project.conf里面的ServerName不太一样，网页配置文件servername直接留空对域名解析无影响；hosts里面随便配一个主机名都可以访问到目录，根据不同端口访问不同网页目录）
 7.剩余问题，https开启，限制IP访问（allow，deny）
+8./var/www/html目录里面软连接访问：
+需要配置apache2.conf：
+<Directory /var/www/>
+	Options Indexes FollowSymLinks  ##FollowSymLinks这个参数 Follow Symbolic Links，设置允许软连接到其他目录
+	AllowOverride None
+	Require all granted
+</Directory>
 
+建立软连文件：
+lrwxrwxrwx 1 root root    33 May 10 16:50 1.txt -> /root/test/learngit/echo_test.txt
+lrwxrwxrwx 1 root root    18 May 10 18:55 2.txt -> /home/zrj/test.txt
+此时1.txt访问提示403 forbidden；2.txt能正常访问打开
+原因在于软连指向的目录，需要开放x权限：
+root@zrj-debian:/var/www/html# ll -d /home/ /root /home/zrj/ /root/test/ /root/test/learngit/
+drwxr-xr-x  3 root root 4096 Feb 13 17:03 /home/
+drwxr-xr-x 19 zrj  zrj  4096 May 10 17:55 /home/zrj/
+drwx------  8 root root 4096 May 10 19:00 /root
+drwxr-xr-x  6 root root 4096 May  6 17:32 /root/test/
+drwxr-xr-x  4 root root 4096 May  8 18:55 /root/test/learngit/
+问题在于/root目录其他用户没有x权限，无法访问（Apache2允许时使用www用户）
+添加权限给其他用户chmod o+x /root/，之后1.txt能正常访问。
 
 八、python
 
