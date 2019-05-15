@@ -29,6 +29,11 @@ Zerorpc是一个基于ZeroMQ和MessagePack开发的远程过程调用协议（RP
 RPC（Remote Procedure Call）
 fork叉，分岔，岔路；prune/pru:n/修剪，精简；util工具？，跑龙套,原型utility？/juːˈtɪləti/实用，效用，多功能的debian里面常用的dnsutil，安装这个库后可以使用nslookup和dig查看域名解析
 specify/ˈspesɪfaɪ/v. 具体说明；明确规定；详述；详列，指定；duplicate/ˈduːplɪkeɪt , ˈduːplɪkət/复制，复印
+burst/bɜːrst/爆发，突发，猛冲
+vultr密码：sKteedeQfcvHQ2M
+亚马逊：uQ44jtGz7-9AGzd
+
+
 一、软件包管理
 1.dpkg -l显示已安装软件库包；dpkg -l package #显示指定包的状态
 dpkg -l中每一行记录一个软件包信息，第一、二、三个字符，记录软件包状态标识，一般显示为ii,表示正常已安装状态（第三字符为空，标识错误状态为空，表示正常；其他符号对应相应问题Err?=(none)/Reinst-required (Status,Err: uppercase=bad)）
@@ -1626,6 +1631,47 @@ Alias /test "/var/www/test/"
 </Directory>
 
 ###Alias /test "/var/www/test/" ，这一句前面的“/test”,如果写成“/test/”,则访问url需要严格写成：http://192.168.65.133/test/ ##后面有斜杆，缺少斜杆时页面报错。
+10.浏览权限设定（设置特定页面访问权限，iptables仅能开放或者整个拒绝，无法针对www的内容部分放行）
+order参数：
+Order deny,allow：以 deny 優先處理，但沒有寫入規則的則預設為 allow。常用於：拒絕所有，開放特定的條件；
+Order allow,deny：以 allow 為優先處理，但沒有寫入規則的則預設為 deny。常用於：開放所有，拒絕特定的條件。
+如果 allow 與 deny 的規則當中有重複的，則以預設的情況 (Order 的規範) 為主。
+
+<Directory "/var/www/html">
+    Options FollowSymLinks
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+    Deny from 192.168.1.101  ###开放所有，拒绝192.168.1.101 以及.gov.tw的访问
+    Deny from .gov.tw
+</Directory>
+
+<Directory "/var/www/html/lan">
+    Options FollowSymLinks
+    AllowOverride None
+    Order deny,allow
+    deny from all
+    allow from 192.168.1.0/24 ###拒绝所有，开放192.168.1.0/24的访问
+</Directory>
+limit参数：
+<Directory "/var/www/html/lan">
+    AllowOverride none
+    Options FllowSymLinks
+
+    # 先允許能夠進行 GET, POST 與 OPTIONS 
+    <Limit GET POST OPTIONS>
+        Order allow,deny
+        Allow from all
+    </Limit>
+
+    # 再規定除了這三個動作之外，其他的動作不允許
+    <LimitExcept GET POST OPTIONS>
+        Order deny,allow
+        Deny from all
+    </LimitExcept>
+</Directory>
+
+
 八、python
 
 八-一、pyc 是一种二进制文件，是由py文件经过编译后，生成的文件，是一种byte code，py文件变成pyc文件后，加载的速度有所提高，而且pyc是一种跨 平台的字节码，是由python的虚拟机来执行的，这个是类似于JAVA或者.NET的虚拟机的概念。pyc的内容，是跟python的版本相关的，不同 版本编译后的pyc文件是不同的，2.5编译的pyc文件，2.4版本的python是无法执行的。
