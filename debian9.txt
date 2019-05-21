@@ -30,8 +30,8 @@ RPC（Remote Procedure Call）
 fork叉，分岔，岔路；prune/pru:n/修剪，精简；util工具？，跑龙套,原型utility？/juːˈtɪləti/实用，效用，多功能的debian里面常用的dnsutil，安装这个库后可以使用nslookup和dig查看域名解析
 specify/ˈspesɪfaɪ/v. 具体说明；明确规定；详述；详列，指定；duplicate/ˈduːplɪkeɪt , ˈduːplɪkət/复制，复印
 burst/bɜːrst/爆发，突发，猛冲
-vultr密码：sKteedeQfcvHQ2M
-亚马逊：uQ44jtGz7-9AGzd
+vultr密码：sKteedeQfcvHQ2M，略贵$10起充
+亚马逊：uQ44jtGz7-9AGzd，需要信用卡验证
 
 
 一、软件包管理
@@ -524,6 +524,14 @@ iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 4299
 将访问80端口的连接重定向到4299
 -t:table（filter，net，mangle）
 -j:target（ACCEPT，DROP，REDIRECT，REJECT）
+
+
+防火墙针对ping(icmp协议)限制：
+ICMP常用类型：0（Echo Reply (代表一個回應信息)）；8（Echo Request (請求回應訊息)）
+iptables -I INPUT -p icmp --icmp-type 0 -j DROP ####拒绝icmp请求封包，此时主机无法ping外部，外部可以ping主机
+iptables -I INPUT -p icmp --icmp-type 8 -j DROP ####拒绝回应icmp请求，此时主机可以ping外部，外面无法ping主机
+
+
 
 三-四-三、NAT的实现
 可以使用 iptables nat 表来实现网络地址转换（NAT）。NAT 包括 SNAT （源地址转换）和 DNAT （目的地址转换）。两者的区别在于做地址转换是在路由前还是路由后：
