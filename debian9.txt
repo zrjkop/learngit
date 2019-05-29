@@ -1914,7 +1914,7 @@ rp_filter：稱為逆向路徑過濾 (Reverse Path Filtering)， 可以藉由分
 主機名稱.   IN  A           IPv4 的 IP 位址
 主機名稱.   IN  AAAA        IPv6 的 IP 位址
 領域名稱.   IN  NS          管理這個領域名稱的伺服器主機名字.
-領域名稱.   IN  SOA         管理這個領域名稱的七個重要參數(容後說明)
+領域名稱.   IN  SOA         管理這個領域名稱的七個重要參數
 領域名稱.   IN  MX          順序數字  接收郵件的伺服器主機名字 Mail eXchanger (郵件交換)
 主機別名.   IN  CNAME       實際代表這個主機別名的主機名字.
 
@@ -1935,6 +1935,52 @@ github.com.		5	IN	NS	ns-1707.awsdns-21.co.uk.
 
 5.2反解檔記錄的 RR 資料，PTR（pointer指向）查询ip对应的主机名称
 
+5.3网速测试工具iperf3
+apt-get install iperf3
+# Server 端
+iperf3 -s
+# Client 端
+iperf3 -c SERVER_IP
+
+常见参数：
+-t 參數可以指定傳輸測試的持續時間，而 -i 可以指定輸出數據的間隔時間：
+# 測試 20 秒，每隔 4 秒輸出測試數據
+iperf3 -c SERVER_IP -t 20 -i 4
+
+--logfile 參數可以將輸出的測試結果報表或是錯誤訊息儲存至檔案中：
+# 將輸出訊息儲存至 output.txt 檔案中
+iperf3 -c SERVER_IP --logfile output.txt
+
+iPerf3 預設會使用的連接埠（port）是 5201，若要自行指定連接埠，可以使用 -p 參數：
+# 使用 12345 這個連接埠的 server
+iperf3 -s -p 12345
+# 使用 12345 這個連接埠的 client
+iperf3 -c SERVER_IP -p 12345
+
+若要測試 UDP 傳輸協定的效能，可以使用 -u 參數：
+# 使用 UDP 傳輸協定
+iperf3 -c SERVER_IP -u
+
+iPerf3 預設會測試上傳的速度（由 client 傳送資料，而 server 負責接收）若要測試下載的速度（由 server 傳送資料，而 client 負責接收），則可以使用 -R 參數：
+# 測試反向傳輸（下載）
+iperf3 -c SERVER_IP -R
+
+-4 與 -6 可以指定只使用 IPv4 或 IPv6：
+# 只使用 IPv4
+iperf3 -c SERVER_IP -4
+# 只使用 IPv6
+iperf3 -c SERVER_IP -6
+
+-f 自訂用來測試傳送的檔案：
+# 使用 YOUR_FILE 這個檔案來測試傳送速度
+iperf3 -c SERVER_IP -F YOUR_FILE
+
+-b:指定发送带宽
+#以100M带宽发送
+iperf3 -u -c 192.168.0.222 -b 100M
+
+-P指定同时连接的测试数量
+iperf3 -c 192.168.0.222 -P 2
 
 
 
