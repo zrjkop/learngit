@@ -1935,7 +1935,7 @@ github.com.		5	IN	NS	ns-1707.awsdns-21.co.uk.
 
 5.2反解檔記錄的 RR 資料，PTR（pointer指向）查询ip对应的主机名称
 
-5.3网速测试工具iperf3
+6.网速测试工具iperf3
 apt-get install iperf3
 # Server 端
 iperf3 -s
@@ -1982,6 +1982,18 @@ iperf3 -u -c 192.168.0.222 -b 100M
 -P指定同时连接的测试数量
 iperf3 -c 192.168.0.222 -P 2
 
-
+7.iptables实现特定ip流量统计
+#统计服务器上192.168.65.132的入网流量
+iptables -I INPUT -d 192.168.65.132
+#统计服务器上192.168.65.132的出网流量
+iptables -I OUTPUT -s 192.168.65.132
+#统计特定端口流量
+iptables -I INPUT -d 192.168.65.132 -p tcp --dport 80 ###统计入网流量
+iptables -I OUTPUT -s 192.168.65.132 -p tcp --dport 80 ###80端口出网流量
+查看流量
+iptables -n -v -L -t filter
+作为路由时的流量统计，需要把规则放到转发链FORWARD表
+iptables -I FORWARD -d 192.168.65.132 ###统计到该ip的入网流量
+iptables -I FORWARD -s 192.168.65.132 ###统计该ip出网流量
 
 
