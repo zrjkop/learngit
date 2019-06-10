@@ -29,7 +29,7 @@ Zerorpc是一个基于ZeroMQ和MessagePack开发的远程过程调用协议（RP
 RPC（Remote Procedure Call）
 fork叉，分岔，岔路；prune/pru:n/修剪，精简；util工具？，跑龙套,原型utility？/juːˈtɪləti/实用，效用，多功能的debian里面常用的dnsutil，安装这个库后可以使用nslookup和dig查看域名解析
 specify/ˈspesɪfaɪ/v. 具体说明；明确规定；详述；详列，指定；duplicate/ˈduːplɪkeɪt , ˈduːplɪkət/复制，复印
-burst/bɜːrst/爆发，突发，猛冲
+burst/bɜːrst/爆发，突发，猛冲；segment/ˈseɡmənt , seɡˈment/部分，片，段
 vultr密码：sKteedeQfcvHQ2M，略贵$10起充
 亚马逊：uQ44jtGz7-9AGzd，需要信用卡验证
 
@@ -146,6 +146,9 @@ fsck /dev/sda3
 2)修改ssh配置文件/etc/ssh/sshd_config，设置PubkeyAuthentication为yes，添加AuthorizedKeysFile /root/.ssh/authorized_keys，制定认证文件；
 3)重启ssh服务，可通过xshell的密钥免密码登陆；
 
+11.debian使用tab填充命令时报错cannot create temp file for here-document: No space left on device
+df -h查看磁盘空间；du -sh /* 查找大目录，一步步查找大文件；du -h --max-depth=1 查找大文件
+若未找到符合的大文件，则可使用lsof命令查询删除了的文件（这些文件是被占用的）：lsof | grep deleted 之后根据进程PID杀掉。
 
 二、网卡配置
 1.添加另外网卡暂时无解，到底是vm新添加网络适配器使其生效还是先加配置文件，目前操作看，在vm添加另一张网卡，无论是桥接，nat，本机模式，都可以从宿主机ping和telnet通，ssh能连接。问题是无法将新增的网卡进行自定义的设置，固定静态IP操作无法实现。直接在/etc/network/interifaces里面添加网卡数据的话，重启网络服务会报错，自定义的网卡会显示找不到设备。
