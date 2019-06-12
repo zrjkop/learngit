@@ -882,6 +882,8 @@ usermod -s /sbin/nologin zrj #修改zrj的shell为/sbin/nologin，此时zrj账�
 -m ：後面接天數，修改 shadow 第四欄位(密碼最短保留天數)
 -M ：後面接天數，修改 shadow 第五欄位(密碼多久需要進行變更)
 -W ：後面接天數，修改 shadow 第六欄位(密碼過期前警告日期)
+chage -d 0 test ###将test账号的密码强制过期，切换登录时会提示修改密码。
+
 
 visudo：
 zrj    ALL=(ALL:ALL) ALL,!/usr/bin/passwd root #zrj用户可以使用sudo来执行除了/usr/bin/passwd root以外的命令；
