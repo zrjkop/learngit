@@ -33,6 +33,9 @@ burst/bɜːrst/爆发，突发，猛冲；segment/ˈseɡmənt , seɡˈment/部�
 vultr密码：sKteedeQfcvHQ2M，略贵$10起充
 亚马逊：uQ44jtGz7-9AGzd，需要信用卡验证
 PAM(pluggable authentication modules)嵌入式认证模块；fusion/ˈfjuːʒn/融合，结合；slice/slaɪs/片，部分，切，割
+MTU：maximum transmission unit最大传输单元；MSS：maximum segment size最大报文段长度；fragment/ˈfræɡmənt , fræɡˈment/片段，碎片
+
+
 
 一、软件包管理
 1.dpkg -l显示已安装软件库包；dpkg -l package #显示指定包的状态
