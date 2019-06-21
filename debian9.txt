@@ -1183,10 +1183,16 @@ killall -9 httpd #根据进程名称关闭进程，不需要PID
 4.free显示系统内存使用情况-b,-k,-m
 5.vmstat:使用vmstat 2 命令可每隔2秒显示一行系统信息，这些信息包括CPU占用效、内存使用情况和磁盘IO等.
 6.watch可重复执行某个命令，监控命令执行状态：watch -n 5 date每隔5秒执行一次date。
-7.lsof -u root/zrj 显示打开文件；lsof -i:80查看占用80端口的程序。
+7.lsof -u root/zrj 显示打开文件；lsof -i:80查看占用80端口的程序。lsof -p 1##列出被pid=1进程打开的文件
 8.netstat -nal显示所有的网络连接，-ntal看tcp，-nual看udp。
 9.df -h显示磁盘使用情况，du -ch 显示当前目录文件夹大小。
 10.passwd -l username锁定异常账号，需要重置密码才能再次登陆。
+11.fuser -v /var/log/syslog ##识别使用文件的进程
+root@zrj-debian:~/test# fuser -v /var/log/syslog
+                     USER        PID ACCESS COMMAND
+/var/log/syslog:     root        372 F.... rsyslogd
+
+
 
 
 五、rsync
