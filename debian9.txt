@@ -1054,6 +1054,18 @@ find . -name “*.log” -mtime +3 -exec rm -i{} \;# 删除前会提示询问是
 sort -nr # -n表示numeric数字的，-r表示reverse反向，sort默认由小到大排序，反向则从大到小；-h参数加上单位后数值有变化，如果文件大小相差太远，需要取消这个参数.
 --max-depth=N #显示层级，N为0时显示当前目录，1时向下显示一级子目录文件
 
+通过匹配某些条件的文件来循环重复一个命令
+shell循环方式：
+for x in *.txt;do if [ -f "$x" ]; then ls -al "$x";fi;done ###查找当前目录下*.txt文件，并ls -al
+find和xargs联合：
+find . -type f -maxdepth 1 -name '*.txt' -print0| xargs -0 -n 1 ls -al 
+find . -type f -maxdepth 1 -name '*.txt'| xargs ls -al ##实现结果跟上面一样
+find使用-exec选项并执行指令：
+find . -type f -maxdepth 1 -name '*.txt' -exec  ls -al  '{}' \;
+
+find -print0表示在find的每一个结果之后加一个NULL字符，而不是默认加一个换行符。find的默认在每一个结果后加一个'\n'，所以输出结果是一行一行的。当使用了-print0之后，就变成一行。
+xargs -0表示xargs用NULL来作为分隔符。这样前后搭配就不会出现空格和换行符的错误
+
 四-一-一、test 檢測系統上面某些檔案或者是相關的屬性
 test -f test1.txt  && echo "exist" || echo "Not exist" #检查test1.txt档名是否存在且为文件
 -e 該『檔名』是否存在
