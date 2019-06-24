@@ -830,6 +830,9 @@ root@zrjdebian:~/test/udp_echo# usermod -G root zrj
 root@zrjdebian:~/test/udp_echo# id zrj
 uid=1000(zrj) gid=1000(zrj) groups=1000(zrj),0(root) #zrj的主组没改变，附加组添加root组
 
+chgrp修改文件所属群组：
+chgrp group'name filename ##将filename的群组改为group'name
+
 
 chown zrj:root sum.py将sum.py的所以者改为zrj，所属群组改为root 
 目录的x权限，表示能否进入打开改目录；文件的x权限表示执行权限。
