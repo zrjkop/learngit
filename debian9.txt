@@ -34,7 +34,7 @@ vultr密码：sKteedeQfcvHQ2M，略贵$10起充
 亚马逊：uQ44jtGz7-9AGzd，需要信用卡验证
 PAM(pluggable authentication modules)嵌入式认证模块；fusion/ˈfjuːʒn/融合，结合；slice/slaɪs/片，部分，切，割
 MTU：maximum transmission unit最大传输单元；MSS：maximum segment size最大报文段长度；fragment/ˈfræɡmənt , fræɡˈment/片段，碎片
-
+convention/kənˈvenʃn/习俗，常规，惯例
 
 
 一、软件包管理
@@ -135,6 +135,9 @@ MBR：主引导记录
 
 8.文件被删除但空间没释放：可能为调用这个文件的进程没有关闭，虽然文件被删除，但是由于句柄没有释放，这个文件还占用磁盘空间，此时使用ls -l命令和du命令就不会看到这些被删除的文件。情景：不同终端连接到同一个机器，如果一个终端A在进行某个目录文件的编辑，而另一个终端B对该目录文件进行删除，此时在B这边，查看文件已经被删除，但是空间没有被释放出来，因为A中还要进程在占用这个文件空间；关闭A连接或者编辑进程，可以释放空间。
 建议操作：可以考虑使用> file来取代rm操作，这个重写覆盖将文件内容清空，释放空间，同时另外终端对其的编辑进程关闭与否不会对释放文件空间造成影响。
+:>file跟>file操作好像都一样，将文件清空，不会因为文件在命令执行期间还被使用而报错。
+root@zrj-debian:~/test/shell# :>test.tar.bz2 
+root@zrj-debian:~/test/shell# >test6 #####文件内容被清空
 
 9. 救援模式：mount -o remount,rw / 將根目錄掛載成可讀寫
 按下e，然后移动到以linux开头的行尾，并添加systemd.unit=rescue.target（紧急模式下启动，那就添加systemd.unit=emergency.target）。按Ctrl-x或F10保存并启动；按下回车键以获取shell，然后从这里开始故障排除。
@@ -634,6 +637,17 @@ dd文件复制和转换：
 dd if=/dev/zero of=user_id  bs=1M count=100 #if输入文件，of输出文件，bs每块大小，count（copy only N input blocks），生成100M的空文件user_id
 seq 1000000 | xargs -i dd if=/dev/zero of={}.dat bs=1024 count=1 #批量生成1000000个1k大小的空文件，会快速耗尽文件系统inode；
 建议在一个空文件夹内生成，不然利用rm -rf *.bat无法删除，会显示-bash: /bin/rm: Argument list too long，可通过删除文件夹删除。
+
+$ dd if=/dev/zero    of=5kb.file bs=1k count=5 ##5KB的全零数据
+$ dd if=/dev/urandom of=7mb.file bs=1M count=7 ##7MB的随机数据
+$ touch zero.file                              ##如果文件已存在，mtime会被更新，长度内容不变     
+$ : > alwayszero.file                          ##如果文件之前存在，mtime会被更新，内容清零   
+
+擦除整块硬盘：
+dd if=/dev/zero of=/dev/sda
+dd if=/dev/irandom of=/dev/sda
+shred -v -n 1 /dev/sda   ##随机数据重写擦除所有数据
+
 拷贝文件时，排除某些不需要的文件：
 1）使用xargs来做：
 　　ls /tmp/test/ |grep -v .gz |xargs -i cp -r /tmp/test/{} /tmp/test_cp
