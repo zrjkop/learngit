@@ -1174,7 +1174,7 @@ A(no atime)，不更新atime值，atime是文件文件的访问时间戳。
 ln test.txt test1.txt 建立test.txt的硬链接，相当于复制一份，修改如删除test.txt不影响test1.txt #只能在同一个分区（在同一个挂载点下）中操作，会增加文件的连接数，文件的inode一样。
 ln -s test.txt test1.txt 建立test.txt的软连接，相当于快捷键，修改如删除test.txt影响test1.txt
 软连接到其他路径要使用绝对路径表示 ln -s test1 /home/zrj/会报错，ln -s /root/test/test1  /home/zrj/可以，文件夹无法使用硬链接。
-ln -sf file1 files2 #-f 删除files2现有目标文件,并files1软连接到files2；-f强制创建。
+ln -sf file1 files2 #-f 删除files2现有目标文件,并files1软连接到files2，-f强制创建。
 
 1.3系统管理工具
 1.top可实时地显示Linux系统的进程、CPU、内存、负载等的信息过几个按键来控制top命令，如按q可退出top命令状态，按s可输入信息的更新频率等。这些命令可按h帮助键查询。
