@@ -1,4 +1,4 @@
-#!/bin/sh
+!/bin/sh
 ENCDN=iso-8859-1
 for x in *;
  do
