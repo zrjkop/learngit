@@ -34,7 +34,7 @@ vultr密码：sKteedeQfcvHQ2M，略贵$10起充
 亚马逊：uQ44jtGz7-9AGzd，需要信用卡验证
 PAM(pluggable authentication modules)嵌入式认证模块；fusion/ˈfjuːʒn/融合，结合；slice/slaɪs/片，部分，切，割
 MTU：maximum transmission unit最大传输单元；MSS：maximum segment size最大报文段长度；fragment/ˈfræɡmənt , fræɡˈment/片段，碎片
-convention/kənˈvenʃn/习俗，常规，惯例；entity/ˈentəti/实体，独立存在物；
+convention/kənˈvenʃn/习俗，常规，惯例；entity/ˈentəti/实体，独立存在物；suffix/ˈsʌfɪks/后缀；prefix前缀
 
 
 一、软件包管理
@@ -117,7 +117,7 @@ VMware-tools开机启动：直接写在了root的.bashrc里面，登陆root用�
 6.shell中运行.sh文件报错unexpected operator，debian默认dash(theDebian Almquist Shell)而不是bash(the GNUBourne-Again Shell)，有些语法不太一样。
 脚本中let语句报错let: not found，同样问题。
 解决方法：dpkg-reconfigure dash   选NO
-debian把默认的/bin/sh 连接到dash，直接用sh运行.sh文件可能会有报错，用bash能正常运行，重新配置shell后,/bin/sh连接到bash，可以使用sh。
+debian把默认的/bin/sh 软连接到dash，直接用sh运行.sh文件可能会有报错，用bash能正常运行，重新配置shell后,/bin/sh连接到bash，可以使用sh。
 可以通过ll /bin/sh查看当前链接状态：
 root@zrjdebian:~/test/cat_test# ll /bin/sh
 lrwxrwxrwx 1 root root 4 Jan  3 16:35 /bin/sh -> bash
@@ -156,6 +156,8 @@ fsck /dev/sda3
 df -h查看磁盘空间；du -sh /* 查找大目录，一步步查找大文件；du -h --max-depth=1 查找大文件
 若未找到符合的大文件，则可使用lsof命令查询删除了的文件（这些文件是被占用的）：lsof | grep deleted 之后根据进程PID杀掉。
 
+12.pts/0说明
+ptmx and pts - pseudo/ˈsudoʊ/假的，伪装的-terminal master and slave，pts是所谓的伪终端或虚拟终端，具体表现就是你打开一个终端，这个终端就叫pts/0，如果你再打开一个终端，这个新的终端就叫pts /1
 二、网卡配置
 1.添加另外网卡暂时无解，到底是vm新添加网络适配器使其生效还是先加配置文件，目前操作看，在vm添加另一张网卡，无论是桥接，nat，本机模式，都可以从宿主机ping和telnet通，ssh能连接。问题是无法将新增的网卡进行自定义的设置，固定静态IP操作无法实现。直接在/etc/network/interifaces里面添加网卡数据的话，重启网络服务会报错，自定义的网卡会显示找不到设备。
 2.在原有网卡ens33基础上，添加虚拟网卡ens33：0，通过ip addr或者ifconfig可以看到配置信息的更新，但是一样无法重启网络服务，配置没有生效，也是用不了。
