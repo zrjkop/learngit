@@ -35,7 +35,8 @@ vultr密码：sKteedeQfcvHQ2M，略贵$10起充
 PAM(pluggable authentication modules)嵌入式认证模块；fusion/ˈfjuːʒn/融合，结合；slice/slaɪs/片，部分，切，割
 MTU：maximum transmission unit最大传输单元；MSS：maximum segment size最大报文段长度；fragment/ˈfræɡmənt , fræɡˈment/片段，碎片
 convention/kənˈvenʃn/习俗，常规，惯例；entity/ˈentəti/实体，独立存在物；suffix/ˈsʌfɪks/后缀；prefix前缀
-specify/ˈspesɪfaɪ/具体说明，指定，specified；invoke/ɪnˈvoʊk/援引，援用
+specify/ˈspesɪfaɪ/具体说明，指定，specified；invoke/ɪnˈvoʊk/援引，援用；strace策略；template/ˈtemplət/样板，模板
+lease//li:s/租赁，租借
 
 一、软件包管理
 1.dpkg -l显示已安装软件库包；dpkg -l package #显示指定包的状态
@@ -626,6 +627,13 @@ vi中替换：
 在10 - 20行删除 # 注释
 :10,20s/^#//g
 
+shell里面多行注销：
+<<'COMMENT'
+注释行1
+注释行2
+注释行3
+COMMENT
+其中COMMENT可以自定义，也可以是空格，为避免出错，一般不用空格。
 
 设置自动缩进：set ai(autoindent);取消set noai
 并排打开两个文件：vi -o f1 f2 #上下打开两个文件，ctrl+w,方向键切换光标；vi -O f1 f2#左右并排打开
