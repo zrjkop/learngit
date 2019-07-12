@@ -1222,7 +1222,16 @@ killall -9 httpd #根据进程名称关闭进程，不需要PID
 4.free显示系统内存使用情况-b,-k,-m
 5.vmstat:使用vmstat 2 命令可每隔2秒显示一行系统信息，这些信息包括CPU占用效、内存使用情况和磁盘IO等.
 6.watch可重复执行某个命令，监控命令执行状态：watch -n 5 date每隔5秒执行一次date。
-7.lsof -u root/zrj 显示打开文件；lsof -i:80查看占用80端口的程序。lsof -p 1##列出被pid=1进程打开的文件
+7.lsof -u root/zrj 显示用户打开文件；lsof -i:80查看占用80端口的程序。lsof -p 1##列出被pid=1进程打开的文件
+
+[root@study ~]# lsof [-aUu] [+d]
+選項與參數：
+-a  ：多項資料需要『同時成立』才顯示出結果時！
+-U  ：僅列出 Unix like 系統的 socket 檔案類型；
+-u  ：後面接 username，列出該使用者相關程序所開啟的檔案；
++d  ：後面接目錄，亦即找出某個目錄底下已經被開啟的檔案
+
+
 8.netstat -nal显示所有的网络连接，-ntal看tcp，-nual看udp。
 9.df -h显示磁盘使用情况，du -ch 显示当前目录文件夹大小。
 10.passwd -l username锁定异常账号，需要重置密码才能再次登陆。
@@ -1231,8 +1240,42 @@ root@zrj-debian:~/test# fuser -v /var/log/syslog
                      USER        PID ACCESS COMMAND
 /var/log/syslog:     root        372 F.... rsyslogd
 
+[root@study ~]# fuser [-umv] [-k [i] [-signal]] file/dir
+選項與參數：
+-u  ：除了程序的 PID 之外，同時列出該程序的擁有者；
+-m  ：後面接的那個檔名會主動的上提到該檔案系統的最頂層，對 umount 不成功很有效
+-v  ：可以列出每個檔案與程序還有指令的完整相關性
+-k  ：找出使用該檔案/目錄的 PID ，並試圖以 SIGKILL 這個訊號給予該 PID；
+-i  ：必須與 -k 配合，在刪除 PID 之前會先詢問使用者意願
+-signal：例如 -1 -15 等等，若不加的話，預設是 SIGKILL (-9) 
 
+范例：找到/run下属于FIFO类型档案，并找出存取该档案的程序
+root@zrj-debian:~# find /run -type p  
+/run/systemd/inhibit/5.ref
+/run/systemd/inhibit/4.ref
+/run/systemd/inhibit/2.ref
+/run/systemd/inhibit/1.ref
+/run/systemd/sessions/427.ref
+/run/systemd/sessions/4.ref
+/run/systemd/sessions/c1.ref
+/run/systemd/initctl/fifo
+/run/systemd/inaccessible/fifo
+root@zrj-debian:~# fuser -uv /run/systemd/sessions/427.ref
+                     USER        PID ACCESS COMMAND
+/run/systemd/sessions/427.ref:
+                     root        347 f.... (root)systemd-logind
+                     root       3914 F.... (root)sshd
+##通常系统的FIFO档案都会放在/run底下，通过fuser可以追踪档案被存取的进程。
 
+12.pidof显示进程的PID
+
+[root@study ~]# pidof [-sx] program_name
+選項與參數：
+-s  ：僅列出一個 PID 而不列出所有的 PID
+-x  ：同時列出該 program name 可能的 PPID 那個程序的 PID
+结合pidstat可以查看进程状态
+pidstat -p $(pidof systemd-journald) 3
+##-p通过PID查看信息，3s刷新一次。
 
 五、rsync
 1.# rsync -a --delete /etc/network /root/test/backup
