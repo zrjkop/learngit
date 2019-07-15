@@ -36,7 +36,7 @@ PAM(pluggable authentication modules)嵌入式认证模块；fusion/ˈfjuːʒn/�
 MTU：maximum transmission unit最大传输单元；MSS：maximum segment size最大报文段长度；fragment/ˈfræɡmənt , fræɡˈment/片段，碎片
 convention/kənˈvenʃn/习俗，常规，惯例；entity/ˈentəti/实体，独立存在物；suffix/ˈsʌfɪks/后缀；prefix前缀
 specify/ˈspesɪfaɪ/具体说明，指定，specified；invoke/ɪnˈvoʊk/援引，援用；strace策略；template/ˈtemplət/样板，模板
-lease//li:s/租赁，租借
+lease//li:s/租赁，租借；attend/əˈtend/出席，参加；unattended无人值守的，无人看管的。notify通告，通知；
 
 一、软件包管理
 1.dpkg -l显示已安装软件库包；dpkg -l package #显示指定包的状态
