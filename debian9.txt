@@ -35,9 +35,11 @@ vultr密码：sKteedeQfcvHQ2M，略贵$10起充
 PAM(pluggable authentication modules)嵌入式认证模块；fusion/ˈfjuːʒn/融合，结合；slice/slaɪs/片，部分，切，割
 MTU：maximum transmission unit最大传输单元；MSS：maximum segment size最大报文段长度；fragment/ˈfræɡmənt , fræɡˈment/片段，碎片
 convention/kənˈvenʃn/习俗，常规，惯例；entity/ˈentəti/实体，独立存在物；suffix/ˈsʌfɪks/后缀；prefix前缀
-specify/ˈspesɪfaɪ/具体说明，指定，specified；invoke/ɪnˈvoʊk/援引，援用；strace策略；template/ˈtemplət/样板，模板
+，specified；invoke/ɪnˈvoʊk/援引，援用；strace策略；template/ˈtemplət/样板，模板
 lease//li:s/租赁，租借；attend/əˈtend/出席，参加；unattended无人值守的，无人看管的。notify通告，通知；
-template/ˈtemplət/模板,样板,属性；grace/ɡreɪs/n.优美，优雅；v.为增色，使荣耀；manifest/ˈmænɪfest/v.表明，显示；adj.显而易见的，n.货单，旅客名单。squid/skwid/鱿鱼，枪乌贼
+template/ˈtemplət/模板,样板,属性；grace/ɡreɪs/n.优美，优雅；v.为增色，使荣耀；manifest/ˈmænɪfest/v.表明，显示；adj.显而易见的，n.货单，旅客名单。squid/skwid/鱿鱼，枪乌贼canonical/kəˈnɑːnɪkl/规范的，经典的intact/ɪnˈtækt/完好无损的，完整的premature/ˌpriːməˈtʃʊr/过早的，仓促的，草率的；mature/məˈtʃʊr/明白事理的，成熟的；v.成熟，长成。
+plain/pleɪn/平原，清楚的，直率的，明显的。
+SNI（server name indication/ˌɪndɪˈkeɪʃn/表明，指示，象征）
 
 
 一、软件包管理
