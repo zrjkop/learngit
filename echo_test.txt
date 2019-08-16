@@ -1,39 +1,5 @@
 
-如果这里还有17点20前test内容，可能是定时任务没执行
-test@Thu Aug 15 17:20:01 CST 2019
-test@Thu Aug 15 17:21:01 CST 2019
-test@Thu Aug 15 17:22:01 CST 2019
-test@Thu Aug 15 17:23:01 CST 2019
-test@Thu Aug 15 17:24:01 CST 2019
-如果这里还有17点20前test内容，可能是定时任务没执行
-test@Thu Aug 15 17:25:01 CST 2019
-test@Thu Aug 15 17:26:01 CST 2019
-test@Thu Aug 15 17:27:01 CST 2019
-test@Thu Aug 15 17:28:01 CST 2019
-test@Thu Aug 15 17:29:01 CST 2019
-如果这里还有17点20前test内容，可能是定时任务没执行
-test@Thu Aug 15 17:30:01 CST 2019
-test@Thu Aug 15 17:31:01 CST 2019
-test@Thu Aug 15 17:32:01 CST 2019
-test@Thu Aug 15 17:33:01 CST 2019
-test@Thu Aug 15 17:34:01 CST 2019
-test@Thu Aug 15 17:35:01 CST 2019
-如果这里还有17点20前test内容，可能是定时任务没执行
-test@Thu Aug 15 17:36:01 CST 2019
-test@Thu Aug 15 17:37:01 CST 2019
-test@Thu Aug 15 17:38:01 CST 2019
-test@Thu Aug 15 17:39:01 CST 2019
-如果这里还有17点20前test内容，可能是定时任务没执行
-test@Thu Aug 15 17:40:01 CST 2019
-test@Thu Aug 15 17:41:01 CST 2019
-test@Thu Aug 15 17:42:01 CST 2019
-test@Thu Aug 15 17:43:01 CST 2019
-test@Thu Aug 15 17:44:01 CST 2019
-如果这里还有17点20前test内容，可能是定时任务没执行
-test@Thu Aug 15 17:45:01 CST 2019
-test@Thu Aug 15 17:46:01 CST 2019
-test@Thu Aug 15 17:47:02 CST 2019
-test@Thu Aug 15 17:48:01 CST 2019
-test@Thu Aug 15 17:49:01 CST 2019
-如果这里还有17点20前test内容，可能是定时任务没执行
-test@Thu Aug 15 17:50:01 CST 2019
+test@Fri Aug 16 15:10:01 CST 2019
+test@Fri Aug 16 15:11:01 CST 2019
+test@Fri Aug 16 15:12:01 CST 2019
+test@Fri Aug 16 15:13:01 CST 2019
