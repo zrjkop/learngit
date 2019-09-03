@@ -23,10 +23,10 @@ catalog/ˈkætlˌɔɡ, -ˌɑɡ/目录，登记；revoke/rɪˈvoʊk/撤销，取�
 discard/dɪsˈkɑ:rd/丢弃，抛弃； utilize利用，使用/ˈjutlˌaɪz/；  elicit/ɪˈlɪsɪt/引出，探出，引起；indicate表明，指示	
 Zerorpc是一个基于ZeroMQ和MessagePack开发的远程过程调用协议（RPC）实现。和 Zerorpc 一起使用的 Service API 被称为 zeroservice。Zerorpc 可以通过编程或命令行方式调用。
 它允许你：
-
+ 
 不用修改代码即可显露python模块
 通过命令行远程调用这些模块
-RPC（Remote Procedure Call）
+RPC（Remote Procedure Call）AWS Direct Connect (DX)
 fork叉，分岔，岔路；prune/pru:n/修剪，精简；util工具？，跑龙套,原型utility？/juːˈtɪləti/实用，效用，多功能的，debian里面常用的dnsutil，安装这个库后可以使用nslookup和dig查看域名解析
 specify/ˈspesɪfaɪ/v. 具体说明；明确规定；详述；详列，指定；duplicate/ˈduːplɪkeɪt , ˈduːplɪkət/复制，复印
 burst/bɜːrst/爆发，突发，猛冲；segment/ˈseɡmənt , seɡˈment/部分，片，段
@@ -41,8 +41,8 @@ template/ˈtemplət/模板,样板,属性；grace/ɡreɪs/n.优美，优雅；v.�
 plain/pleɪn/平原，清楚的，直率的，明显的。revenue/ˈrevənuː/收入，收益。failover故障转移，容错
 SNI（server name indication/ˌɪndɪˈkeɪʃn/表明，指示，象征）section/ˈsekʃn/部分，部门；scheme/ski:m/计划，方案
 hijacking/ˈhaɪdʒækɪŋ/劫持；forum/ˈfɔːrəm/论坛，讨论会；offset/ˈɔːfset/抵消，补偿；scribe/skraɪb/抄写员
-deprecate/ˈdeprəkeɪt/强烈反对，不赞成；deprecating不以为然的，反对，折旧；
-
+deprecate/ˈdeprəkeɪt/强烈反对，不赞成；deprecating不以为然的，反对，折旧；individual/ˌɪndɪˈvɪdʒuəl/单独的，个人的；个人
+detached/dɪˈtætʃt/单独的，独立的，不连接的；v.分开，脱离
 
 一、软件包管理
 1.dpkg -l显示已安装软件库包；dpkg -l package #显示指定包的状态
@@ -158,6 +158,7 @@ fsck /dev/sda3
 1)在win下通过xshell密钥工具生成.pub，保存本地。在服务端，/root/.ssh/目录下，vi authorized_keys 文件，将生成密钥内容复制进去。
 2)修改ssh配置文件/etc/ssh/sshd_config，设置PubkeyAuthentication为yes，添加AuthorizedKeysFile /root/.ssh/authorized_keys，制定认证文件；
 3)重启ssh服务，可通过xshell的密钥免密码登陆；
+10.1debian生成公钥ssh-keygen -f /****/djdl -C jumpserver ##-f指定文件名输出，-C添加注释
 
 11.debian使用tab填充命令时报错cannot create temp file for here-document: No space left on device
 df -h查看磁盘空间；du -sh /* 查找大目录，一步步查找大文件；du -h --max-depth=1 查找大文件
@@ -165,6 +166,7 @@ df -h查看磁盘空间；du -sh /* 查找大目录，一步步查找大文件�
 
 12.pts/0说明
 ptmx and pts - pseudo/ˈsudoʊ/假的，伪装的-terminal master and slave，pts是所谓的伪终端或虚拟终端，具体表现就是打开一个终端，这个终端就叫pts/0，如果再打开一个终端，这个新的终端就叫pts /1。
+
 二、网卡配置
 1.添加另外网卡暂时无解，到底是vm新添加网络适配器使其生效还是先加配置文件，目前操作看，在vm添加另一张网卡，无论是桥接，nat，本机模式，都可以从宿主机ping和telnet通，ssh能连接。问题是无法将新增的网卡进行自定义的设置，固定静态IP操作无法实现。直接在/etc/network/interifaces里面添加网卡数据的话，重启网络服务会报错，自定义的网卡会显示找不到设备。
 2.在原有网卡ens33基础上，添加虚拟网卡ens33：0，通过ip addr或者ifconfig可以看到配置信息的更新，但是一样无法重启网络服务，配置没有生效，也是用不了。
