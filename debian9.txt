@@ -2042,7 +2042,8 @@ github.com.		5	IN	NS	ns-1707.awsdns-21.co.uk.
 
 5.2反解檔記錄的 RR 資料，PTR（pointer指向）查询ip对应的主机名称
 
-6.网速测试工具iperf3
+十一、工具包及常用命令
+1.网速测试工具iperf3
 apt-get install iperf3
 # Server 端
 iperf3 -s
@@ -2089,7 +2090,7 @@ iperf3 -u -c 192.168.0.222 -b 100M
 -P指定同时连接的测试数量
 iperf3 -c 192.168.0.222 -P 2
 
-7.iptables实现特定ip流量统计
+2.iptables实现特定ip流量统计
 #统计服务器上192.168.65.132的入网流量
 iptables -I INPUT -d 192.168.65.132
 #统计服务器上192.168.65.132的出网流量
@@ -2102,5 +2103,18 @@ iptables -n -v -L -t filter
 作为路由时的流量统计，需要把规则放到转发链FORWARD表
 iptables -I FORWARD -d 192.168.65.132 ###统计到该ip的入网流量
 iptables -I FORWARD -s 192.168.65.132 ###统计该ip出网流量
+
+3.nohup和&
+&是指在后台运行，但当用户推出(挂起)的时候，命令自动也跟着退出
+nohup关闭标准输入，终端不再能够接收任何输入（标准输入),不挂断运行
+nohup COMMAND & ###命令可以在后台不挂断运行，关闭xshell没有影响
+关闭进程需要通过ps aux | grep 查找PID，通过kill -9 PID杀掉进程。
+
+4.tmux：Terminal MultipleXer 实现多窗口管理，后台不挂断运行等
+tmux new -s test ##启动命名为test回话session，显示为0：bash
+Ctrl+B，之后按c键，新建一个窗口，出现1：bash；通过Ctrl+B按键，再按数字键切换bash，当前bash显示有*。
+运行命令后挂起：Ctrl+B，后按d
+tmux ls ##显示挂起及启动的tmux
+tmux a -t test ##恢复到执行命令的窗口。
 
 
