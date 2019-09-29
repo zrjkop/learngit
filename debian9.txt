@@ -2119,5 +2119,5 @@ tmux a -t test ##恢复到执行命令的窗口。
 
 5.journalctl 日志查看工具
   -p err 查看错误日志
-  -ex 查看最新日志
+  -ex -e --pager-end  Immediately jump to the end in the pager，-x --catalog Add message explanations where available
 默认systemd-journald是不保存系统日志到硬盘的，那么关机后再次开机只能看到本次开机之后的日志，关机之前的日志是无法查看的。可以通过配置使其写到硬盘。
