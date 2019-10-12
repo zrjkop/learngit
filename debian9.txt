@@ -1287,6 +1287,12 @@ root@zrj-debian:~# fuser -uv /run/systemd/sessions/427.ref
 pidstat -p $(pidof systemd-journald) 3
 ##-p通过PID查看信息，3s刷新一次。
 
+13.查看系统cpu及core
+lscpu 或者查看/proc/cpuinfo
+cat /proc/cpuinfo | grep "physical id" | sort | uniq | wc -l ###物理cpu
+cat /proc/cpuinfo | grep "processor" | sort | uniq | wc -l   ###核数
+cat /proc/cpuinfo | grep "core" | sort | uniq | wc -l        ##物理core，上面可以有多个processor
+  
 五、rsync
 1.# rsync -a --delete /etc/network /root/test/backup
 #rsync -a --delete /etc/network/ /root/test/backup1
