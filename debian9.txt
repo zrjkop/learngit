@@ -43,6 +43,10 @@ SNI（server name indication/ˌɪndɪˈkeɪʃn/表明，指示，象征）sectio
 hijacking/ˈhaɪdʒækɪŋ/劫持；forum/ˈfɔːrəm/论坛，讨论会；offset/ˈɔːfset/抵消，补偿；scribe/skraɪb/抄写员
 deprecate/ˈdeprəkeɪt/强烈反对，不赞成；deprecating不以为然的，反对，折旧；individual/ˌɪndɪˈvɪdʒuəl/单独的，个人的；个人
 detached/dɪˈtætʃt/单独的，独立的，不连接的；v.分开，脱离；sentinel/ˈsentɪnl/哨兵；inverse/ˌɪnˈvɜːrs/相反的，反向的
+strip/strip/除去，剥掉；队服，带
+
+
+
 
 一、软件包管理
 1.dpkg -l显示已安装软件库包；dpkg -l package #显示指定包的状态
