@@ -1167,8 +1167,85 @@ daemon.*         -/var/log/daemon.log #daemon所有级别的告警信息都写�
 
 
 2. rsyslogd 的登錄檔只要『被編輯過』就無法繼續記錄！当用vi打开.log文件后，wq退出后，日志将不再写入，需要重启日志服务systemctl restart rsyslog.service
+
 3.登錄檔的輪替(logrotate)
 /bin/kill -HUP `cat /var/run/rsyslogd.pid 2> /dev/null` 2> /dev/null || true #重新读入rsyslogd参数文件rsyslog.conf,相当于reload。/var/run/rsyslogd.pid存放了rsyslog的PID。
+
+logrotate设计的目的是为了减轻系统管理员处理大量日志文件的压力。可以实现日志的自动轮转、压缩和清理等功能，可以按天、按周、按月或者按照文件大小来处理日志。
+对于Debian来说，logrotate的主要配置在/etc/logrotate.conf:
+
+# see "man logrotate" for details
+# rotate log files weekly
+weekly
+
+# keep 4 weeks worth of backlogs
+rotate 4
+
+# create new (empty) log files after rotating old ones
+create
+
+# uncomment this if you want your log files compressed
+#compress
+
+# packages drop log rotation information into this directory
+include /etc/logrotate.d
+
+# no packages own wtmp, or btmp -- we'll rotate them here
+/var/log/wtmp {
+    missingok
+    monthly
+    create 0664 root utmp
+    rotate 1
+}
+
+/var/log/btmp {
+    missingok
+    monthly
+    create 0660 root utmp
+    rotate 1
+}
+
+# system-specific logs may be configured here
+
+weekly: 默认按照周进行日志轮转
+rotate: 日志轮转个数
+create: 轮转后创建新的空文件
+include: 包含的子文件路径，一般项目定制的logrotate配置放到改包含路径
+
+apache2日志轮转配置：
+root@zrj-debian:/etc/logrotate.d# cat apache2 
+/var/log/apache2/*.log {
+	daily #按日轮转
+	missingok #如果日志文件不存在，忽略轮转的报错
+	rotate 14 #日志轮转数为14
+	compress  #轮转文件压缩
+	delaycompress #从第三个轮转文件开始压缩，和compress配合使用
+	notifempty    #如果文件为空则不轮转
+	create 640 root adm  #轮转后新建文件的权限和属主
+	sharedscripts
+	postrotate  #轮转后执行的命令,
+                if /etc/init.d/apache2 status > /dev/null ; then \
+                    /etc/init.d/apache2 reload > /dev/null; \
+                fi;
+	endscript
+	prerotate
+		if [ -d /etc/logrotate.d/httpd-prerotate ]; then \
+			run-parts /etc/logrotate.d/httpd-prerotate; \
+		fi; \
+	endscript
+}
+
+logrotate不是常驻服务，每次rotate时执行命令即可。该命令的执行由cron管理。
+
+cat /etc/cron.daily/logrotate
+
+#!/bin/sh
+
+test -x /usr/sbin/logrotate || exit 0  ###判断是否有执行权限x，有则往下执行，无则退出进程；
+/usr/sbin/logrotate /etc/logrotate.conf
+
+
+
 
 
 
