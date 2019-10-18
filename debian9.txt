@@ -204,7 +204,14 @@ dns-nameservers 114.114.114.114
 重启网络服务生效。
 
 三、网卡
-网卡 顺序可以修改  /etc/udev/rules.d/70-persistent-net.rules（文件不一定存在）
+网卡 顺序可以修改  /etc/udev/rules.d/70-persistent-net.rules（文件不一定存在，可以手动添加），通过里面的规则可以固定mac和网卡名称的关系，debian10不支持这种做法。
+根据网络管理部的同学介绍，多网卡在内核初始化PCI的顺序决定了网卡名是否竞争（乱序)的问题，/etc/udev/rules.d/70-persistent-net.rules 也是由此生成对应关系的。如果是正常情况的网卡设备识别顺序不乱序，这个文件也可以不需要。
+改 udev rules 配置：
+（1）在 /etc/udev/rules.d/70-persistent-net.rules 配置中添加相应条目
+（2）更新配置
+     update-initramfs -u
+（3）重启
+
 curl cip.cc(或者ifconfig.co) --interface 10.230.222.126(指定网卡)
 用于解析指定出口网卡外网IP
 for ((i=1;i<=24;i++));do ifdown eth2:$i;done
