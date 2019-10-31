@@ -406,6 +406,13 @@ FIN_WAIT1：該插槽服務(socket)已中斷，該連線正在斷線當中；
 FIN_WAIT2：該連線已掛斷，但正在等待對方主機回應斷線確認的封包；
 TIME_WAIT：該連線已掛斷，但 socket 還在網路上等待結束；
 LISTEN：通常用在服務的監聽 port ！可使用『 -l 』參數查閱。
+LAST-ACK： 等待原来的发向远程TCP的连接中断请求的确认
+
+通过netstat统计当前tcp 各种状态的连接
+root@zrj-debian:~/test# netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
+ESTABLISHED 1
+
+
 
 root@zrjdebian:~/test/learngit# netstat -atunp
 Active Internet connections (servers and established)
@@ -424,7 +431,7 @@ udp6       0      0 :::42909                :::*                                
 udp6       0      0 :::5353                 :::*                                346/avahi-daemon: r 
 
 
-tcp        0     52 192.168.65.132:22       192.168.65.1:51936      ESTABLISHED 1808/sshd: root@pts  #client端随机取一个大于1024的端口进行连接，可根据pid数字用kill来断开连接。
+tcp        0     52 192.168.65.132:22       192.168.65.1:51936      ESTABLISHED 1808/sshd: root@pts  #client端随机取一个大于1024的端口进行连接，可根据pid（此时为1808）数字用kill来断开连接。
 服務名稱與 port number的對應：/etc/services
 
 systemctl list--units --all | grep acahi-daemon #可以使用systemctl查找出avahi-daemon相关的服务，之后通过stop，restart等对服务进行相应操作。
