@@ -260,6 +260,10 @@ slaves eth0 eth2
 ifconfig eth0:0 192.168.65.199，添加一个ip给网卡eth0，新地址的mac跟eth0一样；多个ip共享一个物理网卡。
 ifconfig这种设置方式在网络服务重启后会失效，可通过修改/etc/network/interface来添加配置。
 
+lspci | grep -i net查看网卡型号和信息
+grep -i ##忽略字母大小写
+
+
 三-一、查看实时网卡流量
 1. sar -n DEV 1 2
 sar命令包含在sysstat工具包中，提供系统的众多统计数据。其在不同的系统上命令有些差异，某些系统提供的sar支持基于网络接口的数据统计，也可以查看设备上每秒收发包的个数和流量。
@@ -327,7 +331,7 @@ root@zrjdebian:~# ip rule
 0:	from all lookup local 
 32758:	from all fwmark 0x1 lookup 1 
 
-ip rule add from all fwmark 1 table 1 #添加的效果一样，ip rule add from/to/ IP table 1# 来自或去往IP的数据走table 1，
+ip rule add from all fwmark 1 table 1 #添加的效果一样，ip rule add from/to/ IP table 1# 来自或去往IP的数据走table 1，from表示源地址，to表示目的地址
 ip rule add from 10.249.40.219 to 192.168.65.1 table 1 #来自10.249.40.219去往192.168.65.1的数据包走table 1
 ip rule add fwmark 2 table 1 #标记为2的数据走table 1
 
