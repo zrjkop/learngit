@@ -575,6 +575,32 @@ iptables -I INPUT -p icmp --icmp-type 0 -j DROP ####拒绝icmp请求封包，此
 iptables -I INPUT -p icmp --icmp-type 8 -j DROP ####拒绝回应icmp请求，此时主机可以ping外部，外面无法ping主机
 
 
+1.ipset是 Linux 防火墙iptables的一个伴随工具。 除了其他众多功能，它允许你建立规则来轻松愉快地屏蔽一组IP地址。
+
+安装
+aptitude install ipset
+屏蔽一组地址
+先创建一个新的网络地址的“集合”。下面的命令创建了一个新的叫做“myset”的“net”网络地址的“hash”集合。 
+# ipset create myset hash:net
+把你希望屏蔽的IP地址添加到集合中。
+# ipset add myset 14.144.0.0/12
+# ipset add myset 27.8.0.0/13
+# ipset add myset 58.16.0.0/15
+最后，配置iptables来屏蔽这个集合中的所有地址。这个命令将会向“INPUT”链顶端添加一个规则来从ipset中“-m”匹配名为“myset”的集合，当匹配到的包是一个“src”包时，“DROP”屏蔽掉它。 
+# iptables -I INPUT -m set --match-set myset src -j DROP
+
+使ipset持久化
+你创建的ipse存在于内存中，重启后将会消失。要使ipset持久化，你要这样做：
+首先把ipset保存到/etc/ipset.conf:
+# ipset save > /etc/ipset.conf
+然后启用 ipset
+## ipset restore < /etc/ipset.conf
+
+创建集合和规则时，重复restore会报错，需要在add 后面添加-exit参数,可以不断刷新加载。
+#create -exist console_list hash:ip,port family inet hashsize 1025 maxelem 65536
+#add -exist console_list 1.1.1.1,80
+
+
 
 三-四-三、NAT的实现
 可以使用 iptables nat 表来实现网络地址转换（NAT）。NAT 包括 SNAT （源地址转换）和 DNAT （目的地址转换）。两者的区别在于做地址转换是在路由前还是路由后：
