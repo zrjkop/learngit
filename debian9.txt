@@ -1139,6 +1139,9 @@ find . -name “*.log” -mtime +3 -exec rm -i{} \;# 删除前会提示询问是
 sort -nr # -n表示numeric数字的，-r表示reverse反向，sort默认由小到大排序，反向则从大到小；-h参数加上单位后数值有变化，如果文件大小相差太远，需要取消这个参数.
 --max-depth=N #显示层级，N为0时显示当前目录，1时向下显示一级子目录文件
 
+du -a|sort -rn|head -20 #显示当前目录下大小前20的文件，会将文件夹展开，以文件的方式罗列
+du -sh * 不展开文件夹，将当前目录下的文件和文件夹一起排序
+
 通过匹配某些条件的文件来循环重复一个命令
 shell循环方式：
 for x in *.txt;do if [ -f "$x" ]; then ls -al "$x";fi;done ###查找当前目录下*.txt文件，并ls -al
