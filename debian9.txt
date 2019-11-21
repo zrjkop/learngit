@@ -600,6 +600,10 @@ aptitude install ipset
 #create -exist console_list hash:ip,port family inet hashsize 1025 maxelem 65536
 #add -exist console_list 1.1.1.1,80
 
+其实，iptables与firewalld都不是真正的防火墙，它们都只是用来定义防火墙策略的防火墙管理工具而已，或者说，它们只是一种服务。iptables服务会把配置好的防火墙策略交由内核层面的netfilter网络过滤器来处理，而firewalld服务则是把配置好的防火墙策略交由内核层面的nftables包过滤框架来处理。换句话说，当前在Linux系统中其实存在多个防火墙管理工具，旨在方便运维人员管理Linux系统中的防火墙策略。
+Netfilter，在Linux内核中的一个软件框架，用于管理网络数据包。不仅具有网络地址转换（NAT）的功能，也具备数据包内容修改、以及数据包过滤等防火墙功能。利用运作于用户空间的应用软件，如iptables、ebtables和arptables等，来控制Netfilter，系统管理者可以管理通过Linux操作系统的各种网络数据包。
+基于nftables的nft，pathn在用，性能更高
+
 
 
 三-四-三、NAT的实现
@@ -1170,18 +1174,26 @@ service操作通过调用/lib/systemd/systemd-sysv-install脚本执行。
 /etc/systemd/system/ #当前系统主要的服务文件，基本是链接档，链接到/lib/systemd/system，指令systemctl command service的操作会指向这个目录
 里面的multi-user.target.wants目录下包含多用户模式下的服务。
 
-
 生效的服务会有对应的软连接文件在/etc/systemd/system/目录下，
+在unit文件里定义
+# [Install]通常是配置文件的最后一个区块，用来定义如何启动，以及是否开机启动。
+[Install]
+# WantedBy的值是一个或多个 Target，当前 Unit enable时，会创建符号链接放入/etc/systemd/system目录下面以 Target 名 + .wants后缀构成的子目录中，表示了nginx属于multi-user.target，当系统启动到multi-user.target时就会运行nginx.service
+WantedBy=multi-user.target
+
 root@zrjdebian:~/test/udp_echo# systemctl disable mysql
 Synchronizing state of mysql.service with SysV service script with /lib/systemd/systemd-sysv-install.
 Executing: /lib/systemd/systemd-sysv-install disable mysql
 Removed /etc/systemd/system/mysqld.service.
 Removed /etc/systemd/system/mysql.service.
 Removed /etc/systemd/system/multi-user.target.wants/mariadb.service.
+
 1.你可以透過哪些指令查詢到目前系統預設開機會啟動的服務？
 systemctl list-units 以及 systemctl list-unit-files
+
 2.使用 netstat -tul 與 netstat -tunl 有什麼差異？為何會這樣？
 使用 n 時， netstat 就不會使用主機名稱與服務名稱 (hostname & service_name) 來顯示， 取而代之的則是以 IP 及 port number 來顯示的。IP 的分析與 /etc/hosts 及 /etc/resolv.conf 有關。至於 port number 則與 /etc/services 有關。
+
 3.systemctl daemon-reload可以重载服务单元，在修改.service文件后一般需要重载。
 
 4.systemctl status *.service 的第三行，service的状态：
@@ -2254,4 +2266,13 @@ tmux a -t test ##恢复到执行命令的窗口。
 5.journalctl 日志查看工具
   -p err 查看错误日志
   -ex -e --pager-end  Immediately jump to the end in the pager，-x --catalog Add message explanations where available
-默认systemd-journald是不保存系统日志到硬盘的，那么关机后再次开机只能看到本次开机之后的日志，关机之前的日志是无法查看的。可以通过配置使其写到硬盘。
+默认systemd-journald是不保存系统日志到硬盘的，那么关机后再次开机只能看到本次开机之后的日志，关机之前的日志是无法查看的。可以通过配置/etc/systemd/journald.conf，配置 Storage=persistent，然后重启 systemd-journal；
+或者手动创建/var/log/journal ，journalctl --flush 将内存盘中的数据刷到硬盘使其写到硬盘。
+
+# 查看指定时间的日志
+$ sudo journalctl --since="2012-10-30 18:17:16"
+$ sudo journalctl --since "20 min ago"
+$ sudo journalctl --since yesterday
+$ sudo journalctl --since "2015-01-10" --until "2015-01-11 03:00"
+$ sudo journalctl --since 09:00 --until "1 hour ago"
+
