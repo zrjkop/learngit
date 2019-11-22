@@ -394,6 +394,14 @@ ip route add default via 10.249.40.254 table 1
 因为 mangle 的处理是优先于 nat 和 fiter 表的，所以在数据包到达之后先打上标记，之后再通过 ip rule 规则，对应的数据包使用相应的路由表进行路由，最后读取路由表信息，将数据包送出网关。
 
 
+ip route get -- 获得单个路由 
+
+使用这个命令可以获得到达目的地址的一个路由以及它的确切内容。
+ip route get命令和ip route show命令执行的操作是不同的。ip route show命令只是显示现有的路由，而ip route get命令在必要时会派生出新的路由。
+
+
+
+
 三-四-一、netstat
 1.加上『 -n 』這個參數的，因為可以避過主機名稱與服務名稱的反查，直接以 IP 及埠口號碼 (port number) 來顯示，顯示的速度上會快很多。
 
@@ -602,7 +610,7 @@ aptitude install ipset
 
 其实，iptables与firewalld都不是真正的防火墙，它们都只是用来定义防火墙策略的防火墙管理工具而已，或者说，它们只是一种服务。iptables服务会把配置好的防火墙策略交由内核层面的netfilter网络过滤器来处理，而firewalld服务则是把配置好的防火墙策略交由内核层面的nftables包过滤框架来处理。换句话说，当前在Linux系统中其实存在多个防火墙管理工具，旨在方便运维人员管理Linux系统中的防火墙策略。
 Netfilter，在Linux内核中的一个软件框架，用于管理网络数据包。不仅具有网络地址转换（NAT）的功能，也具备数据包内容修改、以及数据包过滤等防火墙功能。利用运作于用户空间的应用软件，如iptables、ebtables和arptables等，来控制Netfilter，系统管理者可以管理通过Linux操作系统的各种网络数据包。
-基于nftables的nft，pathn在用，性能更高
+基于nftables的nft，pathn在用 ，性能更高
 
 
 
@@ -2117,6 +2125,8 @@ scope：路由的範圍，主要是 link ，亦即是與本裝置有關的直接
          舉例來說，你有兩條 ADSL 可以連接到外部，那你的主機會有兩個 ppp，
          你可以使用 -i 來選擇是 ppp0 還是 ppp1 啦！
 -g 路由：與 -i 的參數相仿，只是 -g 後面接的是 gateway 的 IP 就是了。
+
+
 4.3tcpdump中flags说明
 
 14:31:22.950162 IP zrj-debian.ssh > 192.168.65.1.49864: Flags [P.], seq 2127092637:2127092769, ack 319173742, win 297, length 132
