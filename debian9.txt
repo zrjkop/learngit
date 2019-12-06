@@ -890,6 +890,53 @@ sum=0;for number in `seq 1 2 100`;do let sum+=number;done;echo "the sum is $sum"
 for((sum=0,i=1;i<=100;i+=2));do let sum+=i;done;echo "the sum is $sum" ##(双括号写法)
 #let 命令是 BASH 中用于计算的工具，用于执行一个或多个表达式，变量计算中不需要加上 $ 来表示变量。如果表达式中包含了空格或其他特殊字符，则必须引起来。
 
+（五）bash引号
+
+单引号'
+两个单引号包围起来的字符串就是普通的字符串，它将保留原始的字面意思.
+
+双引号"
+两个双引号包围起来的字符串，部分特殊字符将起到它们的作用.
+这些特殊字符有: 美元符$, 反斜杠, 反引号, 感叹号!.
+
+反引号`
+两个反引号包围起来的字符串，将作为命令来运行，
+执行的输出结果作为该反引号的内容，称为命令替换，
+它有另一种更好的写法: $(command)
+1.美元符$在单、双引号中的表现: 在双引号中的$, 将发生变量引用, 而在单引号中的$, 将保留它的字面意思
+root@zrj-debian:~/test# echo '$HOME'
+$HOME
+root@zrj-debian:~/test#  echo "$HOME"
+/root
+2.反斜杠\ 在单、双引号中的表现: 在双引号中的, 将转义它后面的字符，使其具有特殊意义或者失去原来的特殊意义, 在单引号中的, 将保留它的字面意思
+root@zrj-debian:~/test# echo '\$HOME'
+\$HOME
+root@zrj-debian:~/test# echo "\$HOME"
+$HOME
+3.反引号与其他两种引号的不同: 反引号包围起来的字符串将被运行，取其结果
+root@zrj-debian:~/test#  echo 'date'
+date
+root@zrj-debian:~/test# echo "date"
+date
+root@zrj-debian:~/test# echo `date`
+Fri Dec 6 14:42:56 CST 2019
+注: 在反引号中的date被当成命令执行，包含的正是命令的输出信息
+
+特殊点：
+1. "$var", "`command`", 都比$var, `command`安全，涉及换行符时，戴上双引号作保险
+root@zrj-debian:~/test# seq 3
+1
+2
+3
+root@zrj-debian:~/test#  echo `seq 3`
+1 2 3
+root@zrj-debian:~/test#  echo "`seq 3`"  ###保持了原来换行
+1
+2
+3
+root@zrj-debian:~/test# 
+
+
 
 
 三-五-二、文件权限
