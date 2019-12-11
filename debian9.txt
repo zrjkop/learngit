@@ -1608,6 +1608,21 @@ a[xyz]b表示a与b之间必须也只能有一个字符, 但只能是 x 或 y 或
 
 跟语系有联系，不同语系下显示结果不一样（LANG=设置，以上操作在LANG＝C下运行）
 
+混淆模式匹配和正则：
+root@zrj-debian:~/test/shell/useradd# ls 
+accountadd.sh  accountadd.txt
+root@zrj-debian:~/test/shell/useradd# ls account.*
+ls: cannot access 'account.*': No such file or directory
+root@zrj-debian:~/test/shell/useradd# ls account*
+accountadd.sh  accountadd.txt
+root@zrj-debian:~/test/shell/useradd# 
+.*在正则中匹配了所有，但请记住，shell中绝大多数用的是模式匹配([[ "$string" =~ RE ]]例外)
+在模式匹配中*匹配了所有，?匹配了单个字符，.号没有特殊意义，还是.号
+所以，第二个命令才是正确。
+
+
+
+
 （二）、正则表达式中特殊符号的表示（文本工具awk,grep,sed）
 字符        含义
 ^        指向一行的开头
