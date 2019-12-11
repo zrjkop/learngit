@@ -1223,11 +1223,12 @@ test -f test1.txt  && echo "exist" || echo "Not exist" #检查test1.txt档名是
 
 四-一-二、系统服务
 /lib/systemd/system  #各种服务的属性文件，存放的最终目录 
+/etc/systemd/system/ #当前系统主要的服务文件，基本是链接档，链接到/lib/systemd/system，指令systemctl command service的操作会指向这个目录，systemctl enable命令用于在上面两个目录之间，建立符号链接关系。
+里面的multi-user.target.wants目录下包含多用户模式下的服务。
+
 /var/lib/systemd/ #该目录下deb-systemd-helper-enabled,包含有服务的.service文件（空文件）；deb-systemd-helper-masked目录有个别文件（空文件）
 #systemctl command service 的操作好像对该目录的文件无影响，disable或enable 服务，里面的service文件没反应。(作用不明)
 service操作通过调用/lib/systemd/systemd-sysv-install脚本执行。
-/etc/systemd/system/ #当前系统主要的服务文件，基本是链接档，链接到/lib/systemd/system，指令systemctl command service的操作会指向这个目录，systemctl enable命令用于在上面两个目录之间，建立符号链接关系。
-里面的multi-user.target.wants目录下包含多用户模式下的服务。
 
 生效的服务会有对应的软连接文件在/etc/systemd/system/目录下，
 在unit文件里定义
