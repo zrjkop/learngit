@@ -737,6 +737,24 @@ shred -v -n 1 /dev/sda   ##随机数据重写擦除所有数据
 3) 使用rsync来做：
 　　rsync -avp --exclude=.test1/ /tmp/test/  /tmp/test_cp/ ##将/tmp/test下除了test1这个文件夹，其他文件同步到/tmp/test_cp这个文件夹下
 
+三-五-零-一、split文件分割
+split [-b ][-C ][-][-l ][要切割的文件][输出文件名前缀][-a ]
+-b,字节，可以指定K，M，G，T为单位；
+-d选项来指定数字形式的文件后缀；
+-数字，按照行数拆分文件
+split -d -10 /etc/passwd my_passwd_ ##以10行分割，数字有后缀：
+root@zrj-debian:~/test/log# split -d -10 /etc/passwd my_passwd_
+root@zrj-debian:~/test/log# ll
+total 36
+drwxr-xr-x  2 root root 4096 Dec 18 15:51 .
+drwxr-xr-x 15 root root 4096 Dec 18 11:43 ..
+-rw-r--r--  1 root root  424 Dec 18 15:51 my_passwd_00
+-rw-r--r--  1 root root  622 Dec 18 15:51 my_passwd_01
+-rw-r--r--  1 root root  571 Dec 18 15:51 my_passwd_02
+-rw-r--r--  1 root root  588 Dec 18 15:51 my_passwd_03
+-rw-r--r--  1 root root  181 Dec 18 15:51 my_passwd_04
+用cat合并文件 
+cat my_passwd_0* >my_passwd ##可以通过对比md5确认文件是否一致，md5sum /etc/passwd
 
 
 
