@@ -1214,7 +1214,27 @@ find使用-exec选项并执行指令：
 find . -type f -maxdepth 1 -name '*.txt' -exec  ls -al  '{}' \;
 
 find -print0表示在find的每一个结果之后加一个NULL字符，而不是默认加一个换行符。find的默认在每一个结果后加一个'\n'，所以输出结果是一行一行的。当使用了-print0之后，就变成一行。
-xargs -0表示xargs用NULL来作为分隔符。这样前后搭配就不会出现空格和换行符的错误
+xargs -0表示xargs用NULL来作为分隔符。这样前后搭配就不会出现空格和换行符的错误。
+四-一-零、当命令参数中包含空格时
+for((i=0;i<3;i++)); do touch "test ${i}.log";done  ##创建三个文件，且使文件名包含有空格
+find . -name '*.log' -print | xargs rm  ##运行xargs命令有报错：
+root@zrj-debian:~/test/log# find . -name '*.log'  | xargs rm
+rm: cannot remove './test': No such file or directory
+rm: cannot remove '1.log': No such file or directory
+rm: cannot remove './test': No such file or directory
+rm: cannot remove '0.log': No such file or directory
+rm: cannot remove './test': No such file or directory
+rm: cannot remove '2.log': No such file or directory
+当 find 命令获取到的文件名经过 xargs 传送给 rm 命令时，文件“./test 1.log”就变成了“./test”和“1.log”两个文件，导致报错。
+原因是xargs 默认的分隔符是空格，需要把 xargs 的分隔符改成其他符号：
+find . -name '*.log' -print0 | xargs -0 rm -f
+或者-d指定分隔符：-d, --delimiter=CHARACTER
+find . -name '*.log' -print | xargs -d '\n'  rm
+
+
+
+
+
 
 四-一-一、test 檢測系統上面某些檔案或者是相關的屬性
 test -f test1.txt  && echo "exist" || echo "Not exist" #检查test1.txt档名是否存在且为文件
