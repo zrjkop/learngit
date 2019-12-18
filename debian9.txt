@@ -1215,6 +1215,7 @@ find . -type f -maxdepth 1 -name '*.txt' -exec  ls -al  '{}' \;
 
 find -print0表示在find的每一个结果之后加一个NULL字符，而不是默认加一个换行符。find的默认在每一个结果后加一个'\n'，所以输出结果是一行一行的。当使用了-print0之后，就变成一行。
 xargs -0表示xargs用NULL来作为分隔符。这样前后搭配就不会出现空格和换行符的错误。
+
 四-一-零、当命令参数中包含空格时
 for((i=0;i<3;i++)); do touch "test ${i}.log";done  ##创建三个文件，且使文件名包含有空格
 find . -name '*.log' -print | xargs rm  ##运行xargs命令有报错：
@@ -1229,7 +1230,7 @@ rm: cannot remove '2.log': No such file or directory
 原因是xargs 默认的分隔符是空格，需要把 xargs 的分隔符改成其他符号：
 find . -name '*.log' -print0 | xargs -0 rm -f
 或者-d指定分隔符：-d, --delimiter=CHARACTER
-find . -name '*.log' -print | xargs -d '\n'  rm
+find . -name '*.log' -print | xargs -d '\n'  rm ###指定换行符作为分隔符 
 
 
 
