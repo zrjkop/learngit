@@ -658,6 +658,7 @@ iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT --to-destination
 
 
 三-五、vi多行操作
+
 删除：处于命令模式时，（dG将光标所在行以下的行删除;d1G将光标到第一行删除；这两个操作很猛）
 :1 d(删除第一行)
 :1,10d(删除第一到第十行)
@@ -704,15 +705,19 @@ COMMENT
 设置自动缩进：set ai(autoindent);取消set noai
 并排打开两个文件：vi -o f1 f2 #上下打开两个文件，ctrl+w,方向键切换光标；vi -O f1 f2#左右并排打开
 
-nano多行操作：
+三-五-零、 nano多行操作：
 
 复制，粘贴，剪切：
 ctrl+6标记文件开头，移动光标选择文本块（反白显示），ctrl+k剪切，ctrl+u原地复制，之后光标可以移动到需要粘贴的地方，反复ctrl+u。（暂时没找到只是复制的操作，不需要cut的情况下）
 
-dd文件复制和转换：
+三-五-零-零、dd文件复制和转换：
+
 dd if=/dev/zero of=user_id  bs=1M count=100 #if输入文件，of输出文件，bs每块大小，count（copy only N input blocks），生成100M的空文件user_id
 seq 1000000 | xargs -i dd if=/dev/zero of={}.dat bs=1024 count=1 #批量生成1000000个1k大小的空文件，会快速耗尽文件系统inode；
 建议在一个空文件夹内生成，不然利用rm -rf *.bat无法删除，会显示-bash: /bin/rm: Argument list too long，可通过删除文件夹删除。
+或者可以用xargs来做：find . -name '*.bat' -print | xargs rm 
+##借助 xargs，并利用管道的特性，find 命令将输出的内容分段传给 rm 命令，而不是一股脑儿地塞过去。这样一来，rm 命令可以先处理最先获取的一部分文件，然后再处理下一批，并一直继续下去，直到全部删除为止。
+
 
 $ dd if=/dev/zero    of=5kb.file bs=1k count=5 ##5KB的全零数据
 $ dd if=/dev/urandom of=7mb.file bs=1M count=7 ##7MB的随机数据
