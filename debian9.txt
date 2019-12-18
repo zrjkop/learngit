@@ -45,7 +45,7 @@ deprecate/ˈdeprəkeɪt/强烈反对，不赞成；deprecating不以为然的，
 detached/dɪˈtætʃt/单独的，独立的，不连接的；v.分开，脱离；sentinel/ˈsentɪnl/哨兵；inverse/ˌɪnˈvɜːrs/相反的，反向的
 strip/strip/除去，剥掉；队服，带； incremental/ˌɪnkrəˈmɛntəl/增加，递增；增量
 evaluate/ɪˈvæljueɪt/估计，评估；retrieve/rɪˈtriːv/取回；索回；检索数据；inherit/ɪnˈherɪt/继承；inspect/ɪnˈspekt/检查，查看
-
+valid/ˈvælɪd/有效的，合理的
 
 
 一、软件包管理
