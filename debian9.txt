@@ -610,6 +610,13 @@ aptitude install ipset
 Netfilter，在Linux内核中的一个软件框架，用于管理网络数据包。不仅具有网络地址转换（NAT）的功能，也具备数据包内容修改、以及数据包过滤等防火墙功能。利用运作于用户空间的应用软件，如iptables、ebtables和arptables等，来控制Netfilter，系统管理者可以管理通过Linux操作系统的各种网络数据包。
 基于nftables的nft，pathn在用 ，性能更高，debian10防火墙开始基于nftables。
 
+iptables中return
+1. 从一个CHAIN里可以jump到另一个CHAIN, jump到的那个CHAIN是子CHAIN.
+2. 从子CHAIN return后，回到触发jump的那条规则，从那条规则的下一条继续匹配.
+3. 如果return不是在子CHAIN里，而是在main CHAIN，那么就以默认规则进行.
+RETURN means stop traversing this chain and resume at the next rule in the previous (calling) chain. If the end of a built-in chain is reached or a rule in a built-in chain with target RETURN is matched, the target specified by the chain policy determines the fate of the packet.
+
+
 
 
 三-四-三、NAT的实现
