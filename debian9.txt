@@ -444,7 +444,7 @@ udp6       0      0 :::5353                 :::*                                
 tcp        0     52 192.168.65.132:22       192.168.65.1:51936      ESTABLISHED 1808/sshd: root@pts  #client端随机取一个大于1024的端口进行连接，可根据pid（此时为1808）数字用kill来断开连接。
 服務名稱與 port number的對應：/etc/services
 
-systemctl list--units --all | grep acahi-daemon #可以使用systemctl查找出avahi-daemon相关的服务，之后通过stop，restart等对服务进行相应操作。
+systemctl list-units --all | grep acahi-daemon #可以使用systemctl查找出avahi-daemon相关的服务，之后通过stop，restart等对服务进行相应操作。
 root@zrjdebian:/etc/systemd/system# systemctl list-units --all | grep avahi-daemon
   avahi-daemon.service                                                                loaded    active   running   Avahi mDNS/DNS-SD Stack                                                                                          
   avahi-daemon.socket                                                                 loaded    active   running   Avahi mDNS/DNS-SD Stack Activation Socket 
