@@ -902,7 +902,7 @@ test expression
 test 或 []	                                      [[ ]]
 [ -z "$str1" ] || [ -z "$str2" ]√	[[ -z $str1 ]] || [[ -z $str2 ]]√
 [ -z "$str1" -o -z "$str2" ]	√	[[ -z $str1 -o -z $str2 ]]	×
-[[ -z $str1 || -z $str2 ]]	×	[[ -z $str1 || -z $str2 ]]	√
+[ -z $str1 || -z $str2 ]	×	[[ -z $str1 || -z $str2 ]]	√
 
 
 以 A=123 这个变量为例：
