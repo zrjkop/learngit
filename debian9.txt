@@ -2427,3 +2427,4 @@ $ sudo journalctl --since yesterday
 $ sudo journalctl --since "2015-01-10" --until "2015-01-11 03:00"
 $ sudo journalctl --since 09:00 --until "1 hour ago"
 
+6.crontab -l -u zrj 在root下，通过-u查询指定用户的定时任务 
