@@ -616,6 +616,20 @@ iptables中return
 3. 如果return不是在子CHAIN里，而是在main CHAIN，那么就以默认规则进行.
 RETURN means stop traversing this chain and resume at the next rule in the previous (calling) chain. If the end of a built-in chain is reached or a rule in a built-in chain with target RETURN is matched, the target specified by the chain policy determines the fate of the packet.
 
+用例：参考新加坡70001的nft表设置
+1.hongkong gcp探测节点丢包，疑似有异常流量，考虑nft加表屏蔽异常ip：
+（1）加table----netdev raw 
+nft add table netdev raw
+（2）往table加set
+ nft add set netdev raw block_addr {type ipv4_addr \; flags interval \;}
+（3）往set添加元素
+nft add element netdev raw block_addr { 211.179.113.104 }
+（4）往table加chain----eth0-ingress
+nft add chain netdev raw  eth0-ingress { type filter hook ingress device "eth0" priority 0\; policy  accept \; }
+（5）填充chain内容
+ nft add chain netdev raw  eth0-ingress {  ip saddr @block_addr drop \; }
+##实测把nft虚拟机添加物理机192.168.65.1到拦截set里，直接导致ssh断联。
+
 
 
 
