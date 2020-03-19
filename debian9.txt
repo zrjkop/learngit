@@ -629,7 +629,7 @@ nft add chain netdev raw  eth0-ingress { type filter hook ingress device "eth0" 
 （5）填充chain内容
  nft add chain netdev raw  eth0-ingress {  ip saddr @block_addr drop \; }
 ##实测把nft虚拟机添加物理机192.168.65.1到拦截set里，直接导致ssh断联。
-
+或者直接把70001的nft list的内容写到文件，nft -f导入配置文件，需要改动地方priority filter-->priority 0,priority如果是写了字母的改完数字，可能是哪里匹配出了问题。
 
 
 
