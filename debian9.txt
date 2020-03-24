@@ -636,6 +636,14 @@ ipset create block hash:ip 或者 ipset -N block iphash ##新建集合block
 ipset add block 1.1.1.1 或者ipset -A block 2.2.2.2    ##往block添加ip
 
 iptables -I INPUT -m set --match-set block src -j DROP  ##用iptables屏蔽集合地址
+iptables -A INPUT -p tcp -m set --match-set block src  --dport 80 -j DROP #封禁特定协议和端口号 
+
+取消操作：
+
+#ipset flush block   //清空block集合
+#ipset flush        清空所有集合 
+ipset destroy block 删除block集合，需要先把iptables关联规则取消，否则报错
+ipset destroy 删除所有集合
 
 
 三-四-三、NAT的实现
