@@ -631,6 +631,11 @@ nft add chain netdev raw  eth0-ingress { type filter hook ingress device "eth0" 
 ##实测把nft虚拟机添加物理机192.168.65.1到拦截set里，直接导致ssh断联。
 或者直接把70001的nft list的内容写到文件，nft -f导入配置文件，需要改动地方priority filter-->priority 0,priority如果是写了字母的改完数字，可能是哪里匹配出了问题。
 
+或者用ipset建个集合去屏蔽ip，通用性不是很好，适用于临时性解决问题
+ipset create block hash:ip 或者 ipset -N block iphash ##新建集合block
+ipset add block 1.1.1.1 或者ipset -A block 2.2.2.2    ##往block添加ip
+
+iptables -I INPUT -m set --match-set block src -j DROP  ##用iptables屏蔽集合地址
 
 
 三-四-三、NAT的实现
