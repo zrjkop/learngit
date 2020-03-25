@@ -606,9 +606,9 @@ aptitude install ipset
 #create -exist console_list hash:ip,port family inet hashsize 1025 maxelem 65536
 #add -exist console_list 1.1.1.1,80
 
-其实，iptables与firewalld都不是真正的防火墙，它们都只是用来定义防火墙策略的防火墙管理工具而已，或者说，它们只是一种服务。iptables服务会把配置好的防火墙策略交由内核层面的netfilter网络过滤器来处理，而firewalld服务则是把配置好的防火墙策略交由内核层面的nftables包过滤框架来处理。换句话说，当前在Linux系统中其实存在多个防火墙管理工具，旨在方便运维人员管理Linux系统中的防火墙策略。
+其实，iptables与firewalld都不是真正的防火墙，它们都只是用来定义防火墙策略的防火墙管理工具而已，或者说，它们只是一种服务。iptables服务会把配置好的防火墙策略交由内核层面的netfilter网络过滤器来处理。
 Netfilter，在Linux内核中的一个软件框架，用于管理网络数据包。不仅具有网络地址转换（NAT）的功能，也具备数据包内容修改、以及数据包过滤等防火墙功能。利用运作于用户空间的应用软件，如iptables、ebtables和arptables等，来控制Netfilter，系统管理者可以管理通过Linux操作系统的各种网络数据包。
-基于nftables的nft，pathn在用 ，性能更高，debian10防火墙开始基于nftables。
+nftables应该也是通过netfilter处理，nft命令操作规则。
 
 iptables中return
 1. 从一个CHAIN里可以jump到另一个CHAIN, jump到的那个CHAIN是子CHAIN.
