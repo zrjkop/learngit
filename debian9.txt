@@ -1418,9 +1418,9 @@ root@zrj-debian:/etc/logrotate.d# cat apache2
 /var/log/apache2/*.log {
 	daily #按日轮转
 	missingok #如果日志文件不存在，忽略轮转的报错
-	rotate 14 #日志轮转数为14
+	rotate 14 #日志轮转数为14，日志会保留log原始文件和log.1到log.14一共15个日志文件
 	compress  #轮转文件压缩
-	delaycompress #从第三个轮转文件开始压缩，和compress配合使用
+	delaycompress #转储的日志文件到下一次转储时才压缩和compress配合使用,压缩会从第三个（包括原始文件在内）开始，即从log.2.gz往后都压缩
 	notifempty    #如果文件为空则不轮转
 	create 640 root adm  #轮转后新建文件的权限和属主
 	sharedscripts
