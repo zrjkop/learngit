@@ -1624,7 +1624,7 @@ to an rsync daemon, and require SRC or DEST to start with a module name.
 rsync -av -e ssh user@rsh.server:/etc /tmp 将rsh.server的/etc备份到本地主机/tmp下
 （3）直接通过rsync提供的服务（deamon）来传输，此时的rsync主机需要启动873端口：
 server端启动rsync，编辑etc/rsyncd.conf,设置好client连线密码资料，在client端使用：
-rsync -av user@hostname::/dir/path /local/path
+rsync -av user@hostname::/dir/path /local/path ##“：：”双冒号后面可以接服务端配置文件的模块名，则会同步模块配置里的路径内容到本地
 
 
 五-六、mariaDB
