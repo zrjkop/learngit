@@ -2182,8 +2182,10 @@ def person(name, age, city, job):
 import sys,os
 a=sys.argv[1] ##1表示第一个文件，以此类推
 例如python2 mmdb1.py ip10.txt ##传入处理ip10.txt
-12.将处理结果输出到文件， with open(a+'-result.txt','a+') as r:
+12.将处理结果输出到文件， with open(a+'-result.txt','a+') as r: ##这里会保存为a-result.txt文件
 ##用+号连接符连接后缀名ouput=open(str1+".txt",'w')//，用引号括起来表示的是字符串常量，不在引号中才表示变量
+ r.write(line.strip('\n') + ' ') 
+ r.write(result + '\n') #先把原内容打印，后加空格，再打印result的值，后面换行
 
 
 八-一、list和str互转
