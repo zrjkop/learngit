@@ -2178,6 +2178,12 @@ def person(name, age, city, job):
 *args是可变参数，args接收的是一个tuple；
 
 **kw是关键字参数，kw接收的是一个dict。
+11.文件作为参数读入
+import sys,os
+a=sys.argv[1] ##1表示第一个文件，以此类推
+例如python2 mmdb1.py ip10.txt ##传入处理ip10.txt
+12.将处理结果输出到文件， with open(a+'-result.txt','a+') as r:
+##用+号连接符连接后缀名ouput=open(str1+".txt",'w')//，用引号括起来表示的是字符串常量，不在引号中才表示变量
 
 
 八-一、list和str互转
