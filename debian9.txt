@@ -2186,7 +2186,12 @@ a=sys.argv[1] ##1表示第一个文件，以此类推
 ##用+号连接符连接后缀名ouput=open(str1+".txt",'w')//，用引号括起来表示的是字符串常量，不在引号中才表示变量
  r.write(line.strip('\n') + ' ') 
  r.write(result + '\n') #先把原内容打印，后加空格，再打印result的值，后面换行
-
+13.中文转码u'zh_CN': u'\u5317\u4eac'
+print(json.dumps({'code':1 , 'msg':'成功退出'}))
+python2中使用print json.dumps({'code':1 , 'msg':'成功退出'}).decode('unicode_escape')
+python3
+print(json.dumps({'code':1 , 'msg':'成功退出'}).encode('utf-8').decode('unicode_escape'))
+print(json.dumps({'code':1 , 'msg':'成功退出'} , ensure_ascii=False))
 
 八-一、list和str互转
 
