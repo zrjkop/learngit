@@ -577,8 +577,8 @@ iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 4299
 
 防火墙针对ping(icmp协议)限制：
 ICMP常用类型：0（Echo Reply (代表一個回應信息)）；8（Echo Request (請求回應訊息)）
-iptables -I INPUT -p icmp --icmp-type 0 -j DROP ####拒绝icmp请求封包，此时主机无法ping外部，外部可以ping主机
-iptables -I INPUT -p icmp --icmp-type 8 -j DROP ####拒绝回应icmp请求，此时主机可以ping外部，外面无法ping主机
+iptables -I INPUT -p icmp --icmp-type 0 -j DROP ####拒绝icmp请求封包，此时主机无法ping外部，外部可以ping主机，无法接收外部reply回包
+iptables -I INPUT -p icmp --icmp-type 8 -j DROP ####拒绝回应icmp请求，此时主机可以ping外部，外面无法ping主机，无法接收外部request包
 
 
 1.ipset是 Linux 防火墙iptables的一个伴随工具。 除了其他众多功能，它允许你建立规则来轻松愉快地屏蔽一组IP地址。
