@@ -98,7 +98,6 @@ apt-get下载目录/var/cache/apt/archives,安装时会先搜寻这个目录有�
 
 
 
-
 方法2. 修改/etc/vim/vimrc.tiny文件，将set compatible改成set nocompatible，然后再添加一行set backspace=2即可（vi无法操作时可用nano）。
 3-1.Linux登录过程中加载配置文件顺序：
 /etc/profile → /etc/profile.d/*.sh → ~/.bash_profile → ~/.bashrc → [/etc/bashrc]，后面的文件配置应该会覆盖前面的
@@ -168,6 +167,8 @@ df -h查看磁盘空间；du -sh /* 查找大目录，一步步查找大文件�
 
 12.pts/0说明
 ptmx and pts - pseudo/ˈsudoʊ/假的，伪装的-terminal master and slave，pts是所谓的伪终端或虚拟终端，具体表现就是打开一个终端，这个终端就叫pts/0，如果再打开一个终端，这个新的终端就叫pts /1。
+
+13.xshell和mobaxterm配色方案，个人喜好Solarized dark
 
 二、网卡配置
 1.添加另外网卡暂时无解，到底是vm新添加网络适配器使其生效还是先加配置文件，目前操作看，在vm添加另一张网卡，无论是桥接，nat，本机模式，都可以从宿主机ping和telnet通，ssh能连接。问题是无法将新增的网卡进行自定义的设置，固定静态IP操作无法实现。直接在/etc/network/interifaces里面添加网卡数据的话，重启网络服务会报错，自定义的网卡会显示找不到设备。
