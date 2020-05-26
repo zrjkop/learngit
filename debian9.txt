@@ -475,7 +475,13 @@ tcp：服务端 nc -l -p 1080
 -w：超时秒数，后面跟数字 
 -z：表示zero，表示扫描时不发送任何数据
 
+nc实现文件传输
 
+Server
+$nc -l 20000 < file.txt ##将file.txt输入到nc，监听20000端口
+Client
+$nc -n 192.168.1.1 20000 > file.txt ##当连接建立后，输出重定向到file.txt
+服务端和客户端都可以作为输出或者输入。
 
 
 4.文字界面封包撷取器：tcpdump
