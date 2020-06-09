@@ -272,7 +272,7 @@ sar命令包含在sysstat工具包中，提供系统的众多统计数据。其�
 命令后面1 2 意思是：每一秒钟取1次值，取2次。#-n,网络使用情况。
 
 DEV显示网络接口信息
-另外，-n参数很有用，他有6个不同的开关：DEV | EDEV | NFS | NFSD | SOCK | ALL ，其代表的含义如下：
+另外，-n参数很有用，它有6个不同的开关：DEV | EDEV | NFS | NFSD | SOCK | ALL ，其代表的含义如下：
 
 
 DEV显示网络接口信息。
@@ -1997,7 +1997,10 @@ ok
 root@zrj-debian:~/test/learngit# awk 'BEGIN{a=11;if(a >= 9){print "ok";}}'    #数值比较  
 ok
  
-
+六-二-二、grep
+1.通过grep对比两个文件的数据，找出差异的部分
+ grep -v -f galaxy_ip ip ##找出ip文件里有，而galaxy_ip里面没有的部分
+galaxy_ip和ip互换位置，则是找出galaxy_ip里有而ip里面没有的部分。
 
 
 
