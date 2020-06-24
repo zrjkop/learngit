@@ -490,7 +490,7 @@ $nc -n 192.168.1.1 20000 > file.txt ##当连接建立后，输出重定向到fil
 選項與參數：
 -A ：封包的內容以 ASCII 顯示，通常用來捉取 WWW 的網頁封包資料。
 -e ：使用資料連接層 (OSI 第二層) 的 MAC 封包資料來顯示；
--nn：直接以 IP 及 port number 顯示，而非主機名與服務名稱
+-nn：直接以IP 及 port number 顯示，而非主機名與服務名稱
 -q ：僅列出較為簡短的封包資訊，每一行的內容比較精簡
 -X ：可以列出十六進位 (hex) 以及 ASCII 的封包內容，對於監聽封包內容很有用
 -i ：後面接要『監聽』的網路介面，例如 eth0, lo, ppp0 等等的介面；
@@ -638,8 +638,8 @@ nft add element netdev raw block_addr { 211.179.113.104 }
 nft add chain netdev raw  eth0-ingress { type filter hook ingress device "eth0" priority 0\; policy  accept \; }
 （5）填充chain内容
  nft add chain netdev raw  eth0-ingress {  ip saddr @block_addr drop \; }
-##实测把nft虚拟机添加物理机192.168.65.1到拦截set里，直接导致ssh断联。
-或者直接把70001的nft list的内容写到文件，nft -f导入配置文件，需要改动地方priority filter-->priority 0,priority如果是写了字母的改完数字，可能是哪里匹配出了问题。
+##实测把nft虚拟机添加物理机192.168.65.1到拦截set里，直接导致ssh断连。
+或者直接把70001的nft list的内容写到文件，nft -f导入配置文件，需要改动地方priority filter-->priority 0,priority如果是写了字母的改为数字，可能是哪里匹配出了问题。
 
 或者用ipset建个集合去屏蔽ip，通用性不是很好，适用于临时性解决问题
 ipset create block hash:ip 或者 ipset -N block iphash ##新建集合block
