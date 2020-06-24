@@ -334,7 +334,7 @@ ip rule add from all fwmark 1 table 1 #添加的效果一样，ip rule add from/
 ip rule add from 10.249.40.219 to 192.168.65.1 table 1 #来自10.249.40.219去往192.168.65.1的数据包走table 1
 ip rule add fwmark 2 table 1 #标记为2的数据走table 1
 
-（路由表里一般应该包含一条默认路由，default，非指定的ip网域走默认default路由？？？？？有待验证）
+（路由表里一般应该包含一条默认路由，default，非指定的ip网域走默认default路由，属于保底策略）
 
  
 wb.zhangrijun@impression-ap01-14008:~$ ip route show table jp
