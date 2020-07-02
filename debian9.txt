@@ -1314,9 +1314,6 @@ find . -name '*.log' -print | xargs -d '\n'  rm ###指定换行符作为分隔�
 
 
 
-
-
-
 四-一-一、test 檢測系統上面某些檔案或者是相關的屬性
 test -f test1.txt  && echo "exist" || echo "Not exist" #检查test1.txt档名是否存在且为文件
 -e 該『檔名』是否存在
@@ -1359,7 +1356,7 @@ systemctl list-units 以及 systemctl list-unit-files
 4.systemctl status *.service 的第三行，service的状态：
 active（running）active (running)：正有一隻或多隻程序正在系統中執行的意思，舉例來說，正在執行中的 vsftpd 就是這種模式。
 active (exited)：僅執行一次就正常結束的服務，目前並沒有任何程序在系統中執行。 舉例來說，開機或者是掛載時才會進行一次的 quotaon 功能，就是這種模式！ quotaon 不須一直執行～只須執行一次之後，就交給檔案系統去自行處理囉！通常用 bash shell 寫的小型服務，大多是屬於這種類型 (無須常駐記憶體)。
-active (waiting)：正在執行當中，不過還再等待其他的事件才能繼續處理。舉例來說，列印的佇列相關服務就是這種狀態！ 雖然正在啟動中，不過，也需要真的有佇列進來 (列印工作) 這樣他才會繼續喚醒印表機服務來進行下一步列印的功能。
+active (waiting)：正在執行當中，不過還再等待其他的事件才能繼續處理。舉例來說，列印的佇zhù列（队列）相關服務就是這種狀態！ 雖然正在啟動中，不過，也需要真的有佇列進來 (列印工作) 這樣他才會繼續喚醒印表機服務來進行下一步列印的功能。
 
 inactive：這個服務目前沒有運作的意思。
 
