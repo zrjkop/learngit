@@ -913,7 +913,7 @@ test expression
 -g			偵測該檔名是否存在且具有『SGID』的屬性？
 -k			偵測該檔名是否存在且具有『Sticky bit』的屬性？
 -s			偵測該檔名是否存在且為『非空白檔案』？
-6. 多重條件判定，例如： test -r filename -a -x filename
+3. 多重條件判定，例如： test -r filename -a -x filename
 -a		(and)兩狀況同時成立！例如 test -r file -a -x file，則 file 同時具有 r 與 x 權限時，才回傳 true。
 -o		(or)兩狀況任何一個成立！例如 test -r file -o -x file，則 file 具有 r 或 x 權限時，就可回傳 true。
 !		反相狀態，如 test ! -x file ，當 file 不具有 x 時，回傳 true
@@ -1180,7 +1180,7 @@ bzip2 -d all.bz2
 bunzip2 all.bz2
 
 unzip文件解压覆盖 -o参数不再进行询问，直接覆盖原文件解压缩
- zip -r test.zip ./test/ ## 递归压缩test目录，及将制定目录下的所有文件以及子目录全部压缩
+zip -r test.zip ./test/ ## 递归压缩test目录，及将制定目录下的所有文件以及子目录全部压缩
 zip test2.zip 2020-04-04-0000-0030_dz.gdl.netease.com.cn.log clean.sh err.log ##将几个文件压缩为test2.zip
  
 unzip -o file_name.zip
