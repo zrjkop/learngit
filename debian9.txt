@@ -1641,6 +1641,16 @@ rsync -av -e ssh user@rsh.server:/etc /tmp 将rsh.server的/etc备份到本地�
 server端启动rsync，编辑etc/rsyncd.conf,设置好client连线密码资料，在client端使用：
 rsync -av user@hostname::/dir/path /local/path ##“：：”双冒号后面可以接服务端配置文件的模块名，则会同步模块配置里的路径内容到本地
 
+常用参数
+-v 详细输出
+-q quiet,忽略非error输出
+-a 归档（递归）模式，以递归方式保持文件的属性，相当于-rlptgoD
+-r 子目录递归模式处理
+-u 仅进行更新，跳过所有已经存在于DST,并且文件时间晚于要备份的文件(不覆盖更新的文件)
+--progress 传输过程显示进度，相当于-P
+
+
+
 
 五-六、mariaDB
 1.grant all privileges on *.* to 'zrj'@'%' identified by "112233" with grant option;
