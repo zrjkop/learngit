@@ -540,6 +540,30 @@ nmap 軟體說明之名稱為：『Network exploration tool and security / port 
 
 nmap 192.168.8.1-100    扫描ip1-100  开放的所有端口
 
+
+6.ss（socket statistics）参数和使用
+
+常用参数和netstat类似，如-anp
+-a显示所有的sockets
+-l显示正在监听的
+-n显示数字IP和端口，不通过域名服务器
+-p显示使用socket的对应的程序
+-t只显示TCP sockets
+-u只显示UDP sockets
+-4 -6 只显示v4或v6V版本的sockets
+-s打印出统计信息。这个选项不解析从各种源获得的socket。对于解析/proc/net/top大量的sockets计数时很有效
+-0 显示PACKET sockets
+-w 只显示RAW sockets
+-x只显示UNIX域sockets
+-r尝试进行域名解析，地址/端口
+
+ss -nlp |grep 22 ##
+tcp    LISTEN     0      128       *:22                    *:*                   users:(("sshd",pid=754,fd=3))
+tcp    LISTEN     0      128      :::22                   :::*                   users:(("sshd",pid=754,fd=4))
+
+
+
+
 三-四-二、debian防火墙iptables
 
 显示当前防火墙规则：iptables -L；iptables -L -v可显示进出方向详细信息；
