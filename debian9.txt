@@ -32,7 +32,11 @@ specify/ˈspesɪfaɪ/v. 具体说明；明确规定；详述；详列，指定�
 burst/bɜːrst/爆发，突发，猛冲；segment/ˈseɡmənt , seɡˈment/部分，片，段
 vultr密码：sKteedeQfcvHQ2M，略贵$10起充
 亚马逊：uQ44jtGz7-9AGzd，需要信用卡验证
-PAM(pluggable authentication modules)嵌入式认证模块；fusion/ˈfjuːʒn/融合，结合；slice/slaɪs/片，部分，切，割
+PAM(pluggable authentication modules)嵌入式认证模块；
+SSI：Server Side Include，通常称为服务器端嵌入，是一种类似于ASP的基于服务器的网页制作技术。
+
+
+fusion/ˈfjuːʒn/融合，结合；slice/slaɪs/片，部分，切，割
 MTU：maximum transmission unit最大传输单元；MSS：maximum segment size最大报文段长度；fragment/ˈfræɡmənt , fræɡˈment/片段，碎片
 convention/kənˈvenʃn/习俗，常规，惯例；entity/ˈentəti/实体，独立存在物；suffix/ˈsʌfɪks/后缀；prefix前缀
 ，specified；invoke/ɪnˈvoʊk/援引，援用；strace策略；
@@ -2020,7 +2024,12 @@ ok
  grep -v -f galaxy_ip ip ##找出ip文件里有，而galaxy_ip里面没有的部分
 galaxy_ip和ip互换位置，则是找出galaxy_ip里有而ip里面没有的部分。
 
+grep显示前后几行信息
+标准unix/linux下的grep通过下面參数控制上下文
 
+grep -C 5 foo file ##显示file文件里匹配foo字串那行以及上下5行
+grep -B 5 foo file ##显示foo及前5行
+grep -A 5 foo file ##显示foo及后5行
 
 
 七、debian下apache2配置，实现自定义端口及访问指定目录。
@@ -2135,6 +2144,47 @@ limit参数：
         Deny from all
     </LimitExcept>
 </Directory>
+
+七-一、nginx
+1. location 匹配规则
+语法规则
+location [=|~|~*|^~]  /uri/  { … }
+序号	模式	含义
+1	location = /uri	= 表示 精确匹配，只有完全匹配上才能生效
+2	location ^~ /uri	^~ 开头表示对 URL 路径进行 前缀匹配，发生在 正则匹配 之前
+3	location ~ pattern	正则匹配，~ 开头表示 区分 大小写
+3	location ~* pattern	正则匹配，~* 开头表示 不区分 大小写
+4	location /uri	不带任何修饰符，同样也表示 前缀匹配，但是在 正则匹配 之后
+5	location /	通用匹配，任何未匹配到其他 location 的请求都会匹配到，
+相当于 switch 中的 default
+注意： 前缀匹配时，Nginx 不对 url 做编码，因此请求为 /static/20%/aa 时，可以被规则 ^~ /static/ /aa 匹配到（注意是空格）。
+
+2. proxy_pass + upstream（显式） + resolver（变量设置域名）
+https://www.jianshu.com/p/5caa48664da5说明文档
+访问http://localhost/foo时，upstream模块会优先查找是否有定义upstream后端服务器，如果有定义则直接利用，不再走DNS解析。所以proxy模块会将请求转发到127.0.0.1的8001端口上。
+server {
+    listen 80;
+    server_name www.xxx.com;  ##代理服务端，客户端访问的目的域名，转发到后面location配置的真实服务端
+
+    location /aming/
+    {
+    proxy_pass http://192.168.1.10:8080/linux/;
+    proxy_set_header host $host;
+    proxy_set_header X-Real-IP      $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+语法：proxy_set_header field value;
+field ：为要更改的项目，也可以理解为变量的名字，比如host
+value ：为变量的值
+如果不设置proxy_set_header，则默认host的值为proxy_pass后面跟的那个域名或者IP（一般写IP）
+proxy_set_header X-Real-IP $remote_addr;
+和
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+用来设置被代理端接收到的远程客户端IP，如果不设置，则header信息中并不会透传远程真实客户端的IP地址。
+
+proxy_pass  http://gameacademy-app;  ##访问http://server_name里的域名，就会转发到upstream gameacademy-app
+里面的几个server里
 
 
 八、python
