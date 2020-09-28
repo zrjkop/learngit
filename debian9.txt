@@ -2011,6 +2011,11 @@ root@zrj-debian:~/test/shell# awk -F: '{shell[$7]++}END{for (i in shell){print i
 /bin/false 19
 /usr/sbin/nologin 17
 
+（3）日志统计ip次数
+cat  unreplied_20200924_171544.log|awk -F "=" '{print $2}' |awk -F " " '{print $1}'|sort  | uniq -c | sort -nr | head -30
+取次数前30的ip
+sort 是默认以第一个数据来排序，而且默认是以字符串形式来排序,所以由字母 a 开始升序排序
+uniq命令可以去除排序过的文件中的重复行，因此uniq经常和sort合用。也就是说，为了使uniq起作用，所有的重复行必须是相邻的
 
 
 ################插播一段：awk运算符####################
@@ -2573,3 +2578,8 @@ $ sudo journalctl --since "2015-01-10" --until "2015-01-11 03:00"
 $ sudo journalctl --since 09:00 --until "1 hour ago"
 
 6.crontab -l -u zrj 在root下，通过-u查询指定用户的定时任务 
+7.quagga配置bgpd/zebra
+netstat -tnupl | grep zebra
+netstat -tnupl | grep bgpd  ##查看两个服务监听的端口
+之后telnet localhost 对应端口，输入密码后进去交互界面
+
