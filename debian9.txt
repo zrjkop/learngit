@@ -1,4 +1,5 @@
-﻿parameter/pəˈræmɪtɚ/参数 ;batch一批，批处理；feature/ˈfitʃɚ/特征
+﻿标记符
+parameter/pəˈræmɪtɚ/参数 ;batch一批，批处理；feature/ˈfitʃɚ/特征
 vendor小贩，供应商 preset预设
 recursive/rɪˈkɜ:rsɪv/递归的，回归的  factorial/fækˈtɔriəl, -ˈtor-/因子的，阶乘
 scale/skel/规模级别，测量衡量 
@@ -479,7 +480,6 @@ tcp：服务端 nc -l -p 1080
 -w：超时秒数，后面跟数字 
 -z：表示zero，表示扫描时不发送任何数据
 nc -vz 106.2.94.76 3306 ##检测端口
-test
 
 nc实现文件传输
 
