@@ -1073,6 +1073,9 @@ root@zrjdebian:~/test/udp_echo# usermod -G root zrj
 root@zrjdebian:~/test/udp_echo# id zrj
 uid=1000(zrj) gid=1000(zrj) groups=1000(zrj),0(root) #zrj的主组没改变，附加组添加root组
 
+将用户去root组取消
+gpasswd -d chenjunjie01 root
+
 chgrp修改文件所属群组：
 chgrp group'name filename ##将filename的群组改为group'name
 
