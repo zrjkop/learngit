@@ -2598,3 +2598,6 @@ netstat -tnupl | grep bgpd  ##查看两个服务监听的端口
  screen vi test.c或者可以直接后面加指令，进入运行窗口，-S sessionname#指定会话名称
  screen -ls #显示后台运行的screen进程，会显示对应id
  screen -r ID 恢复到窗口
+
+9.shell下把时间戳转换为date
+  date +'%F %T' -d @1350014340
